@@ -1,4 +1,4 @@
-const partners = () => {
+const Partners = () => {
 
   return (
     <div>
@@ -9,4 +9,4 @@ const partners = () => {
   )
 }
 
-export default partners
+export default Partners
