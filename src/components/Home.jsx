@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 const Home = () => {
 
@@ -7,7 +7,29 @@ const Home = () => {
     <div>
       <h1>Unlock your potential with ra'edat</h1>
        <br />
-      <h1>Say Hello to ra’edat</h1>
+
+
+
+        <img
+              className="app-img"
+              src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
+              alt="app img"
+            />
+
+      <Link to='https://apps.apple.com/us/app/raedat/id6742032306'>  <img
+              className="store-img"
+              src="src/assets/store.png"
+              alt="store img"
+            /></Link>
+
+           <Link to='https://play.google.com/store/apps/details?id=online.raedat.app&pli=1'> <img
+              className="google-img"
+              src="src/assets/google.png"
+              alt="google img"
+            /></Link>
+
+
+       <h1>Say Hello to ra’edat</h1>
       <br />
       <br />
       <br />
@@ -20,26 +42,6 @@ const Home = () => {
             onClick={() => navigate("/about")}>
             Read More
           </button>
-
-        <img
-              className="app-img"
-              src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-              alt="app img"
-            />
-
-         <img
-              className="store-img"
-              src="src/assets/store.png"
-              alt="store img"
-            />
-
-          <img
-              className="google-img"
-              src="src/assets/google.png"
-              alt="google img"
-            />
-
-
 
        <img
               className="home-img"
@@ -76,7 +78,7 @@ const Home = () => {
 
        <h2>Member Benefits</h2>
 
-         
+
             <h2>Job and Business Opportunites</h2>
 
     </div>
