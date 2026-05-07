@@ -1,18 +1,81 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# PadelHub-backend
+ A project focus on building a smooth booking system linked to a pro shop that offers racket trials and helps players find matches to keep them coming back.
 
-Currently, two official plugins are available:
+## Starting Date: 7/5/2026
+## Completion Date : 14/5/2026
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+### By:
+* Rehab Mohammed - [LinkedIn](https://www.linkedin.com/in/reham-mohammed-alfarhan-b790322a4/) | [Github](https://github.com/rehabmohd03-beep)
+* Intisar Hussain - [LinkedIn](https://www.linkedin.com/in/intisar-abdulla67?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BYvGJL%2Bu1RjmH4XayFTfMnw%3D%3D) | [Github](https://github.com/intisarHJM)
+* Fatima BuSharar - [LinkedIn](https://www.linkedin.com/in/fatemabusharar/) | [Github]()
+* Fathy Soliman - [LinkedIn](https://www.linkedin.com/in/fathy-soliman/
+) | [Github](https://github.com/fat7y-1)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Note: This will impact Vite dev & build performances.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
+### ***Description***
+#### Ra’edat Website Redesign is a team project that reimagines the Ra’edat website as a cleaner and more user friendly platform while highlighting the Baraha digital community. The project focuses on simplifying the frontend, improving usability, and adding admin customization features for styling and content management. Its purpose is to keep Ra’edat’s identity at the center while turning the website into a stronger gateway for users to join and engage with Baraha.
+***
+
+
+## 🔗 Frontend Repository
+The client-side application for this project can be found here:
+**[Ra'edat Frontend Repository](https://github.com/fat7y-1/raedat-perfect.git)**
+
+### ***Technologies Used***
+* Node.js
+* Express.js
+* npm
+* MongoDB with Mongoose ODM
+* JWT , CORS middleware
+* React and Javascript
+
+***
+
+### ***Getting Started***
+
+1. To be declared
+2. ..
+
+
+
+***
+
+ **Planned Wireframe Illustration**
+
+   ![Planned Overview]()
+
+
+
+
+
+### ***Screenshots***
+
+ **Final Project Design**
+  ![Home page - admin side]()
+
+
+
+   *This screenshots shows the final result of the project design.*
+
+
+***
+
+### ***Future Updates***
+- To be declared
+
+
+
+***
+
+### ***Credits***
+- General Assembly course materials and lessons
+- PrimeReact - UI component library
+
+***
