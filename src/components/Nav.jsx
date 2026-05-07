@@ -1,9 +1,10 @@
+import { Link } from "react-router"
+
 const Nav = () => {
   return (
     <div>
       <nav className="navbar">
-        <h4>Nav</h4>
-
+        
         <div className="nav-links">
           <Link to="/home">Home</Link>
           <Link to="/about">About</Link>
