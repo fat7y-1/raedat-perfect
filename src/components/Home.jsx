@@ -27,6 +27,20 @@ const Home = () => {
               alt="app img"
             />
 
+         <img
+              className="store-img"
+              src="src/assets/store.png"
+              alt="store img"
+            />
+
+          <img
+              className="google-img"
+              src="src/assets/google.png"
+              alt="google img"
+            />
+
+
+
        <img
               className="home-img"
               src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
@@ -45,8 +59,25 @@ const Home = () => {
               src="https://www.raedat.online/MediaManager/Media/assest/secondaryiconColor.svg"
               alt="home log1"
             />
+           <h2>A Creative Community</h2>
+           <br />
+               <button
+            onClick={() => navigate("/community")}>
+            Read More
+          </button>
 
 
+              <img
+              className="community-img"
+              src="https://www.raedat.online/MediaManager/Media/home/lower_homescreen_banner_new.png"
+              alt="community-img"
+            />
+
+
+       <h2>Member Benefits</h2>
+
+         
+            <h2>Job and Business Opportunites</h2>
 
     </div>
   )
