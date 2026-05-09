@@ -8,6 +8,7 @@ import Newsletter from "./components/Newsletter"
 import Partners from "./components/Partners"
 import Nav from "./components/Nav"
 import { Route, Routes } from "react-router"
+import Footer from "./components/Footer"
 
 const App = () => {
   return (
@@ -22,6 +23,8 @@ const App = () => {
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/partners" element={<Partners />} />
       </Routes>
+      <Footer/>
+
     </main>
   )
 }
