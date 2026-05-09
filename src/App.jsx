@@ -1,14 +1,15 @@
 import "./App.css"
-import Home from "./components/Home"
-import About from "./components/About"
-import Activities from "./components/Activities"
-import Community from "./components/Community"
-import ContactUs from "./components/ContactUs"
-import Newsletter from "./components/Newsletter"
-import Partners from "./components/Partners"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Activities from "./pages/Activities"
+import Community from "./pages/Community"
+import ContactUs from "./pages/ContactUs"
+import Newsletter from "./pages/Newsletter"
+import Partners from "./pages/Partners"
 import Nav from "./components/Nav"
-import { Route, Routes } from "react-router"
 import Footer from "./components/Footer"
+
+import { Route, Routes } from "react-router"
 
 const App = () => {
   return (
@@ -23,8 +24,7 @@ const App = () => {
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/partners" element={<Partners />} />
       </Routes>
-      <Footer/>
-
+      <Footer />
     </main>
   )
 }
