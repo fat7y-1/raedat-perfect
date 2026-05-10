@@ -1,31 +1,31 @@
-import { Link } from "react-router"
+// Nav.js
+import React from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import "/src/Nav.css"
 
-import { useNavigate } from "react-router-dom"
 
 const Nav = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <nav className="navbar">
-
+    <nav className="navbar-transparent">
+      <div className="nav-container">
+        <img
+          src="src/assets/logo.png"
+          className="logo-main"
+          alt="raedat logo"
+          onClick={() => navigate("/")}
+        />
         <div className="nav-links">
-
-       <img
-              className="logo-img"
-              src="src/assets/logo.png"
-              alt="logo img"  onClick={() => navigate("/")}
-            />
-
           <Link to="/about">About</Link>
-          <Link to="/activities">Activities</Link>
           <Link to="/community">Community</Link>
-          <Link to="/contactUs">Contact Us</Link>
-          <Link to="/newsletter">News letter</Link>
-          <Link to="/partners">Partners</Link>
+          <Link to="/activities">Activities</Link>
+          <Link to="/newsletter">Newsletter</Link>
+          <Link to="/contactUs" className="nav-contact-btn">Contact Us</Link>
         </div>
-      </nav>
-    </div>
-  )
-}
+      </div>
+    </nav>
+  );
+};
 
-export default Nav
+export default Nav;
