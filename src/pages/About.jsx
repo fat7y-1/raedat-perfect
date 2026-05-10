@@ -1,62 +1,125 @@
+import { useTranslation } from "react-i18next"
+import axios from "axios"
+
 const About = () => {
+  const { t } = useTranslation()
+
+  const [content, setContent] = useState([])
+  const [editingId, setEditingId] = useState(null)
+  const [editForm, setEditForm] = useState({ header: "", text: "", image: "" })
+
+  const token = localStorage.getItem("token")
+
+  // 1. READ
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("http://localhost:3000/content/page/about")
+      setContent(res.data)
+    }
+    getData()
+  }, [])
+
+  // 2. CREATE
+  const handleAdd = async () => {
+    const res = await axios.post(
+      "http://localhost:3000/content",
+      { page: "about", header: "New Header", text: "New text content" },
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+    setContent([...content, res.data])
+  }
+
+  // 3. UPDATE
+  const handleUpdate = async (id) => {
+    const res = await axios.put(
+      `http://localhost:3000/content/${id}`,
+      editForm,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    setContent(content.map((item) => (item._id === id ? res.data : item)))
+    setEditingId(null)
+  }
+
+  // 4. DELETE
+  const handleDelete = async (id) => {
+    await axios.delete(`http://localhost:3000/content/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    setContent(content.filter((item) => item._id !== id))
+  }
+
   return (
     <div>
-      <h1>Say Hello to ra’edat</h1>
-      <p>
-        ra'edat is a pioneering platform dedicated to unleashing the
-        transformative potential of Arab women within the orange economy.
-        Located in the Kingdom of Bahrain, we serve as a vibrant digital
-        ecosystem where women engage in creative industries, gain essential
-        skills, and connect with a community passionate about artistic and
-        cultural entrepreneurship.
-      </p>
+      <h1>About Page</h1>
+      {user?.admin && <button onClick={handleAdd}>+ Add Section</button>}
 
-      <h1>Vision & Mission</h1>
-      <h2>Vision</h2>
-      <p>
-        To ignite the creative potential of Arab women in the orange economy,
-        fostering a vibrant community of innovative thinkers and changemakers
-        who inspire social progress and economic development.
-      </p>
-
-      <h2>Mission</h2>
-      <p>
-        To empower Arab women by providing tools, mentorship, and opportunities
-        to thrive in the orange economy.
-      </p>
-
-      <h1>The Orange Economy: A Creative Revolution</h1>
-      <p>
-        The Orange Economy encompasses creative industries that blend culture,
-        knowledge, and innovation to drive economic growth. This vibrant sector
-        includes art, music, design, fashion, film, literature, technology, and
-        digital media. It transforms creativity into economic value, enhancing
-        cultural identity. For example, local artists can turn their artwork
-        into merchandise or musicians can share their music worldwide through
-        streaming platforms, connecting diverse cultures.
-      </p>
-      <p>
-        This dynamic economy fosters collaboration among entrepreneurs, artists,
-        and innovators, paving the way for new business models and sustainable
-        development. For instance, a fashion designer may partner with artisans
-        to create eco-friendly clothing that preserves traditional crafts. By
-        investing in the Orange Economy, we not only elevate our brand but also
-        contribute to a rich tapestry of global culture and creativity.
-      </p>
-
-      <h4>"ra'edat is not just a tool; it’s a catalyst for change."</h4>
-
-      <h1>Our Uniqueness</h1>
-      <p>
-        ra'edat stands out by creating an inclusive platform specifically
-        designed for Arab women. Our commitment to nurturing their talents
-        within the orange economy empowers them to overcome barriers and
-        maximize their creative potential. With pioneering features like
-        AI-powered matchmaking and a dedicated marketplace, ra'edat transforms
-        not just individual lives but entire communities.
-      </p>
-      <h1>The Team</h1>
+      {content.map((item) => (
+        <div
+          key={item._id}
+          style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}
+        >
+          {editingId === item._id ? (
+            <div>
+              <input
+                value={editForm.header}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, header: e.target.value })
+                }
+              />
+              <textarea
+                value={editForm.text}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, text: e.target.value })
+                }
+              />
+              <button onClick={() => handleUpdate(item._id)}>Save</button>
+            </div>
+          ) : (
+            <>
+              <h2>{item.header}</h2>
+              <p>{item.text}</p>
+              {user?.admin && (
+                <>
+                  <button
+                    onClick={() => {
+                      setEditingId(item._id)
+                      setEditForm(item)
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(item._id)}>Delete</button>
+                </>
+              )}
+            </>
+          )}
+        </div>
+      ))}
     </div>
+    // <div>
+    //   <h1>{t("about.title")}</h1>
+    //   <p>{t("about.description")}</p>
+
+    //   <h1>{t("about.vision_mission")}</h1>
+    //   <h2>{t("about.vision_title")}</h2>
+    //   <p>{t("about.vision_text")}</p>
+
+    //   <h2>{t("about.mission_title")}</h2>
+    //   <p>{t("about.mission_text")}</p>
+
+    //   <h1>{t("about.orange_title")}</h1>
+    //   <p>{t("about.orange_p1")}</p>
+    //   <p>{t("about.orange_p2")}</p>
+
+    //   <h4>"{t("about.quote")}"</h4>
+
+    //   <h1>{t("about.uniqueness_title")}</h1>
+    //   <p>{t("about.uniqueness_text")}</p>
+
+    //   <h1>{t("about.team_title")}</h1>
+    // </div>
   )
 }
 
