@@ -1,17 +1,17 @@
 /* Footer.css */
 
 .main-footer {
-  /* البنفسجي الداكن العميق المستخرج من الهوية */
+
   background-color: #1a0a3d;
-  padding: 40px 0 20px 0; /* تصغير الـ padding لجعل المربع أصغر */
+  padding: 40px 0 20px 0;
   color: #ffffff;
   position: relative;
   overflow: hidden;
-  /* الخط البرتقالي العلوي */
+
   border-top: 5px solid #ff7b00;
 }
 
-/* التوهج الجانبي بحجم أصغر ليناسب المربع الجديد */
+
 .main-footer::after {
   content: "";
   position: absolute;
@@ -31,10 +31,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px; /* تقليل المسافات بين العناصر لتصغير المربع */
+  gap: 25px;
 }
 
-/* أيقونات التواصل الاجتماعي بحجم متناسق */
+
 .social-media-grid {
   display: flex;
   gap: 25px;
@@ -42,7 +42,7 @@
 }
 
 .social-media-grid a {
-  width: 70px; /* حجم متوسط للأيقونات لتقليل ارتفاع الفوتر */
+  width: 70px;
   height: 70px;
   background: rgba(255, 255, 255, 0.05);
   display: flex;
@@ -56,7 +56,7 @@
 .social-media-grid img {
   width: 35px;
   height: 35px;
-  /* فلتر البرتقالي المعتمد #ff7b00 */
+
   filter: invert(58%) sepia(88%) saturate(2850%) hue-rotate(1deg) brightness(102%) contrast(106%);
 }
 
@@ -66,7 +66,7 @@
   box-shadow: 0 10px 20px rgba(255, 123, 0, 0.3);
 }
 
-/* نصوص المعلومات بحجم واضح ومساحة أقل */
+
 .footer-bottom-info {
   text-align: center;
   border-top: 2px solid rgba(255, 255, 255, 0.08);
@@ -75,7 +75,7 @@
 }
 
 .copyright-text {
-  font-size: 20px; /* حجم خط كبير وواضح */
+  font-size: 20px;
   color: #b0a4cc;
   margin-bottom: 10px;
 }
@@ -92,12 +92,12 @@
 }
 
 .powered-by span {
-  color: #ff7b00; /* البرتقالي الخاص بالهوية */
+  color: #ff7b00;
   font-weight: 800;
   text-transform: uppercase;
 }
 
-/* التجاوب للجوال */
+
 @media (max-width: 768px) {
   .main-footer {
     padding: 30px 0 15px 0;

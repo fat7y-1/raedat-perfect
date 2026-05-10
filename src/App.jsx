@@ -1,6 +1,6 @@
 import "./App.css"
 import { useState, useEffect } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 // Components
@@ -17,16 +17,19 @@ import Footer from "./components/Footer"
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const navigate = useNavigate()
 
   const checkToken = async () => {
     const token = localStorage.getItem("token")
     if (token) {
       try {
+
         const res = await axios.get("http://localhost:3000/auth/session", {
           headers: { Authorization: `Bearer ${token}` },
         })
         setUser(res.data)
       } catch (error) {
+        console.error("Session expired or invalid token")
         localStorage.clear()
         setUser(null)
       }
@@ -40,24 +43,30 @@ const App = () => {
   const handleLogOut = () => {
     setUser(null)
     localStorage.clear()
+    navigate("/")
   }
 
   return (
-    <main>
+    <div className="App">
       <Nav user={user} handleLogOut={handleLogOut} />
 
-      <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/about" element={<About user={user} />} />
-        <Route path="/activities" element={<Activities user={user} />} />
-        <Route path="/community" element={<Community user={user} />} />
-        <Route path="/contactUs" element={<ContactUs user={user} />} />
-        <Route path="/newsletter" element={<Newsletter user={user} />} />
-        <Route path="/partners" element={<Partners user={user} />} />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home user={user} />} />
+          <Route path="/about" element={<About user={user} />} />
+          <Route path="/activities" element={<Activities user={user} />} />
+          <Route path="/community" element={<Community user={user} />} />
+          <Route path="/contactUs" element={<ContactUs user={user} />} />
+          <Route path="/newsletter" element={<Newsletter user={user} />} />
+          <Route path="/partners" element={<Partners user={user} />} />
 
-        <Route path="/admin" element={<SignIn setUser={setUser} />} />
-      </Routes>
-    </main>
+         
+          <Route path="/admin" element={<SignIn setUser={setUser} />} />
+        </Routes>
+      </main>
+
+      <Footer />
+    </div>
   )
 }
 

@@ -10,7 +10,6 @@ const Footer = () => {
 
 
 
-        {/* أيقونات التواصل الاجتماعي باللون البرتقالي (عبر CSS) */}
         <div className="social-media-grid">
           <Link to="https://www.instagram.com/raedat.bh/" target="_blank">
             <img src="/images/social_madia/instagram.png" alt="Instagram" />
@@ -29,7 +28,7 @@ const Footer = () => {
           </Link>
         </div>
 
-        {/* حقوق النشر والروابط السريعة بنفس لون الناف بار */}
+      
         <div className="footer-bottom-info">
           <p className="copyright-text">
             © 2026 <strong>Raedat</strong> All Rights Reserved | Disclaimer

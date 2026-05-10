@@ -1,21 +1,4 @@
-// // Nav.js
 import React from "react"
-// import { Link, useNavigate } from "react-router-dom";
-// import "/src/Nav.css"
-
-// const Nav = () => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <nav className="navbar-transparent">
-//       <div className="nav-container">
-//         <img
-//           src="src/assets/logo.png"
-//           className="logo-main"
-//           alt="raedat logo"
-//           onClick={() => navigate("/")}
-//         />
-//         <div className="nav-links">
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import "/src/Nav.css"
@@ -25,32 +8,47 @@ const Nav = ({ user, handleLogOut }) => {
   const { t } = useTranslation()
 
   return (
-    <div>
-      <nav className="navbar">
-        <div className="nav-links">
-          <img
-            className="logo-img"
-            src="src/assets/logo.png"
-            alt="logo img"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/")}
-          />
+    <nav className="navbar-transparent">
+      <div className="nav-container">
 
-          <Link to="/">Home</Link>
+        <img
+          className="logo-main"
+          src="src/assets/logo.png"
+          alt="raedat logo"
+          onClick={() => navigate("/")}
+        />
+
+        <div className="nav-links">
+          <Link to="/">{t('Home') || 'Home'}</Link>
           <Link to="/about">About</Link>
           <Link to="/community">Community</Link>
           <Link to="/activities">Activities</Link>
           <Link to="/newsletter">Newsletter</Link>
+          <Link to="/partners">Partners</Link>
+
+
           <Link to="/contactUs" className="nav-contact-btn">
             Contact Us
           </Link>
-          <Link to="/contactUs">Contact Us</Link>
-          <Link to="/newsletter">News letter</Link>
-          <Link to="/partners">Partners</Link>
-          {user && <button onClick={handleLogOut}>Logout</button>}
+
+          {user && (
+            <button
+              onClick={handleLogOut}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'white',
+                fontSize: '24px',
+                cursor: 'pointer',
+                fontWeight: '700'
+              }}
+            >
+              Logout
+            </button>
+          )}
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   )
 }
 

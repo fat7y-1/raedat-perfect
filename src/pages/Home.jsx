@@ -1,78 +1,7 @@
-// import React from 'react';
-// import { useNavigate, Link } from "react-router-dom";
-// import "/src/Home.css"
-
-// const Home = () => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="home-full-wrapper">
-//       {/* --- القسم الأول: الهيرو (Hero Section) --- */}
-//       <section className="hero-section-custom">
-//         <div className="content-side">
-//           <h1 className="hero-main-text">
-//             Unlock your potential <br />
-//             with <span>ra'edat</span>
-//           </h1>
-
-//           <div className="action-buttons">
-//             <button className="primary-orange-btn" onClick={() => navigate("/about")}>
-//               Join ra'edat
-//             </button>
-
-//             <div className="app-download-links">
-//               <Link to='https://apps.apple.com/us/app/raedat/id6742032306' target="_blank">
-//                 <img src="src/assets/store.png" alt="App Store" />
-//               </Link>
-//               <Link to='https://play.google.com/store/apps/details?id=online.raedat.app' target="_blank">
-//                 <img src="src/assets/google.png" alt="Google Play" />
-//               </Link>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* عرض صورة التلفون بشكل كبير وواضح في المنتصف */}
-//         <div className="visual-side">
-//           <img
-//             className="phone-mockup"
-//             src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-//             alt="App Interface"
-//           />
-//         </div>
-//       </section>
-
-//       {/* --- القسم الثاني: Say Hello (قسم المعلومات) --- */}
-//       <section className="about-section-custom">
-//         <div className="about-text-content">
-//           <h2 className="section-title-alt">
-//             Say Hello to <span>ra'edat</span>
-//           </h2>
-//           <p className="description-p">
-//             ra'edat is an innovative initiative dedicated to fostering collaborations among members and organisations,
-//             empowering them to achieve shared goals and build meaningful partnerships within the creative economy,
-//             more specifically, the orange economy.
-//           </p>
-//           <button className="read-more-btn" onClick={() => navigate("/about")}>
-//             Read More
-//           </button>
-//         </div>
-
-//         <div className="about-image-content">
-//           <div className="styled-image-container">
-//             <img
-//               src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
-//               alt="Community Members"
-//               className="about-main-img"
-//             />
-//           </div>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// };
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import "/src/Home.css"
 
 const Home = ({ user }) => {
   const navigate = useNavigate()
@@ -81,8 +10,12 @@ const Home = ({ user }) => {
 
   useEffect(() => {
     const getHomeContent = async () => {
-      const res = await axios.get("http://localhost:3000/content/page/home")
-      setSections(res.data)
+      try {
+        const res = await axios.get("http://localhost:3000/content/page/home")
+        setSections(res.data)
+      } catch (err) {
+        console.error("Error fetching content", err)
+      }
     }
     getHomeContent()
   }, [])
@@ -92,7 +25,7 @@ const Home = ({ user }) => {
       page: "Home",
       header: "New Title",
       text: "New description goes here...",
-      image: "Add URL Image ",
+      image: "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
     }
     const res = await axios.post("http://localhost:3000/content", newBlock, {
       headers: { Authorization: `Bearer ${token}` },
@@ -107,83 +40,99 @@ const Home = ({ user }) => {
     setSections(sections.filter((s) => s._id !== id))
   }
 
-  // return (
-  //   <section className="hero-section">
-  //     <div className="hero-content">
-  //       <h1>
-  //         Unlock your <br /> potential
-  //       </h1>
-
-  //       <p>
-  //         Dedicated to fostering collaborations within the{" "}
-  //         <strong>Orange Economy</strong>. Empowering members and organizations
-  //         to build meaningful partnerships.
-  //       </p>
-
-  //       <button className="btn-primary" onClick={() => navigate("/about")}>
-  //         Get Started
-  //       </button>
-  //     </div>
-
-  //     <div className="hero-image-wrapper">
-  //       <div className="orange-blob"></div>
-
-  //       <img
-  //         className="modern-image"
-  //         src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
-  //         alt="Community"
-  //       />
-  //     </div>
-  //   </section>
-  // )
-
   return (
-    <section className="home-container">
-      {/* Admin "Add" Button */}
+    <div className="home-full-wrapper">
+ 
       {user?.admin && (
-        <div className="admin-add-bar">
-          {sections.length === 0 && <p>No content yet. Click + to add some!</p>}
-          <button className="add-btn" onClick={addNewSection}>
-            + Add New Section
+        <div className="admin-add-bar" style={{ padding: '20px', textAlign: 'center', background: '#ff7b00' }}>
+          <button className="add-btn" onClick={addNewSection} style={{ padding: '10px 20px', cursor: 'pointer', fontWeight: 'bold' }}>
+            + Add New Section to Home
           </button>
         </div>
       )}
 
-      {/* Render all the dynamic sections */}
-      {sections.map((section) => (
-        <div key={section._id} className="hero-section dynamic-block">
-          <div className="hero-content">
-            <h1>{section.header}</h1>
-            <p>{section.text}</p>
 
-            {user?.admin && (
-              <div className="admin-actions">
-                <button onClick={() => navigate(`/edit/${section._id}`)}>
-                  Edit
-                </button>
-                <button
-                  onClick={() => deleteSection(section._id)}
-                  className="btn-delete"
-                >
-                  Delete
-                </button>
-              </div>
-            )}
-          </div>
+      <section className="hero-section-custom">
+        <div className="content-side">
+          <h1 className="hero-main-text">
+            Unlock your potential <br />
+            with <span>ra'edat</span>
+          </h1>
 
-          <div className="hero-image-wrapper">
-            <img className="modern-image" src={section.image} alt="Content" />
+          <div className="action-buttons">
+            <button className="primary-orange-btn" onClick={() => navigate("/about")}>
+              Join ra'edat
+            </button>
+
+            <div className="app-download-links" style={{ marginTop: '30px', display: 'flex', gap: '20px' }}>
+              <Link to='https://apps.apple.com/us/app/raedat/id6742032306' target="_blank">
+                <img src="src/assets/store.png" alt="App Store" style={{ height: '45px' }} />
+              </Link>
+              <Link to='https://play.google.com/store/apps/details?id=online.raedat.app' target="_blank">
+                <img src="src/assets/google.png" alt="Google Play" style={{ height: '45px' }} />
+              </Link>
+            </div>
           </div>
         </div>
+
+        <div className="visual-side">
+          <img
+            className="phone-mockup"
+            src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
+            alt="App Interface"
+          />
+        </div>
+      </section>
+
+
+      {sections.map((section, index) => (
+        <section
+          key={section._id}
+          className="about-section-custom"
+          style={{
+            backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9',
+            borderRadius: index === 0 ? '80px 80px 0 0' : '0'
+          }}
+        >
+          <div className="about-text-content">
+            <h2 className="section-title-alt">
+              {section.header.includes("ra'edat") ? (
+                 <> {section.header.split("ra'edat")[0]} <span>ra'edat</span> </>
+              ) : section.header}
+            </h2>
+            <p className="description-p">{section.text}</p>
+
+            {user?.admin && (
+              <div className="admin-actions" style={{ marginBottom: '20px' }}>
+                <button onClick={() => navigate(`/edit/${section._id}`)} style={{ marginRight: '10px' }}>Edit</button>
+                <button onClick={() => deleteSection(section._id)} className="btn-delete" style={{ color: 'red' }}>Delete</button>
+              </div>
+            )}
+
+            <button className="read-more-btn" onClick={() => navigate("/about")}>
+              Read More
+            </button>
+          </div>
+
+          <div className="about-image-content">
+            <div className="styled-image-container">
+              <img
+                src={section.image}
+                alt="Section Content"
+                className="about-main-img"
+              />
+            </div>
+          </div>
+        </section>
       ))}
 
-      {/* Your static footer button if needed */}
-      <div className="home-footer">
-        <button className="btn-primary" onClick={() => navigate("/about")}>
-          Get Started
-        </button>
-      </div>
-    </section>
+
+      {!sections.length && (
+         <div style={{ textAlign: 'center', padding: '50px', color: '#ccc' }}>
+           No dynamic sections found.
+         </div>
+      )}
+    </div>
   )
 }
 
