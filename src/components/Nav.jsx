@@ -1,6 +1,6 @@
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 
-const Nav = () => {
+const Nav = ({ user, handleLogOut }) => {
   return (
     <div>
       <nav className="navbar">
@@ -12,6 +12,7 @@ const Nav = () => {
           <Link to="/contactUs">Contact Us</Link>
           <Link to="/newsletter">News letter</Link>
           <Link to="/partners">Partners</Link>
+          {user && <button onClick={handleLogOut}>Logout</button>}
         </div>
       </nav>
     </div>
