@@ -1,8 +1,8 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from "react"
+import { useTranslation } from "react-i18next"
 
 const About = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div>
@@ -27,7 +27,7 @@ const About = () => {
 
       <h1>{t("about.team_title")}</h1>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

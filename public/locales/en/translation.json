@@ -1,5 +1,4 @@
 {
-
   "nav": {
     "about": "About",
     "activities": "Activities",
@@ -33,7 +32,75 @@
     "title_community": "A Creative Community",
     "title_benefits": "Member Benefits",
     "title_jobs": "Job and Business Opportunites"
+  },
+  "community": {
+    "title": "A Creative Community",
+    "description": "The platform will harness women's potential by integrating the orange economy into our pillars, with an approach to tailoring content and operations to empower Arab women while fostering economic growth.",
+
+    "pillars_title": "Platform Pillars Include:",
+    "pillars": {
+      "live_streaming": "Live Streaming",
+      "events_management": "Events Management",
+      "online_courses": "Customisable Online Courses",
+      "souq": "Souq ra'edat (promoting orange economy products)",
+      "community_support": "Building and nurturing community support"
+    },
+
+    "values_title": "Our Values",
+
+    "individuals_title": "For Individuals:",
+    "individuals": {
+      "personal_growth_title": "Personal Growth",
+      "personal_growth_text": "Access to tailored educational resources, workshops, and expert mentorship enhances skills critical for success in the creative economy.",
+
+      "networking_title": "Networking Opportunities",
+      "networking_text": "Connect with like-minded women and industry leaders to share experiences and collaborate on projects.",
+
+      "creative_expression_title": "Creative Expression",
+      "creative_expression_text": "Engage in a community that celebrates and promotes unique talents through various initiatives, including the souq ra'edat marketplace."
+    },
+
+    "communities_title": "For Communities:",
+    "communities": {
+      "empowerment_title": "Empowerment",
+      "empowerment_text": "By investing in women's entrepreneurship, ra'edat strengthens local economies and fosters innovation across the creative sector.",
+
+      "heritage_title": "Cultural Heritage",
+      "heritage_text": "The platform promotes cultural pride and sustainable economic growth by highlighting the achievements and contributions of women within their communities.",
+
+      "growth_title": "Collective Growth",
+      "growth_text": "Workshops, panel discussions, and events cultivate a collaborative spirit and encourage knowledge exchange among members."
+    },
+
+    "users_title": "ra'edat caters to a wide range of users, including:",
+    "users": {
+      "businesses": "Businesses",
+      "educators": "Educators",
+      "coaches": "Coaches/Mentors",
+      "creators": "Creators",
+      "startups": "Startups",
+      "entrepreneurs": "Entrepreneurs",
+      "solopreneurs": "Solopreneurs",
+      "nonprofits": "Non-profit Organizations"
+    }
+  },
+  "partners": {
+    "media_title": "Media Partners",
+    "strategic_title": "Strategic Partners",
+    "sponsors_title": "Sponsors",
+
+    "moms_alt": "moms image",
+    "albilad_alt": "albilad image",
+    "alroya_alt": "alroya image",
+    "kaaf_alt": "kaaf image",
+    "unido_alt": "unido image",
+    "thinksmart_alt": "thinksmart image",
+    "alrawi_alt": "alrawi image",
+    "kipina_alt": "kipina image",
+    "fywedo_alt": "fywedo image",
+    "bahwu_alt": "bahwu image",
+    "goldenTrust_alt": "golden trust image",
+    "gfh_alt": "gfh image",
+    "benefit_alt": "benefit image"
   }
-
 }
-

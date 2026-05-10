@@ -17,11 +17,19 @@ const Home = () => {
       />
 
       <Link to="https://apps.apple.com/us/app/raedat/id6742032306">
-        <img className="store-img" src="src/assets/store.png" alt="store img" />
+        <img
+          className="store-img"
+          src="src/assets/home/store.png"
+          alt="store img"
+        />
       </Link>
 
       <Link to="https://play.google.com/store/apps/details?id=online.raedat.app&pli=1">
-        <img className="google-img" src="src/assets/google.png" alt="google img" />
+        <img
+          className="google-img"
+          src="src/assets/home/google.png"
+          alt="google img"
+        />
       </Link>
 
       <h1>{t("home.title_hello")}</h1>
@@ -69,7 +77,7 @@ const Home = () => {
 
       <h2>{t("home.title_jobs")}</h2>
     </div>
-  );
-};
+  )
+}
 
 export default Home
