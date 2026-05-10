@@ -1,0 +1,39 @@
+{
+
+  "nav": {
+    "about": "About",
+    "activities": "Activities",
+    "community": "Community",
+    "contact": "Contact Us",
+    "newsletter": "Newsletter",
+    "partners": "Partners"
+  },
+  "about": {
+    "title": "Say Hello to ra’edat",
+    "description": "ra'edat is a pioneering platform dedicated to unleashing the transformative potential of Arab women within the orange economy. Located in the Kingdom of Bahrain, we serve as a vibrant digital ecosystem where women engage in creative industries, gain essential skills, and connect with a community passionate about artistic and cultural entrepreneurship.",
+    "vision_mission": "Vision & Mission",
+    "vision_title": "Vision",
+    "vision_text": "To ignite the creative potential of Arab women in the orange economy, fostering a vibrant community of innovative thinkers and changemakers who inspire social progress and economic development.",
+    "mission_title": "Mission",
+    "mission_text": "To empower Arab women by providing tools, mentorship, and opportunities to thrive in the orange economy.",
+    "orange_title": "The Orange Economy: A Creative Revolution",
+    "orange_p1": "The Orange Economy encompasses creative industries that blend culture, knowledge, and innovation to drive economic growth. This vibrant sector includes art, music, design, fashion, film, literature, technology, and digital media. It transforms creativity into economic value, enhancing cultural identity. For example, local artists can turn their artwork into merchandise or musicians can share their music worldwide through streaming platforms, connecting diverse cultures.",
+    "orange_p2": "This dynamic economy fosters collaboration among entrepreneurs, artists, and innovators, paving the way for new business models and sustainable development. For instance, a fashion designer may partner with artisans to create eco-friendly clothing that preserves traditional crafts. By investing in the Orange Economy, we not only elevate our brand but also contribute to a rich tapestry of global culture and creativity.",
+    "quote": "ra'edat is not just a tool; it’s a catalyst for change.",
+    "uniqueness_title": "Our Uniqueness",
+    "uniqueness_text": "ra'edat stands out by creating an inclusive platform specifically designed for Arab women. Our commitment to nurturing their talents within the orange economy empowers them to overcome barriers and maximize their creative potential. With pioneering features like AI-powered matchmaking and a dedicated marketplace, ra'edat transforms not just individual lives but entire communities.",
+    "team_title": "The Team"
+  },
+
+  "home": {
+    "title_unlock": "Unlock your potential with ra'edat",
+    "title_hello": "Say Hello to ra’edat",
+    "desc_initiative": "ra'edat is an innovative initiative dedicated to fostering collaborations among members and organisations, empowering them to achieve shared goals and build meaningful partnerships within the creative economy, more specifically, the orange economy.",
+    "btn_read_more": "Read More",
+    "title_community": "A Creative Community",
+    "title_benefits": "Member Benefits",
+    "title_jobs": "Job and Business Opportunites"
+  }
+
+}
+

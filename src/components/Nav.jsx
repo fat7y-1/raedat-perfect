@@ -1,31 +1,32 @@
-import { Link } from "react-router"
-
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 const Nav = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+
   return (
     <div>
       <nav className="navbar">
-
         <div className="nav-links">
+          <img
+            className="logo-img"
+            src="src/assets/logo.png"
+            alt="logo img"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          />
 
-       <img
-              className="logo-img"
-              src="src/assets/logo.png"
-              alt="logo img"  onClick={() => navigate("/")}
-            />
-
-          <Link to="/about">About</Link>
-          <Link to="/activities">Activities</Link>
-          <Link to="/community">Community</Link>
-          <Link to="/contactUs">Contact Us</Link>
-          <Link to="/newsletter">News letter</Link>
-          <Link to="/partners">Partners</Link>
+          <Link to="/about">{t("nav.about")}</Link>
+          <Link to="/activities">{t("nav.activities")}</Link>
+          <Link to="/community">{t("nav.community")}</Link>
+          <Link to="/contactUs">{t("nav.contact")}</Link>
+          <Link to="/newsletter">{t("nav.newsletter")}</Link>
+          <Link to="/partners">{t("nav.partners")}</Link>
         </div>
       </nav>
     </div>
-  )
-}
+  );
+};
 
 export default Nav
