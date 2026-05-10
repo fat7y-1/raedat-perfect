@@ -1,75 +1,118 @@
-import { Link, useNavigate } from "react-router-dom"
-import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
-const Home = () => {
+const Home = ({ user }) => {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const [sections, setSections] = useState([])
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    const getHomeContent = async () => {
+      const res = await axios.get("http://localhost:3000/content/page/home")
+      setSections(res.data)
+    }
+    getHomeContent()
+  }, [])
+
+  const addNewSection = async () => {
+    const newBlock = {
+      page: "Home",
+      header: "New Title",
+      text: "New description goes here...",
+      image: "Add URL Image ",
+    }
+    const res = await axios.post("http://localhost:3000/content", newBlock, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    setSections([...sections, res.data])
+  }
+
+  const deleteSection = async (id) => {
+    await axios.delete(`http://localhost:3000/content/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    setSections(sections.filter((s) => s._id !== id))
+  }
+
+  // return (
+  //   <section className="hero-section">
+  //     <div className="hero-content">
+  //       <h1>
+  //         Unlock your <br /> potential
+  //       </h1>
+
+  //       <p>
+  //         Dedicated to fostering collaborations within the{" "}
+  //         <strong>Orange Economy</strong>. Empowering members and organizations
+  //         to build meaningful partnerships.
+  //       </p>
+
+  //       <button className="btn-primary" onClick={() => navigate("/about")}>
+  //         Get Started
+  //       </button>
+  //     </div>
+
+  //     <div className="hero-image-wrapper">
+  //       <div className="orange-blob"></div>
+
+  //       <img
+  //         className="modern-image"
+  //         src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
+  //         alt="Community"
+  //       />
+  //     </div>
+  //   </section>
+  // )
 
   return (
-    <div>
-      <h1>{t("home.title_unlock")}</h1>
-      <br />
+    <section className="home-container">
+      {/* Admin "Add" Button */}
+      {user?.admin && (
+        <div className="admin-add-bar">
+          {sections.length === 0 && <p>No content yet. Click + to add some!</p>}
+          <button className="add-btn" onClick={addNewSection}>
+            + Add New Section
+          </button>
+        </div>
+      )}
 
-      <img
-        className="app-img"
-        src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-        alt="app img"
-      />
+      {/* Render all the dynamic sections */}
+      {sections.map((section) => (
+        <div key={section._id} className="hero-section dynamic-block">
+          <div className="hero-content">
+            <h1>{section.header}</h1>
+            <p>{section.text}</p>
 
-      <Link to="https://apps.apple.com/us/app/raedat/id6742032306">
-        <img className="store-img" src="src/assets/store.png" alt="store img" />
-      </Link>
+            {user?.admin && (
+              <div className="admin-actions">
+                <button onClick={() => navigate(`/edit/${section._id}`)}>
+                  Edit
+                </button>
+                <button
+                  onClick={() => deleteSection(section._id)}
+                  className="btn-delete"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
 
-      <Link to="https://play.google.com/store/apps/details?id=online.raedat.app&pli=1">
-        <img className="google-img" src="src/assets/google.png" alt="google img" />
-      </Link>
+          <div className="hero-image-wrapper">
+            <img className="modern-image" src={section.image} alt="Content" />
+          </div>
+        </div>
+      ))}
 
-      <h1>{t("home.title_hello")}</h1>
-      <br />
-      <br />
-      <br />
-      <br />
-      <p>{t("home.desc_initiative")}</p>
-
-      <button onClick={() => navigate("/about")}>
-        {t("home.btn_read_more")}
-      </button>
-
-      <img
-        className="home-img"
-        src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
-        alt="home img"
-      />
-
-      <img
-        className="home-log1"
-        src="https://www.raedat.online/MediaManager/Media/assest/icon-primaryColor.svg"
-        alt="home log1"
-      />
-
-      <img
-        className="home-log2"
-        src="https://www.raedat.online/MediaManager/Media/assest/secondaryiconColor.svg"
-        alt="home log1"
-      />
-
-      <h2>{t("home.title_community")}</h2>
-      <br />
-      <button onClick={() => navigate("/community")}>
-        {t("home.btn_read_more")}
-      </button>
-
-      <img
-        className="community-img"
-        src="https://www.raedat.online/MediaManager/Media/home/lower_homescreen_banner_new.png"
-        alt="community-img"
-      />
-
-      <h2>{t("home.title_benefits")}</h2>
-
-      <h2>{t("home.title_jobs")}</h2>
-    </div>
-  );
-};
+      {/* Your static footer button if needed */}
+      <div className="home-footer">
+        <button className="btn-primary" onClick={() => navigate("/about")}>
+          Get Started
+        </button>
+      </div>
+    </section>
+  )
+}
 
 export default Home

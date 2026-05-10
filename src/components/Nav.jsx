@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
-const Nav = () => {
+const Nav = ({ user, handleLogOut }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -17,16 +17,18 @@ const Nav = () => {
             onClick={() => navigate("/")}
           />
 
-          <Link to="/about">{t("nav.about")}</Link>
-          <Link to="/activities">{t("nav.activities")}</Link>
-          <Link to="/community">{t("nav.community")}</Link>
-          <Link to="/contactUs">{t("nav.contact")}</Link>
-          <Link to="/newsletter">{t("nav.newsletter")}</Link>
-          <Link to="/partners">{t("nav.partners")}</Link>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/activities">Activities</Link>
+          <Link to="/community">Community</Link>
+          <Link to="/contactUs">Contact Us</Link>
+          <Link to="/newsletter">News letter</Link>
+          <Link to="/partners">Partners</Link>
+          {user && <button onClick={handleLogOut}>Logout</button>}
         </div>
       </nav>
     </div>
-  );
-};
+  )
+}
 
 export default Nav
