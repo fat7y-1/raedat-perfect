@@ -4,6 +4,7 @@ const Activities = () => {
     <div>
 
       <h1>activities</h1>
+      
     </div>
 
   )
