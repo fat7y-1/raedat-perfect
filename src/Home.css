@@ -33,6 +33,42 @@
   max-width: 540px;
 }
 
+.admin-status {
+  color: white;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-status .dot {
+  width: 10px;
+  height: 10px;
+  background: #00ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff00;
+  animation: pulse 2s infinite;
+}
+
+.admin-add-bar .add-btn {
+  background: var(--brand-orange);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-add-bar .add-btn:hover {
+  background: #ff9500;
+  transform: translateY(-3px);
+}
+
+/* --- Content Styling --- */
 .hero-main-text {
   font-size: 4rem;
   font-weight: 900;

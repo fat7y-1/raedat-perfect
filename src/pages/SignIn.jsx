@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import "../SignIn.css"
 
 const SignIn = ({ setUser }) => {
   const navigate = useNavigate()
@@ -28,41 +29,65 @@ const SignIn = ({ setUser }) => {
   }
   return (
     <div className="signin-container">
-      <div className="signin-card">
-        <h2>Admin Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="input-wrapper">
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={handleChange}
-              name="email"
-              type="email"
-              placeholder="example@gmail.com"
-              value={formValues.email}
-              required
-            />
-          </div>
+      {/* COLUMN 1: VISUAL */}
+      <div className="signin-visual-side">
+        <div className="visual-content">
+          <img
+            src="src/assets/logo.png"
+            alt="Logo"
+            className="signin-logo-big"
+          />
+          <h1>
+            Elevating <br />
+            <span>Ra'edat</span> Admin
+          </h1>
+          <p>
+            The central hub for managing community, content, and activities.
+          </p>
+        </div>
+      </div>
 
-          <div className="input-wrapper">
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              type="password"
-              name="password"
-              value={formValues.password}
-              required
-            />
-          </div>
+      {/* COLUMN 2: FORM */}
+      <div className="signin-form-side">
+        <div className="signin-card">
+          <h2>Sign In</h2>
+          <p className="subtitle">Please enter your credentials below.</p>
 
-          {errorMessage && <p className="error-text">{errorMessage}</p>}
+          <form onSubmit={handleSubmit}>
+            <div className="input-wrapper">
+              <label>Email Address</label>
+              <input
+                name="email"
+                type="email"
+                placeholder="admin@raedat.online"
+                onChange={handleChange}
+                value={formValues.email}
+                required
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={!formValues.email || !formValues.password}
-          >
-            Sign In
-          </button>
-        </form>
+            <div className="input-wrapper">
+              <label>Password</label>
+              <input
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                onChange={handleChange}
+                value={formValues.password}
+                required
+              />
+            </div>
+
+            {errorMessage && <p className="error-text">{errorMessage}</p>}
+
+            <button
+              type="submit"
+              disabled={!formValues.email || !formValues.password}
+            >
+              Access Dashboard
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   )
