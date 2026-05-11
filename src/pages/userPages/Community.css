@@ -1,0 +1,106 @@
+.community-container {
+  min-height: 100vh;
+  padding: 120px 10%;
+  background: linear-gradient(180deg, #120020, #22003f, #140028);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.community-container::before {
+  content: "";
+  position: absolute;
+  top: 120px;
+  right: -180px;
+  width: 500px;
+  height: 500px;
+  background: rgba(132, 0, 255, 0.25);
+  filter: blur(120px);
+  border-radius: 50%;
+}
+
+.community-container::after {
+  content: "";
+  position: absolute;
+  bottom: 50px;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 107, 0, 0.18);
+  filter: blur(120px);
+  border-radius: 50%;
+}
+
+.community-container * {
+  position: relative;
+  z-index: 1;
+}
+
+.community-container h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+.community-container h3 {
+  font-size: 2.3rem;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  color: #ff6b00;
+}
+
+.community-container h4 {
+  font-size: 1.7rem;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.community-container p {
+  font-size: 1.25rem;
+  line-height: 1.9;
+  color: #dddddd;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.community-container ul {
+  margin-top: 25px;
+  margin-bottom: 40px;
+  padding-left: 25px;
+}
+
+.community-container li {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #f1f1f1;
+  line-height: 1.7;
+}
+
+.community-container h1:not(:first-child) {
+  margin-top: 90px;
+}
+
+@media (max-width: 992px) {
+  .community-container {
+    padding: 90px 7%;
+  }
+
+  .community-container h1 {
+    font-size: 2.8rem;
+  }
+
+  .community-container h3 {
+    font-size: 2rem;
+  }
+
+  .community-container h4 {
+    font-size: 1.4rem;
+  }
+
+  .community-container p,
+  .community-container li {
+    font-size: 1.05rem;
+  }
+}

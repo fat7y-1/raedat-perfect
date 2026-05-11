@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Home",
     "about": "About",
     "activities": "Activities",
     "community": "Community",
@@ -25,7 +26,9 @@
   },
 
   "home": {
-    "title_unlock": "Unlock your potential with ra'edat",
+    "title_unlock": "Unlock your potential with",
+    "raedat": "ra'edat",
+    "Join": "Join ra’edat",
     "title_hello": "Say Hello to ra’edat",
     "desc_initiative": "ra'edat is an innovative initiative dedicated to fostering collaborations among members and organisations, empowering them to achieve shared goals and build meaningful partnerships within the creative economy, more specifically, the orange economy.",
     "btn_read_more": "Read More",
@@ -87,20 +90,18 @@
   "partners": {
     "media_title": "Media Partners",
     "strategic_title": "Strategic Partners",
-    "sponsors_title": "Sponsors",
+    "sponsors_title": "Sponsors"
+  },
+  "contact": {
+    "company": "Ra'edat Software Company W.L.L",
+    "address": "Al Badaa Building Road 711, Block 207, Bldg 453, Flat 22 P.O. Box 3294 Muharraq, Bahrain",
+    "email": "Email: support@raedat.online",
 
-    "moms_alt": "moms image",
-    "albilad_alt": "albilad image",
-    "alroya_alt": "alroya image",
-    "kaaf_alt": "kaaf image",
-    "unido_alt": "unido image",
-    "thinksmart_alt": "thinksmart image",
-    "alrawi_alt": "alrawi image",
-    "kipina_alt": "kipina image",
-    "fywedo_alt": "fywedo image",
-    "bahwu_alt": "bahwu image",
-    "goldenTrust_alt": "golden trust image",
-    "gfh_alt": "gfh image",
-    "benefit_alt": "benefit image"
+    "full_name": "Enter your full name",
+    "email_placeholder": "Enter your email address",
+    "phone": "Phone Number",
+    "subject": "Subject of the message",
+    "message": "Enter your message",
+    "submit": "Submit"
   }
 }

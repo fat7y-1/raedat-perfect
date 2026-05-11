@@ -1,15 +1,11 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import "/src/Footer.css"
-
+import React from "react"
+import { Link } from "react-router-dom"
+import "../components/Footer.css"
 
 const Footer = () => {
   return (
     <footer className="main-footer">
       <div className="footer-container">
-
-
-
         <div className="social-media-grid">
           <Link to="https://www.instagram.com/raedat.bh/" target="_blank">
             <img src="/images/social_madia/instagram.png" alt="Instagram" />
@@ -28,7 +24,6 @@ const Footer = () => {
           </Link>
         </div>
 
-      
         <div className="footer-bottom-info">
           <p className="copyright-text">
             © 2026 <strong>Raedat</strong> All Rights Reserved | Disclaimer
@@ -37,10 +32,9 @@ const Footer = () => {
             Powered by <span>Atyaf eSolutions</span>
           </p>
         </div>
-
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

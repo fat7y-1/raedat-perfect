@@ -1,13 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import "../userPages/Partners.css"
 
 const Partners = () => {
   const { t } = useTranslation()
 
   return (
     <div className="partners-container">
-      {/* Media Partners Section */}
       <h1>{t("partners.media_title")}</h1>
 
       <Link to="https://360moms.net/ar" target="_blank">
@@ -34,7 +34,6 @@ const Partners = () => {
         />
       </Link>
 
-      {/* Strategic Partners Section */}
       <h1>{t("partners.strategic_title")}</h1>
 
       <Link to="https://www.kaaf.bh/ar" target="_blank">
@@ -69,7 +68,10 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://kipinakids.com/kipina-nursery-school-bahrain/" target="_blank">
+      <Link
+        to="https://kipinakids.com/kipina-nursery-school-bahrain/"
+        target="_blank"
+      >
         <img
           className="kipina-img"
           src="src/assets/partners/kipina.png"
@@ -101,7 +103,6 @@ const Partners = () => {
         />
       </Link>
 
-      {/* Sponsors Section */}
       <h1>{t("partners.sponsors_title")}</h1>
 
       <Link to="https://gfh.com/" target="_blank">
@@ -119,12 +120,6 @@ const Partners = () => {
           alt={t("partners.benefit_alt")}
         />
       </Link>
-
-      {/* Extra Text Section */}
-      <div className="extra-info">
-        <h1>partners</h1>
-        <h2>hhhhhhh</h2>
-      </div>
     </div>
   )
 }

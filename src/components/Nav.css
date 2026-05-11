@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: #120020;
+  overflow-x: hidden;
+}
+
+.navbar-transparent {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(16, 0, 35, 0.82);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 95px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1800px;
+  margin: auto;
+  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-main {
+  height: 68px;
+  width: auto;
+  cursor: pointer;
+  object-fit: contain;
+  transition: 0.3s ease;
+}
+
+.logo-main:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  font-size: 1.15rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0%;
+  height: 2px;
+  border-radius: 20px;
+  background: #ff7b00;
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ff7b00;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-contact-btn {
+  background: #ff7b00;
+  padding: 14px 30px;
+  border-radius: 999px;
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(255, 123, 0, 0.2);
+}
+
+.nav-contact-btn::after {
+  display: none;
+}
+
+.nav-contact-btn:hover {
+  transform: translateY(-2px);
+  background: #ff8d1f;
+}
+
+.nav-lang {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-lang button {
+  width: 70px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.nav-lang button:hover {
+  background: #ff7b00;
+  border-color: #ff7b00;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  color: #ff7b00;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .nav-container {
+    position: relative;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(16, 0, 35, 0.95);
+    padding: 20px;
+    gap: 18px;
+  }
+}
+@media (max-width: 1400px) {
+  .nav-links {
+    gap: 24px;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  .nav-contact-btn {
+    padding: 12px 24px;
+  }
+
+  .logo-main {
+    height: 58px;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-transparent {
+    min-height: 80px;
+  }
+
+  .nav-container {
+    padding: 0 6%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .logo-main {
+    height: 52px;
+  }
+}
