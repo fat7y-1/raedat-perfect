@@ -21,36 +21,48 @@ const Home = ({ user }) => {
   }, [])
 
   const addNewSection = async () => {
-    const newBlock = {
-      page: "Home",
-      header: "New Title",
-      text: "New description goes here...",
-      image: "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
+    try {
+      const newBlock = {
+        page: "home",
+        header: "New ra'edat Section",
+        text: "Edit this description to tell your story.",
+        image:
+          "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
+      }
+      const res = await axios.post("http://localhost:3000/content", newBlock, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (res.data) {
+        setSections((prev) => [...prev, res.data])
+      }
+    } catch (error) {
+      // Fixed typo here (error instead of err)
+      console.error("Failed to add section", error)
+      alert("Session expired. Please sign in again.")
     }
-    const res = await axios.post("http://localhost:3000/content", newBlock, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    setSections([...sections, res.data])
   }
 
   const deleteSection = async (id) => {
-    await axios.delete(`http://localhost:3000/content/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    setSections(sections.filter((s) => s._id !== id))
+    if (window.confirm("Are you sure you want to delete this?")) {
+      await axios.delete(`http://localhost:3000/content/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setSections(sections.filter((s) => s._id !== id))
+    }
   }
 
   return (
     <div className="home-full-wrapper">
- 
       {user?.admin && (
-        <div className="admin-add-bar" style={{ padding: '20px', textAlign: 'center', background: '#ff7b00' }}>
-          <button className="add-btn" onClick={addNewSection} style={{ padding: '10px 20px', cursor: 'pointer', fontWeight: 'bold' }}>
+        <div className="admin-add-bar">
+          <div className="admin-status">
+            <span className="dot"></span> ADMIN PANEL
+          </div>
+          <button className="add-btn" onClick={addNewSection}>
             + Add New Section to Home
           </button>
         </div>
       )}
-
 
       <section className="hero-section-custom">
         <div className="content-side">
@@ -60,16 +72,36 @@ const Home = ({ user }) => {
           </h1>
 
           <div className="action-buttons">
-            <button className="primary-orange-btn" onClick={() => navigate("/about")}>
+            <button
+              className="primary-orange-btn"
+              onClick={() => navigate("/about")}
+            >
               Join ra'edat
             </button>
 
-            <div className="app-download-links" style={{ marginTop: '30px', display: 'flex', gap: '20px' }}>
-              <Link to='https://apps.apple.com/us/app/raedat/id6742032306' target="_blank">
-                <img src="src/assets/store.png" alt="App Store" style={{ height: '45px' }} />
+            <div
+              className="app-download-links"
+              style={{ marginTop: "30px", display: "flex", gap: "20px" }}
+            >
+              <Link
+                to="https://apps.apple.com/us/app/raedat/id6742032306"
+                target="_blank"
+              >
+                <img
+                  src="src/assets/store.png"
+                  alt="App Store"
+                  style={{ height: "45px" }}
+                />
               </Link>
-              <Link to='https://play.google.com/store/apps/details?id=online.raedat.app' target="_blank">
-                <img src="src/assets/google.png" alt="Google Play" style={{ height: '45px' }} />
+              <Link
+                to="https://play.google.com/store/apps/details?id=online.raedat.app"
+                target="_blank"
+              >
+                <img
+                  src="src/assets/google.png"
+                  alt="Google Play"
+                  style={{ height: "45px" }}
+                />
               </Link>
             </div>
           </div>
@@ -84,32 +116,49 @@ const Home = ({ user }) => {
         </div>
       </section>
 
-
       {sections.map((section, index) => (
         <section
           key={section._id}
           className="about-section-custom"
           style={{
-            backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9',
-            borderRadius: index === 0 ? '80px 80px 0 0' : '0'
+            backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
+            borderRadius: index === 0 ? "80px 80px 0 0" : "0",
           }}
         >
           <div className="about-text-content">
             <h2 className="section-title-alt">
-              {section.header.includes("ra'edat") ? (
-                 <> {section.header.split("ra'edat")[0]} <span>ra'edat</span> </>
-              ) : section.header}
+              {section.header?.includes("ra'edat") ? (
+                <>
+                  {" "}
+                  {section.header.split("ra'edat")[0]} <span>ra'edat</span>{" "}
+                </>
+              ) : (
+                section.header
+              )}
             </h2>
             <p className="description-p">{section.text}</p>
 
             {user?.admin && (
-              <div className="admin-actions" style={{ marginBottom: '20px' }}>
-                <button onClick={() => navigate(`/edit/${section._id}`)} style={{ marginRight: '10px' }}>Edit</button>
-                <button onClick={() => deleteSection(section._id)} className="btn-delete" style={{ color: 'red' }}>Delete</button>
+              <div className="admin-actions">
+                <button
+                  className="edit-btn"
+                  onClick={() => navigate(`/edit/${section._id}`)}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => deleteSection(section._id)}
+                  className="btn-delete"
+                >
+                  Delete
+                </button>
               </div>
             )}
 
-            <button className="read-more-btn" onClick={() => navigate("/about")}>
+            <button
+              className="read-more-btn"
+              onClick={() => navigate("/about")}
+            >
               Read More
             </button>
           </div>
@@ -126,11 +175,10 @@ const Home = ({ user }) => {
         </section>
       ))}
 
-
       {!sections.length && (
-         <div style={{ textAlign: 'center', padding: '50px', color: '#ccc' }}>
-           No dynamic sections found.
-         </div>
+        <div style={{ textAlign: "center", padding: "50px", color: "#ccc" }}>
+          No dynamic sections found.
+        </div>
       )}
     </div>
   )
