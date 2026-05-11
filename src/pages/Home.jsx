@@ -206,6 +206,7 @@ const Home = ({ user }) => {
               </div>
             </div>
           )}
+          {/*  */}
         </section>
       ))}
 
