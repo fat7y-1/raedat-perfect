@@ -10,7 +10,6 @@ const Nav = ({ user, handleLogOut }) => {
   return (
     <nav className="navbar-transparent">
       <div className="nav-container">
-
         <img
           className="logo-main"
           src="src/assets/logo.png"
@@ -19,13 +18,12 @@ const Nav = ({ user, handleLogOut }) => {
         />
 
         <div className="nav-links">
-          <Link to="/">{t('Home') || 'Home'}</Link>
+          <Link to="/">{t("Home") || "Home"}</Link>
           <Link to="/about">About</Link>
           <Link to="/community">Community</Link>
           <Link to="/activities">Activities</Link>
           <Link to="/newsletter">Newsletter</Link>
           <Link to="/partners">Partners</Link>
-
 
           <Link to="/contactUs" className="nav-contact-btn">
             Contact Us
@@ -35,12 +33,12 @@ const Nav = ({ user, handleLogOut }) => {
             <button
               onClick={handleLogOut}
               style={{
-                background: 'none',
-                border: 'none',
-                color: 'white',
-                fontSize: '24px',
-                cursor: 'pointer',
-                fontWeight: '700'
+                background: "none",
+                border: "none",
+                color: "white",
+                fontSize: "24px",
+                cursor: "pointer",
+                fontWeight: "700",
               }}
             >
               Logout

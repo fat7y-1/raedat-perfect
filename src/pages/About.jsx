@@ -1,7 +1,9 @@
+import react from "react"
+import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import axios from "axios"
 
-const About = () => {
+const About = ({ user }) => {
   const { t } = useTranslation()
 
   const [content, setContent] = useState([])

@@ -23,7 +23,6 @@ const App = () => {
     const token = localStorage.getItem("token")
     if (token) {
       try {
-
         const res = await axios.get("http://localhost:3000/auth/session", {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -50,7 +49,7 @@ const App = () => {
     <div className="App">
       <Nav user={user} handleLogOut={handleLogOut} />
 
-      <main>
+      <main style={{ marginTop: "100px" }}>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
           <Route path="/about" element={<About user={user} />} />
@@ -60,7 +59,6 @@ const App = () => {
           <Route path="/newsletter" element={<Newsletter user={user} />} />
           <Route path="/partners" element={<Partners user={user} />} />
 
-         
           <Route path="/admin" element={<SignIn setUser={setUser} />} />
         </Routes>
       </main>
