@@ -1,0 +1,181 @@
+/* SignIn.css */
+
+.signin-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #1a0a3d;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(83, 25, 251, 0.4) 0, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(255, 123, 0, 0.3) 0, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(83, 25, 251, 0.3) 0, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(255, 123, 0, 0.2) 0, transparent 50%);
+  overflow: hidden;
+}
+
+/* --- Left Side: Branding (Kept exactly as you liked) --- */
+.signin-visual-side {
+  flex: 1; /* Adjusted flex for better balance */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8%;
+  z-index: 2;
+}
+
+.signin-logo-big {
+  width: 350px;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+.visual-content h1 {
+  color: #ffffff;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.visual-content h1 span {
+  color: #ff7b00;
+  text-shadow: 0 0 30px rgba(255, 123, 0, 0.4);
+}
+
+.visual-content p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.3rem;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* --- Right Side: FIXED POSITIONING --- */
+.signin-form-side {
+  flex: 1.2; /* Larger area for the big card */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers the card perfectly on the right half */
+  padding: 40px;
+  z-index: 2;
+}
+
+/* --- The Big Professional Card --- */
+.signin-card {
+  width: 100%;
+  max-width: 520px; /* Big and modern */
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 70px 50px;
+
+  border-radius: 45px;
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
+  text-align: center; /* Centers the Sign In text */
+}
+
+.signin-card h2 {
+  color: #ffffff;
+  font-size: 3.2rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+  letter-spacing: -1.5px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.7); /* Lightened for readability */
+  font-size: 1.1rem;
+  margin-bottom: 45px;
+  display: block;
+}
+
+/* --- Input Styling --- */
+.input-wrapper {
+  margin-bottom: 30px;
+  text-align: left; /* Labels stay left for pro look */
+}
+
+.input-wrapper label {
+  display: block;
+  color: #ff7b00;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.input-wrapper input {
+  width: 90%;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #ff7b00;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 15px rgba(255, 123, 0, 0.2);
+}
+
+/* --- Big Action Button --- */
+.signin-card button {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(135deg, #ff7b00 0%, #ff9500 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 18px;
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 15px 30px rgba(255, 123, 0, 0.3);
+}
+
+.signin-card button:hover:not(:disabled) {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(255, 123, 0, 0.5);
+}
+
+.signin-card button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
+  .signin-container {
+    flex-direction: column;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
+  .signin-visual-side {
+    display: none;
+  }
+  .signin-form-side {
+    width: 100%;
+    padding: 0;
+  }
+  .signin-card {
+    padding: 50px 30px;
+  }
+}

@@ -1,0 +1,106 @@
+/* Nav.css */
+
+.navbar-transparent {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  /* درجة البنفسجي الداكنة جداً من خلفيات التصميم */
+  background: #1a0a3d;
+  backdrop-filter: blur(15px);
+  /* تقليل الـ padding ليكون نفس حجم مربع الفوتر */
+  padding: 20px 0;
+  /* خط برتقالي نحيف جداً لتمييز نهاية الناف بار */
+  border-bottom: 2px solid rgba(255, 123, 0, 0.1);
+  display: flex;
+  align-items: center;
+  /* تقليل الارتفاع الكلي ليتناسب مع التصميم الجديد */
+  min-height: 100px;
+}
+
+.nav-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4%;
+  width: 100%;
+}
+
+/* تعديل حجم اللوجو ليتناسب مع المربع الأصغر */
+.logo-main {
+  height: 70px; /* تصغير اللوجو ليتماشى مع الارتفاع الجديد */
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.logo-main:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* تقليل المسافات قليلاً للتوازن */
+}
+
+.nav-links a {
+  text-decoration: none !important;
+  color: #ffffff;
+  /* الحفاظ على الخط الكبير الواضح */
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+
+
+}
+
+/* التفاعل عند التأشير أو الضغط بالبرتقالي من الهوية */
+.nav-links a:hover,
+.nav-links a:active {
+  color: #ff7b00 !important;
+  text-decoration: none !important;
+}
+
+/* Contact Us مطابقة للبقية تماماً */
+.nav-links .nav-contact-btn {
+  color: #ffffff !important;
+  font-weight: 700;
+  padding: 0;
+}
+
+.nav-links .nav-contact-btn:hover,
+.nav-links .nav-contact-btn:active {
+  color: #ff7b00 !important;
+}
+
+/* تحسين التجاوب */
+@media (max-width: 1400px) {
+  .nav-links a {
+    font-size: 26px;
+  }
+  .logo-main {
+    height: 60px;
+  }
+  .navbar-transparent {
+    min-height: 80px;
+    padding: 15px 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-links {
+    display: none;
+  }
+  .navbar-transparent {
+    min-height: 70px;
+    padding: 10px 0;
+  }
+  .logo-main {
+    height: 50px;
+  }
+}
