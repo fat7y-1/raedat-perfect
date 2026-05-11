@@ -2,7 +2,7 @@
 
 .main-footer {
 
-  background-color: #1a0a3d;
+  background-color:#381c74;
   padding: 40px 0 20px 0;
   color: #ffffff;
   position: relative;
@@ -64,6 +64,8 @@
   background: #ff7b00;
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(255, 123, 0, 0.3);
+  color:white;
+
 }
 
 
@@ -95,6 +97,9 @@
   color: #ff7b00;
   font-weight: 800;
   text-transform: uppercase;
+  
+
+
 }
 
 

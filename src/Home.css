@@ -1,185 +1,199 @@
-/* Home.css */
+/* ================= ROOT ================= */
 
 :root {
-  --brand-purple: #5319fb;
-  --brand-dark-purple: #1a0a3d;
-  --brand-orange: #ff7b00;
-  --text-white: #ffffff;
+  --primary-purple: #6d3df5;
+  --affiliate-orange: #d97706;
+  --soft-grey-bg: #f5f5f7;
+  --dark-black: #111827;
 }
+
+/* ================= MAIN ================= */
 
 .home-full-wrapper {
-  background-color: var(--brand-dark-purple);
-  color: var(--text-white);
-  overflow-x: hidden;
+  background: var(--soft-grey-bg);
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
 }
 
+/* ================= HERO ================= */
+
 .hero-section-custom {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 100vh;
-  padding: 100px 10%;
-
-  background: radial-gradient(circle at 20% 30%, rgba(83, 25, 251, 0.4) 0%, transparent 50%),
-              linear-gradient(135deg, var(--brand-dark-purple) 0%, #0c041d 100%);
-  gap: 40px;
+  gap: 70px;
+  padding: 70px 8%;
 }
 
-
-.hero-section-custom::before {
-  content: "»";
-  position: absolute;
-  bottom: 10%;
-  right: 15%;
-  font-size: 250px;
-  color: var(--brand-orange);
-  opacity: 0.1;
-  font-family: serif;
-  transform: rotate(-15deg);
-}
+/* ================= LEFT ================= */
 
 .content-side {
   flex: 1;
-  z-index: 2;
-  animation: fadeInUp 1s ease-out;
+  max-width: 540px;
 }
 
 .hero-main-text {
-  font-size: 4.8rem;
+  font-size: 4rem;
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 30px;
-  letter-spacing: -1px;
+  color: var(--dark-black);
+  margin-bottom: 22px;
 }
 
 .hero-main-text span {
-  color: var(--brand-orange);
-  position: relative;
-}
-
-
-.hero-main-text span::after {
-  content: "";
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 123, 0, 0.3);
-  z-index: -1;
-}
-
-.primary-orange-btn {
-  background: var(--brand-orange);
-  color: white;
-  border: none;
-  padding: 20px 50px;
-  font-size: 1.4rem;
-  font-weight: 800;
-  border-radius: 60px;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 15px 30px rgba(255, 123, 0, 0.3);
-  text-transform: uppercase;
-}
-
-.primary-orange-btn:hover {
-  transform: scale(1.05) translateY(-5px);
-  box-shadow: 0 20px 40px rgba(255, 123, 0, 0.5);
-}
-
-.visual-side {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 2;
-}
-
-.phone-mockup {
-  width: 100%;
-  max-width: 480px;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
-  animation: float 6s ease-in-out infinite;
-}
-
-
-.about-section-custom {
-  display: flex;
-  align-items: center;
-  padding: 150px 10%;
-  gap: 100px;
-  background: #ffffff;
-  color: var(--brand-dark-purple);
-  border-radius: 80px 80px 0 0;
-  margin-top: -50px;
-  position: relative;
-  z-index: 3;
-}
-
-.section-title-alt {
-  font-size: 3.5rem;
-  font-weight: 900;
-  margin-bottom: 25px;
-}
-
-.section-title-alt span {
-  color: var(--brand-purple);
+  color: var(--primary-purple);
 }
 
 .description-p {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  color: #4b4b4b;
-  margin-bottom: 40px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #6b7280;
+  margin-bottom: 30px;
 }
 
-.styled-image-container {
+/* زر */
+.primary-orange-btn {
+  background: var(--affiliate-orange);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 42px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 12px 25px rgba(217, 119, 6, 0.2);
+}
+
+.primary-orange-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* ================= RIGHT WRAPPER ================= */
+
+.right-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 30px;
   position: relative;
-  padding: 20px;
 }
 
+/* ================= PHONE SIDE ================= */
 
-.styled-image-container::before {
+.visual-side {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* الخلفية */
+.visual-side::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 80%;
-  height: 80%;
-  border: 15px solid var(--brand-orange);
+  width: 530px;
+  height: 530px;
+  background: rgba(109, 61, 245, 0.08);
+  border-radius: 50%;
   z-index: 1;
-  border-radius: 40px;
 }
 
-.about-main-img {
-  width: 100%;
-  border-radius: 40px;
+/* صورة التلفون */
+.phone-mockup {
+  width: 340px;
   position: relative;
   z-index: 2;
-  box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+  filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.18));
 }
 
-/* --- Animations --- */
-@keyframes float {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-25px) rotate(2deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+/* ================= DOWNLOAD SIDE ================= */
+
+.download-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 5;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
+/* الصور */
+.store-link img {
+  width: 260px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+
+  filter:
+    hue-rotate(10deg)
+    saturate(130%)
+    brightness(1.04);
+
+  transition: 0.3s ease;
 }
 
+.store-link img:hover {
+  transform: scale(1.05);
+}
+
+/* ================= RESPONSIVE ================= */
 
 @media (max-width: 1024px) {
-  .hero-section-custom, .about-section-custom {
+
+  .hero-section-custom {
     flex-direction: column;
     text-align: center;
-    padding: 80px 5%;
+    padding: 60px 6%;
   }
-  .hero-main-text { font-size: 3rem; }
-  .primary-orange-btn { width: 100%; }
+
+  .content-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .visual-side::before {
+    width: 360px;
+    height: 360px;
+  }
+
+  .phone-mockup {
+    width: 260px;
+  }
+
+  .download-wrapper {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .store-link img {
+    width: 210px;
+  }
 }
+
+@media (max-width: 600px) {
+
+  .hero-main-text {
+    font-size: 2.3rem;
+  }
+
+  .description-p {
+    font-size: 1rem;
+  }
+
+  .download-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .store-link img {
+    width: 220px;
+  }
+}
+
