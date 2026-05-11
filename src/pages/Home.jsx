@@ -6,6 +6,7 @@ import "/src/Home.css"
 const Home = ({ user }) => {
   const navigate = useNavigate()
   const [sections, setSections] = useState([])
+  const [loading, setLoading] = useState(true)
   const [showLayoutPicker, setShowLayoutPicker] = useState(false)
   const token = localStorage.getItem("token")
 
@@ -16,6 +17,8 @@ const Home = ({ user }) => {
         setSections(res.data)
       } catch (err) {
         console.error("Error fetching content", err)
+      } finally {
+        setLoading(false)
       }
     }
     getHomeContent()
@@ -25,9 +28,13 @@ const Home = ({ user }) => {
     try {
       const newBlock = {
         page: "home",
-        layoutType: layoutType, // 'standard', 'grid-text', or 'grid-header'
-        header: layoutType === "standard" ? "New ra'edat Section" : "",
-        text: layoutType === "standard" ? "Standard layout description." : "",
+        layoutType: layoutType,
+        header:
+          layoutType === "standard" ? "New Section Title" : "Our Features",
+        text:
+          layoutType === "standard"
+            ? "Edit this description to tell your story."
+            : "",
         image:
           "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
         items:
@@ -35,8 +42,8 @@ const Home = ({ user }) => {
             ? [
                 {
                   image: "https://via.placeholder.com/300",
-                  title: "Item 1",
-                  desc: "Description 1",
+                  title: "New Item",
+                  desc: "Item description",
                 },
               ]
             : [],
@@ -44,98 +51,26 @@ const Home = ({ user }) => {
       const res = await axios.post("http://localhost:3000/content", newBlock, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      if (res.data) {
-        setSections((prev) => [...prev, res.data])
-      }
+      setSections((prev) => [...prev, res.data])
+      setShowLayoutPicker(false)
     } catch (error) {
-      // Fixed typo here (error instead of err)
       console.error("Failed to add section", error)
-      alert("Session expired. Please sign in again.")
     }
   }
 
   const deleteSection = async (id) => {
-    if (window.confirm("Are you sure you want to delete this?")) {
+    if (window.confirm("Are you sure?")) {
       await axios.delete(`http://localhost:3000/content/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      setSections(sections.filter((s) => s._id !== id))
+      setSections((prev) => prev.filter((s) => s._id !== id))
     }
   }
 
+  if (loading) return <div className="loading-screen">Loading...</div>
+
   return (
-    <div>
-      <h1>{t("home.title_unlock")}</h1>
-      <br />
-
-      <img
-        className="app-img"
-        src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-        alt="app img"
-      />
-
-      <Link to="https://apps.apple.com/us/app/raedat/id6742032306">
-        <img
-          className="store-img"
-          src="src/assets/home/store.png"
-          alt="store img"
-        />
-      </Link>
-
-      <Link to="https://play.google.com/store/apps/details?id=online.raedat.app&pli=1">
-        <img
-          className="google-img"
-          src="src/assets/home/google.png"
-          alt="google img"
-        />
-      </Link>
-
-      <h1>{t("home.title_hello")}</h1>
-      <br />
-      <br />
-      <br />
-      <br />
-      <p>{t("home.desc_initiative")}</p>
-
-      <button onClick={() => navigate("/about")}>
-        {t("home.btn_read_more")}
-      </button>
-
-      <img
-        className="home-img"
-        src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
-        alt="home img"
-      />
-
-      <img
-        className="home-log1"
-        src="https://www.raedat.online/MediaManager/Media/assest/icon-primaryColor.svg"
-        alt="home log1"
-      />
-
-      <img
-        className="home-log2"
-        src="https://www.raedat.online/MediaManager/Media/assest/secondaryiconColor.svg"
-        alt="home log1"
-      />
-
-      <h2>{t("home.title_community")}</h2>
-      <br />
-      <button onClick={() => navigate("/community")}>
-        {t("home.btn_read_more")}
-      </button>
-
-      <img
-        className="community-img"
-        src="https://www.raedat.online/MediaManager/Media/home/lower_homescreen_banner_new.png"
-        alt="community-img"
-      />
-
-      <h2>{t("home.title_benefits")}</h2>
-
-      <h2>{t("home.title_jobs")}</h2>
     <div className="home-full-wrapper">
-      {/* ADMIN PANEL WITH LAYOUT PICKER */}
       {user?.admin && (
         <div className="admin-add-bar">
           <div className="admin-status">
@@ -151,13 +86,13 @@ const Home = ({ user }) => {
           ) : (
             <div className="layout-options">
               <button onClick={() => addNewSection("standard")}>
-                1. Standard
+                Standard
               </button>
               <button onClick={() => addNewSection("grid-text")}>
-                2. Multi Image+Text
+                Image+Text
               </button>
               <button onClick={() => addNewSection("grid-header")}>
-                3. Multi Image+Header
+                Image+Header
               </button>
               <button
                 className="cancel-btn"
@@ -170,67 +105,74 @@ const Home = ({ user }) => {
         </div>
       )}
 
+      {/* HERO SECTION - FIXED LAYOUT */}
       <section className="hero-section-custom">
         <div className="content-side">
           <h1 className="hero-main-text">
-            Unlock your potential <br />
-            with <span>ra'edat</span>
+            Unlock your potential <br /> with <span>ra'edat</span>
           </h1>
+          <p className="description-p">
+            Empowering your journey through innovation and community support.
+          </p>
+          <button
+            className="primary-orange-btn"
+            onClick={() => navigate("/about")}
+          >
+            Join ra'edat
+          </button>
+        </div>
 
-          <div className="action-buttons">
-            <button
-              className="primary-orange-btn"
-              onClick={() => navigate("/about")}
-            >
-              Join ra'edat
-            </button>
+        <div className="right-wrapper">
+          <div className="visual-side">
+            <img
+              className="phone-mockup"
+              src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
+              alt="App"
+            />
 
-            <div
-              className="app-download-links"
-              style={{ marginTop: "30px", display: "flex", gap: "20px" }}
-            >
-              <Link
-                to="https://apps.apple.com/us/app/raedat/id6742032306"
+            {/* Buttons are now INSIDE the visual-side to stay attached to the phone */}
+            <div className="download-wrapper">
+              <a
+                href="https://apps.apple.com/us/app/raedat/id6742032306"
                 target="_blank"
+                rel="noreferrer"
+                className="store-link"
               >
                 <img
-                  src="src/assets/store.png"
+                  className="logo-size-app"
+                  src="/src/assets/home/store.png"
                   alt="App Store"
-                  style={{ height: "45px" }}
                 />
-              </Link>
-              <Link
-                to="https://play.google.com/store/apps/details?id=online.raedat.app"
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=online.raedat.app"
                 target="_blank"
+                rel="noreferrer"
+                className="store-link"
               >
                 <img
-                  src="src/assets/google.png"
+                  className="logo-size-app"
+                  src="/src/assets/home/google.png"
                   alt="Google Play"
-                  style={{ height: "45px" }}
                 />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
-
-        <div className="visual-side">
-          <img
-            className="phone-mockup"
-            src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-            alt="App Interface"
-          />
-        </div>
       </section>
 
+      {/* DYNAMIC SECTIONS */}
       {sections.map((section, index) => (
         <section
           key={section._id}
-          className={`section-layout-${section.layoutType || "standard"} about-section-custom`}
-          style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9" }}
+          className={`about-section-custom section-layout-${section.layoutType || "standard"}`}
+          style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f5f5f7" }}
         >
-          {/* LAYOUT 1: STANDARD */}
-          {(!section.layoutType || section.layoutType === "standard") && (
-            <div className="standard-flex">
+          {!section.layoutType || section.layoutType === "standard" ? (
+            <div
+              className="standard-flex"
+              style={{ flexDirection: index % 2 !== 0 ? "row-reverse" : "row" }}
+            >
               <div className="about-text-content">
                 <h2 className="section-title-alt">{section.header}</h2>
                 <p className="description-p">{section.text}</p>
@@ -246,19 +188,14 @@ const Home = ({ user }) => {
                 <img src={section.image} className="about-main-img" alt="" />
               </div>
             </div>
-          )}
-
-          {/* LAYOUT 2 & 3: GRID SYSTEMS */}
-          {(section.layoutType === "grid-text" ||
-            section.layoutType === "grid-header") && (
+          ) : (
             <div className="grid-layout-container">
-              {user?.admin && (
-                <AdminActions
-                  id={section._id}
-                  onDelete={deleteSection}
-                  navigate={navigate}
-                />
-              )}
+              <h2
+                className="section-title-alt"
+                style={{ textAlign: "center", marginBottom: "40px" }}
+              >
+                {section.header}
+              </h2>
               <div className="custom-grid">
                 {section.items?.map((item, i) => (
                   <div key={i} className="grid-item">
@@ -270,26 +207,24 @@ const Home = ({ user }) => {
                     )}
                   </div>
                 ))}
-                {user?.admin && (
-                  <button className="add-sub-item">+ Add Div</button>
-                )}
               </div>
+              {user?.admin && (
+                <div className="center-actions">
+                  <AdminActions
+                    id={section._id}
+                    onDelete={deleteSection}
+                    navigate={navigate}
+                  />
+                </div>
+              )}
             </div>
           )}
-          {/*  */}
         </section>
       ))}
-
-      {!sections.length && (
-        <div style={{ textAlign: "center", padding: "50px", color: "#ccc" }}>
-          No dynamic sections found.
-        </div>
-      )}
     </div>
   )
 }
 
-// Small helper component for Admin Buttons
 const AdminActions = ({ id, onDelete, navigate }) => (
   <div className="admin-actions">
     <button className="edit-btn" onClick={() => navigate(`/edit/${id}`)}>
