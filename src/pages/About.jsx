@@ -1,3 +1,8 @@
+import React from "react"
+import { useTranslation } from "react-i18next"
+
+const About = () => {
+  const { t } = useTranslation()
 import react from "react"
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
@@ -120,6 +125,8 @@ const About = ({ user }) => {
     //   <h1>{t("about.uniqueness_title")}</h1>
     //   <p>{t("about.uniqueness_text")}</p>
 
+      <h1>{t("about.team_title")}</h1>
+    </div>
     //   <h1>{t("about.team_title")}</h1>
     // </div>
   )
