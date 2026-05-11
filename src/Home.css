@@ -1,82 +1,37 @@
-/* 1. GLOBAL RESET - This removes the white gaps on the sides */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body,
-html {
-  width: 100%;
-  overflow-x: hidden;
-  background-color: #1a0a3d; /* Prevents white flashes during scroll */
-}
 
 :root {
-  --brand-purple: #5319fb;
-  --brand-dark-purple: #1a0a3d;
-  --brand-orange: #ff7b00;
-  --text-white: #ffffff;
+  --primary-purple: #6d3df5;
+  --affiliate-orange: #d97706;
+  background-color: rgb(253, 242, 228);
+
+
 }
+
+
 
 .home-full-wrapper {
-  background-color: var(--brand-dark-purple);
-  color: var(--text-white);
-  width: 100%;
+  background: var(--soft-grey-bg);
   min-height: 100vh;
-  /* Extra padding at bottom so Admin Bar doesn't cover content */
-  padding-bottom: 80px;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
 }
 
-/* --- HERO SECTION --- */
+
+
 .hero-section-custom {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 100vh;
-  width: 100%;
-  padding: 100px 10%;
-  background:
-    radial-gradient(
-      circle at 20% 30%,
-      rgba(83, 25, 251, 0.4) 0%,
-      transparent 50%
-    ),
-    linear-gradient(135deg, var(--brand-dark-purple) 0%, #0c041d 100%);
-  gap: 40px;
+  gap: 70px;
+  padding: 70px 8%;
 }
 
-/* --- DYNAMIC SECTIONS --- */
-.about-section-custom {
-  display: flex;
-  align-items: center;
-  padding: 150px 10%;
-  width: 100%;
-  gap: 100px;
-  background: #ffffff;
-  color: var(--brand-dark-purple);
-  border-radius: 80px 80px 0 0;
-  margin-top: -50px;
-  position: relative;
-  z-index: 3;
-}
 
-/* --- ADMIN PANEL (FIXED TO BOTTOM) --- */
-.admin-add-bar {
-  position: fixed; /* Always stays on screen */
-  bottom: 0; /* At the bottom */
-  left: 0;
-  width: 100%;
-  z-index: 9999;
-  background: rgba(26, 10, 61, 0.95);
-  backdrop-filter: blur(10px);
-  border-top: 3px solid var(--brand-orange);
-  padding: 15px 10%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4);
+
+.content-side {
+  flex: 1;
+  max-width: 540px;
 }
 
 .admin-status {
@@ -89,14 +44,7 @@ html {
   gap: 10px;
 }
 
-.admin-status .dot {
-  width: 10px;
-  height: 10px;
-  background: #00ff00;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #00ff00;
-  animation: pulse 2s infinite;
-}
+
 
 .admin-add-bar .add-btn {
   background: var(--brand-orange);
@@ -114,173 +62,168 @@ html {
   transform: translateY(-3px);
 }
 
-/* --- Content Styling --- */
+
 .hero-main-text {
-  font-size: 4.8rem;
+  font-size: 4rem;
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 30px;
-  letter-spacing: -1px;
+  color: var(--dark-black);
+  margin-bottom: 22px;
 }
 
 .hero-main-text span {
-  color: var(--brand-orange);
+  color: var(--primary-purple);
 }
+
+.description-p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
 
 .primary-orange-btn {
-  background: var(--brand-orange);
+  background: var(--affiliate-orange);
   color: white;
   border: none;
-  padding: 20px 50px;
-  font-size: 1.4rem;
-  font-weight: 800;
-  border-radius: 60px;
-  cursor: pointer;
-  box-shadow: 0 15px 30px rgba(255, 123, 0, 0.3);
-  text-transform: uppercase;
-}
-
-.phone-mockup {
-  width: 100%;
-  max-width: 480px;
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
-  animation: float 6s ease-in-out infinite;
-}
-
-/* --- Admin Edit/Delete Buttons --- */
-.admin-actions {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.admin-actions .edit-btn {
-  background: #f0f0f0;
-  color: #1a0a3d;
-  border: 1px solid #ddd;
-  padding: 8px 20px;
-  border-radius: 8px;
+  border-radius: 999px;
+  padding: 15px 42px;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 12px 25px rgba(217, 119, 6, 0.2);
 }
 
-.admin-actions .btn-delete {
-  background: rgba(255, 0, 0, 0.1);
-  color: red;
-  border: 1px solid red;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
+.primary-orange-btn:hover {
+  transform: translateY(-3px);
 }
 
-/* Layout Picker in Admin Bar */
-.layout-options {
-  display: flex;
-  gap: 10px;
-}
 
-.layout-options button {
-  padding: 5px 15px;
-  border-radius: 8px;
-  border: 1px solid var(--brand-orange);
-  background: transparent;
-  color: white;
-  cursor: pointer;
-}
 
-.layout-options .cancel-btn {
-  border-color: red;
-  color: red;
-}
-
-/* Grid Layout Styling */
-.grid-layout-container {
-  width: 100%;
-  padding: 50px 10%;
-}
-
-.custom-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-top: 20px;
-}
-
-.grid-item {
-  text-align: center;
-  background: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-.grid-item img {
-  width: 100%;
-  border-radius: 15px;
-  margin-bottom: 15px;
-}
-
-.add-sub-item {
-  border: 2px dashed #ccc;
-  border-radius: 20px;
+.right-wrapper {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  gap: 30px;
+  position: relative;
+}
+
+
+
+.visual-side {
+  position: relative;
+  display: flex;
   justify-content: center;
-  min-height: 200px;
-  cursor: pointer;
-  color: #999;
+  align-items: center;
 }
 
-/* --- Animations --- */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-25px) rotate(2deg);
-  }
+
+.visual-side::before {
+  content: "";
+  position: absolute;
+  width: 530px;
+  height: 530px;
+  background: rgba(76, 41, 171, 0.08);
+  border-radius: 50%;
+  z-index: 1;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
+
+.phone-mockup {
+  width: 340px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.18));
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+
+.download-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 5;
 }
 
-/* --- RESPONSIVE --- */
+
+.store-link img {
+  width: 260px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+
+  filter:
+    hue-rotate(10deg)
+    saturate(130%)
+    brightness(1.04);
+
+  transition: 0.3s ease;
+}
+
+.store-link img:hover {
+  transform: scale(1.05);
+}
+
+
+
 @media (max-width: 1024px) {
-  .hero-section-custom,
-  .about-section-custom {
+
+  .hero-section-custom {
     flex-direction: column;
     text-align: center;
-    padding: 80px 5%;
+    padding: 60px 6%;
   }
-  .hero-main-text {
-    font-size: 3rem;
+
+  .content-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .admin-add-bar {
-    padding: 15px 5%;
+
+  .right-wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .visual-side::before {
+    width: 360px;
+    height: 360px;
+  }
+
+  .phone-mockup {
+    width: 260px;
+  }
+
+  .download-wrapper {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .store-link img {
+    width: 210px;
   }
 }
+
+@media (max-width: 600px) {
+
+  .hero-main-text {
+    font-size: 2.3rem;
+  }
+
+  .description-p {
+    font-size: 1rem;
+  }
+
+  .download-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .store-link img {
+    width: 220px;
+  }
+}
+

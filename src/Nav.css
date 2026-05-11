@@ -1,106 +1,87 @@
-/* Nav.css */
 
 .navbar-transparent {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-
-  background: #1a0a3d;
-  backdrop-filter: blur(15px);
-
-  padding: 20px 0;
-
-  border-bottom: 2px solid rgba(255, 123, 0, 0.1);
+  background-color: #381c74;
+  padding: 0 5%;
+  height: 80px;
   display: flex;
   align-items: center;
-
-  min-height: 100px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .nav-container {
-  max-width: 1800px;
-  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 4%;
+  justify-content: space-between;
   width: 100%;
+  max-width: 1600px; /* ليكون مريحاً على شاشات اللابتوب الكبيرة */
+  margin: 0 auto;
 }
 
 
 .logo-main {
-  height: 70px;
+  height: 65px;
   width: auto;
   cursor: pointer;
   transition: transform 0.3s ease;
-  z-index: 10;
 }
 
-.logo-main:hover {
-  transform: scale(1.05);
-}
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 35px;
 }
 
-.nav-links a {
-  text-decoration: none !important;
-  color: #ffffff;
 
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+.nav-links a,
+.nav-links button {
+  color: white ;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
   transition: all 0.3s ease;
-
-
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
 }
 
 
 .nav-links a:hover,
-.nav-links a:active {
-  color: #ff7b00 !important;
-  text-decoration: none !important;
+.nav-links button:hover {
+  color: #d97706 !important;
+  transform: translateY(-2px);
 }
 
 
-.nav-links .nav-contact-btn {
-  color: #ffffff !important;
-  font-weight: 700;
-  padding: 0;
-}
-
-.nav-links .nav-contact-btn:hover,
-.nav-links .nav-contact-btn:active {
-  color: #ff7b00 !important;
+.nav-contact-btn {
+  border: none !important;
+  padding: 0 !important;
+  background: none !important;
 }
 
 
-@media (max-width: 1400px) {
-  .nav-links a {
-    font-size: 26px;
+@media (max-width: 1200px) {
+  .nav-links {
+    gap: 20px; 
   }
-  .logo-main {
-    height: 60px;
-  }
-  .navbar-transparent {
-    min-height: 80px;
-    padding: 15px 0;
+  .nav-links a, .nav-links button {
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 992px) {
-  .nav-links {
-    display: none;
-  }
   .navbar-transparent {
-    min-height: 70px;
-    padding: 10px 0;
+    height: auto;
+    padding: 15px 20px;
   }
-  .logo-main {
-    height: 50px;
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
   }
 }
