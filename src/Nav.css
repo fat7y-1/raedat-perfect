@@ -1,87 +1,106 @@
+/* Nav.css */
 
 .navbar-transparent {
-  background-color: #381c74;
-  padding: 0 5%;
-  height: 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  /* درجة البنفسجي الداكنة جداً من خلفيات التصميم */
+  background: #1a0a3d;
+  backdrop-filter: blur(15px);
+  /* تقليل الـ padding ليكون نفس حجم مربع الفوتر */
+  padding: 20px 0;
+  /* خط برتقالي نحيف جداً لتمييز نهاية الناف بار */
+  border-bottom: 2px solid rgba(255, 123, 0, 0.1);
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  /* تقليل الارتفاع الكلي ليتناسب مع التصميم الجديد */
+  min-height: 100px;
 }
 
 .nav-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1600px; /* ليكون مريحاً على شاشات اللابتوب الكبيرة */
+  max-width: 1800px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4%;
+  width: 100%;
 }
 
-
+/* تعديل حجم اللوجو ليتناسب مع المربع الأصغر */
 .logo-main {
-  height: 65px;
+  height: 70px; /* تصغير اللوجو ليتماشى مع الارتفاع الجديد */
   width: auto;
   cursor: pointer;
   transition: transform 0.3s ease;
+  z-index: 10;
 }
 
+.logo-main:hover {
+  transform: scale(1.05);
+}
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 50px; /* تقليل المسافات قليلاً للتوازن */
 }
 
-
-.nav-links a,
-.nav-links button {
-  color: white ;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 600;
+.nav-links a {
+  text-decoration: none !important;
+  color: #ffffff;
+  /* الحفاظ على الخط الكبير الواضح */
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
-  white-space: nowrap;
+
+
 }
 
-
+/* التفاعل عند التأشير أو الضغط بالبرتقالي من الهوية */
 .nav-links a:hover,
-.nav-links button:hover {
-  color: #d97706 !important;
-  transform: translateY(-2px);
+.nav-links a:active {
+  color: #ff7b00 !important;
+  text-decoration: none !important;
 }
 
-
-.nav-contact-btn {
-  border: none !important;
-  padding: 0 !important;
-  background: none !important;
+/* Contact Us مطابقة للبقية تماماً */
+.nav-links .nav-contact-btn {
+  color: #ffffff !important;
+  font-weight: 700;
+  padding: 0;
 }
 
+.nav-links .nav-contact-btn:hover,
+.nav-links .nav-contact-btn:active {
+  color: #ff7b00 !important;
+}
 
-@media (max-width: 1200px) {
-  .nav-links {
-    gap: 20px; 
+/* تحسين التجاوب */
+@media (max-width: 1400px) {
+  .nav-links a {
+    font-size: 26px;
   }
-  .nav-links a, .nav-links button {
-    font-size: 1.1rem;
+  .logo-main {
+    height: 60px;
+  }
+  .navbar-transparent {
+    min-height: 80px;
+    padding: 15px 0;
   }
 }
 
 @media (max-width: 992px) {
-  .navbar-transparent {
-    height: auto;
-    padding: 15px 20px;
+  .nav-links {
+    display: none;
   }
-  .nav-container {
-    flex-direction: column;
-    gap: 15px;
+  .navbar-transparent {
+    min-height: 70px;
+    padding: 10px 0;
+  }
+  .logo-main {
+    height: 50px;
   }
 }
