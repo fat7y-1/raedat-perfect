@@ -5,6 +5,11 @@ import { useTranslation } from "react-i18next";
 import "/src/Home.css";
 
 const Home = ({ user }) => {
+  const navigate = useNavigate()
+  const [sections, setSections] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [showLayoutPicker, setShowLayoutPicker] = useState(false)
+  const token = localStorage.getItem("token")
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [sections, setSections] = useState([]);
@@ -37,22 +42,19 @@ const Home = ({ user }) => {
             ? [
                 {
                   image: "https://via.placeholder.com/300",
-                  title: "Item 1",
-                  desc: "Description 1",
+                  title: "New Item",
+                  desc: "Item description",
                 },
               ]
             : [],
       };
       const res = await axios.post("http://localhost:3000/content", newBlock, {
         headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.data) {
-        setSections((prev) => [...prev, res.data]);
-        setShowLayoutPicker(false); // إغلاق القائمة بعد الإضافة بنجاح
-      }
+      })
+      setSections((prev) => [...prev, res.data])
+      setShowLayoutPicker(false)
     } catch (error) {
-      console.error("Failed to add section", error);
-      alert("Session expired or Error. Please sign in again.");
+      console.error("Failed to add section", error)
     }
   };
 
@@ -69,40 +71,10 @@ const Home = ({ user }) => {
     }
   };
 
+  if (loading) return <div className="loading-screen">Loading...</div>
+
   return (
     <div className="home-full-wrapper">
-
-      <h1>{t("home.title_unlock")}</h1>
-      <br />
-      <img
-        className="app-img"
-        src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-        alt="app img"
-      />
-
-      <div className="store-links">
-        <Link to="https://apps.apple.com/us/app/raedat/id6742032306" target="_blank">
-          <img className="store-img" src="/src/assets/home/store.png" alt="App Store" />
-        </Link>
-        <Link to="https://play.google.com/store/apps/details?id=online.raedat.app" target="_blank">
-          <img className="google-img" src="/src/assets/home/google.png" alt="Google Play" />
-        </Link>
-      </div>
-
-      <h1>{t("home.title_hello")}</h1>
-      <p>{t("home.desc_initiative")}</p>
-
-      <button onClick={() => navigate("/about")}>
-        {t("home.btn_read_more")}
-      </button>
-
-      <img
-        className="home-img"
-        src="https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg"
-        alt="home img"
-      />
-
-
       {user?.admin && (
         <div className="admin-add-bar">
           <div className="admin-status">
@@ -114,25 +86,94 @@ const Home = ({ user }) => {
             </button>
           ) : (
             <div className="layout-options">
-              <button onClick={() => addNewSection("standard")}>1. Standard</button>
-              <button onClick={() => addNewSection("grid-text")}>2. Multi Image+Text</button>
-              <button onClick={() => addNewSection("grid-header")}>3. Multi Image+Header</button>
-              <button className="cancel-btn" onClick={() => setShowLayoutPicker(false)}>X</button>
+              <button onClick={() => addNewSection("standard")}>
+                Standard
+              </button>
+              <button onClick={() => addNewSection("grid-text")}>
+                Image+Text
+              </button>
+              <button onClick={() => addNewSection("grid-header")}>
+                Image+Header
+              </button>
+              <button
+                className="cancel-btn"
+                onClick={() => setShowLayoutPicker(false)}
+              >
+                X
+              </button>
             </div>
           )}
         </div>
       )}
 
+      {/* HERO SECTION - FIXED LAYOUT */}
+      <section className="hero-section-custom">
+        <div className="content-side">
+          <h1 className="hero-main-text">
+            Unlock your potential <br /> with <span>ra'edat</span>
+          </h1>
+          <p className="description-p">
+            Empowering your journey through innovation and community support.
+          </p>
+          <button
+            className="primary-orange-btn"
+            onClick={() => navigate("/about")}
+          >
+            Join ra'edat
+          </button>
+        </div>
 
+        <div className="right-wrapper">
+          <div className="visual-side">
+            <img
+              className="phone-mockup"
+              src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
+              alt="App"
+            />
+
+            {/* Buttons are now INSIDE the visual-side to stay attached to the phone */}
+            <div className="download-wrapper">
+              <a
+                href="https://apps.apple.com/us/app/raedat/id6742032306"
+                target="_blank"
+                rel="noreferrer"
+                className="store-link"
+              >
+                <img
+                  className="logo-size-app"
+                  src="/src/assets/home/store.png"
+                  alt="App Store"
+                />
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=online.raedat.app"
+                target="_blank"
+                rel="noreferrer"
+                className="store-link"
+              >
+                <img
+                  className="logo-size-app"
+                  src="/src/assets/home/google.png"
+                  alt="Google Play"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DYNAMIC SECTIONS */}
       {sections.map((section, index) => (
         <section
           key={section._id}
-          className={`section-layout-${section.layoutType || "standard"} about-section-custom`}
-          style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9", padding: "40px 0" }}
+          className={`about-section-custom section-layout-${section.layoutType || "standard"}`}
+          style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f5f5f7" }}
         >
-
-          {(!section.layoutType || section.layoutType === "standard") && (
-            <div className="standard-flex" style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          {!section.layoutType || section.layoutType === "standard" ? (
+            <div
+              className="standard-flex"
+              style={{ flexDirection: index % 2 !== 0 ? "row-reverse" : "row" }}
+            >
               <div className="about-text-content">
                 <h2 className="section-title-alt">{section.header}</h2>
                 <p className="description-p">{section.text}</p>
@@ -144,14 +185,15 @@ const Home = ({ user }) => {
                 <img src={section.image} className="about-main-img" alt="" style={{ maxWidth: "100%" }} />
               </div>
             </div>
-          )}
-
-          {(section.layoutType === "grid-text" || section.layoutType === "grid-header") && (
+          ) : (
             <div className="grid-layout-container">
-              {user?.admin && (
-                <AdminActions id={section._id} onDelete={deleteSection} navigate={navigate} />
-              )}
-              <div className="custom-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px" }}>
+              <h2
+                className="section-title-alt"
+                style={{ textAlign: "center", marginBottom: "40px" }}
+              >
+                {section.header}
+              </h2>
+              <div className="custom-grid">
                 {section.items?.map((item, i) => (
                   <div key={i} className="grid-item">
                     <img src={item.image} alt="" style={{ width: "100%" }} />
@@ -163,16 +205,19 @@ const Home = ({ user }) => {
                   </div>
                 ))}
               </div>
+              {user?.admin && (
+                <div className="center-actions">
+                  <AdminActions
+                    id={section._id}
+                    onDelete={deleteSection}
+                    navigate={navigate}
+                  />
+                </div>
+              )}
             </div>
           )}
         </section>
       ))}
-
-      {sections.length === 0 && (
-        <div style={{ textAlign: "center", padding: "50px", color: "#ccc" }}>
-          No dynamic sections found.
-        </div>
-      )}
     </div>
   );
 };

@@ -51,12 +51,10 @@
   text-decoration: none !important;
   color: #ffffff;
   /* الحفاظ على الخط الكبير الواضح */
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
-
-
 }
 
 /* التفاعل عند التأشير أو الضغط بالبرتقالي من الهوية */
