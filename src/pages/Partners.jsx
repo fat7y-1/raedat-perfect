@@ -6,10 +6,11 @@ const Partners = () => {
   const { t } = useTranslation()
 
   return (
-    <div>
+    <div className="partners-container">
+      {/* Media Partners Section */}
       <h1>{t("partners.media_title")}</h1>
 
-      <Link to="https://360moms.net/ar">
+      <Link to="https://360moms.net/ar" target="_blank">
         <img
           className="moms-img"
           src="src/assets/partners/moms.png"
@@ -17,7 +18,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://www.albiladpress.com/">
+      <Link to="https://www.albiladpress.com/" target="_blank">
         <img
           className="albilad-img"
           src="src/assets/partners/albilad.png"
@@ -25,7 +26,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://alroya.om/">
+      <Link to="https://alroya.om/" target="_blank">
         <img
           className="alroyaOm-img"
           src="src/assets/partners/alroyaOm.png"
@@ -33,9 +34,10 @@ const Partners = () => {
         />
       </Link>
 
+      {/* Strategic Partners Section */}
       <h1>{t("partners.strategic_title")}</h1>
 
-      <Link to="https://www.kaaf.bh/ar">
+      <Link to="https://www.kaaf.bh/ar" target="_blank">
         <img
           className="kaaf-img"
           src="src/assets/partners/kaaf.png"
@@ -43,7 +45,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://www.unido.org/">
+      <Link to="https://www.unido.org/" target="_blank">
         <img
           className="unido-img"
           src="src/assets/partners/unido.png"
@@ -51,7 +53,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://thinksmartgulf.com/">
+      <Link to="https://thinksmartgulf.com/" target="_blank">
         <img
           className="thinksmart-img"
           src="src/assets/partners/thinksmart.png"
@@ -59,7 +61,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://www.instagram.com/alrawibooks/?hl=ar">
+      <Link to="https://www.instagram.com/alrawibooks/?hl=ar" target="_blank">
         <img
           className="alrawi-img"
           src="src/assets/partners/alrawi.png"
@@ -67,7 +69,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://kipinakids.com/kipina-nursery-school-bahrain/">
+      <Link to="https://kipinakids.com/kipina-nursery-school-bahrain/" target="_blank">
         <img
           className="kipina-img"
           src="src/assets/partners/kipina.png"
@@ -75,7 +77,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://www.fywedo.com/">
+      <Link to="https://www.fywedo.com/" target="_blank">
         <img
           className="fywedo-img"
           src="src/assets/partners/fywedo.png"
@@ -83,7 +85,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://www.instagram.com/bahwu/?hl=ar">
+      <Link to="https://www.instagram.com/bahwu/?hl=ar" target="_blank">
         <img
           className="bahwu-img"
           src="src/assets/partners/bahwu.png"
@@ -91,7 +93,7 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://gtrust.org/">
+      <Link to="https://gtrust.org/" target="_blank">
         <img
           className="goldenTrust-img"
           src="src/assets/partners/goldenTrust.png"
@@ -99,9 +101,10 @@ const Partners = () => {
         />
       </Link>
 
+      {/* Sponsors Section */}
       <h1>{t("partners.sponsors_title")}</h1>
 
-      <Link to="https://gfh.com/">
+      <Link to="https://gfh.com/" target="_blank">
         <img
           className="gfh-img"
           src="src/assets/partners/gfh.png"
@@ -109,14 +112,16 @@ const Partners = () => {
         />
       </Link>
 
-      <Link to="https://benefit.bh/">
+      <Link to="https://benefit.bh/" target="_blank">
         <img
           className="benefit-img"
           src="src/assets/partners/benefit.png"
           alt={t("partners.benefit_alt")}
         />
       </Link>
-      <div>
+
+      {/* Extra Text Section */}
+      <div className="extra-info">
         <h1>partners</h1>
         <h2>hhhhhhh</h2>
       </div>
