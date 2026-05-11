@@ -1,13 +1,14 @@
-/* ================= ROOT ================= */
+
 
 :root {
   --primary-purple: #6d3df5;
   --affiliate-orange: #d97706;
-  --soft-grey-bg: #f5f5f7;
-  --dark-black: #111827;
+  background-color: rgb(253, 242, 228);
+
+
 }
 
-/* ================= MAIN ================= */
+
 
 .home-full-wrapper {
   background: var(--soft-grey-bg);
@@ -16,7 +17,7 @@
   font-family: "Inter", sans-serif;
 }
 
-/* ================= HERO ================= */
+
 
 .hero-section-custom {
   display: flex;
@@ -26,7 +27,7 @@
   padding: 70px 8%;
 }
 
-/* ================= LEFT ================= */
+
 
 .content-side {
   flex: 1;
@@ -43,14 +44,7 @@
   gap: 10px;
 }
 
-.admin-status .dot {
-  width: 10px;
-  height: 10px;
-  background: #00ff00;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #00ff00;
-  animation: pulse 2s infinite;
-}
+
 
 .admin-add-bar .add-btn {
   background: var(--brand-orange);
@@ -68,7 +62,7 @@
   transform: translateY(-3px);
 }
 
-/* --- Content Styling --- */
+
 .hero-main-text {
   font-size: 4rem;
   font-weight: 900;
@@ -88,7 +82,7 @@
   margin-bottom: 30px;
 }
 
-/* زر */
+
 .primary-orange-btn {
   background: var(--affiliate-orange);
   color: white;
@@ -106,7 +100,7 @@
   transform: translateY(-3px);
 }
 
-/* ================= RIGHT WRAPPER ================= */
+
 
 .right-wrapper {
   flex: 1;
@@ -117,7 +111,7 @@
   position: relative;
 }
 
-/* ================= PHONE SIDE ================= */
+
 
 .visual-side {
   position: relative;
@@ -126,18 +120,18 @@
   align-items: center;
 }
 
-/* الخلفية */
+
 .visual-side::before {
   content: "";
   position: absolute;
   width: 530px;
   height: 530px;
-  background: rgba(109, 61, 245, 0.08);
+  background: rgba(76, 41, 171, 0.08);
   border-radius: 50%;
   z-index: 1;
 }
 
-/* صورة التلفون */
+
 .phone-mockup {
   width: 340px;
   position: relative;
@@ -145,7 +139,7 @@
   filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.18));
 }
 
-/* ================= DOWNLOAD SIDE ================= */
+
 
 .download-wrapper {
   display: flex;
@@ -154,7 +148,7 @@
   z-index: 5;
 }
 
-/* الصور */
+
 .store-link img {
   width: 260px;
   height: auto;
@@ -173,7 +167,7 @@
   transform: scale(1.05);
 }
 
-/* ================= RESPONSIVE ================= */
+
 
 @media (max-width: 1024px) {
 

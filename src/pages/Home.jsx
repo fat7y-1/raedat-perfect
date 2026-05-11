@@ -7,7 +7,7 @@ import "/src/Home.css";
 const Home = ({ user }) => {
   const navigate = useNavigate();
   const [sections, setSections] = useState([]);
-  const [loading, setLoading] = useState(true); // أضفت الـ Loading المفقود
+  const [loading, setLoading] = useState(true);
   const [showLayoutPicker, setShowLayoutPicker] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -59,7 +59,7 @@ const Home = ({ user }) => {
 
   return (
     <div className="home-full-wrapper">
-      {/* ADMIN PANEL */}
+
       {user?.admin && (
         <div className="admin-add-bar">
           <div className="admin-status">
@@ -78,9 +78,9 @@ const Home = ({ user }) => {
         </div>
       )}
 
-      {/* HERO SECTION - تعديل الهيكلة لتطابق الـ CSS */}
+
       <section className="hero-section-custom">
-        {/* LEFT SIDE */}
+
         <div className="content-side">
           <h1 className="hero-main-text">
             Unlock your potential <br />
@@ -94,7 +94,7 @@ const Home = ({ user }) => {
           </button>
         </div>
 
-        {/* RIGHT SIDE - تم تعديل الكلاسات لتطابق الـ CSS (visual-side, phone-mockup, download-wrapper) */}
+
         <div className="right-wrapper">
           <div className="visual-side">
             <img
@@ -115,7 +115,7 @@ const Home = ({ user }) => {
         </div>
       </section>
 
-      {/* DYNAMIC SECTIONS */}
+
       {sections.map((section, index) => (
         <section
           key={section._id}
@@ -135,7 +135,7 @@ const Home = ({ user }) => {
             </div>
           )}
 
-          {/* GRID LAYOUTS */}
+       
           {(section.layoutType === "grid-text" || section.layoutType === "grid-header") && (
             <div className="grid-layout-container" style={{ padding: '40px 8%' }}>
               {user?.admin && <AdminActions id={section._id} onDelete={deleteSection} navigate={navigate} />}

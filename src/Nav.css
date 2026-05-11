@@ -1,8 +1,8 @@
-/* شريط التنقل الأساسي */
+
 .navbar-transparent {
-  background-color: #381c74; /* اللون البنفسجي المعتمد */
-  padding: 0 5%;            /* مساحة جانبية مرنة */
-  height: 80px;             /* زيادة الارتفاع ليعطي فخامة أكبر */
+  background-color: #381c74;
+  padding: 0 5%;
+  height: 80px;
   display: flex;
   align-items: center;
   position: sticky;
@@ -20,27 +20,27 @@
   margin: 0 auto;
 }
 
-/* اللوجو */
+
 .logo-main {
-  height: 55px; /* تكبير اللوجو قليلاً */
+  height: 65px;
   width: auto;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-/* قائمة الروابط */
+
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 35px; /* مسافة واضحة بين الكلمات */
+  gap: 35px;
 }
 
-/* تنسيق الكلمات (الروابط) */
+
 .nav-links a,
 .nav-links button {
-  color: white !important;
+  color: white ;
   text-decoration: none;
-  font-size: 1.2rem;       /* تكبير حجم الخط ليكون أوضح */
+  font-size: 1.2rem;
   font-weight: 600;
   transition: all 0.3s ease;
   background: none;
@@ -51,24 +51,24 @@
   white-space: nowrap;
 }
 
-/* التأثير عند وضع الماوس: يتحول للبرتقالي */
+
 .nav-links a:hover,
 .nav-links button:hover {
-  color: #d97706 !important; /* اللون البرتقالي (Affiliate Orange) */
-  transform: translateY(-2px); /* حركة بسيطة للأعلى */
+  color: #d97706 !important;
+  transform: translateY(-2px);
 }
 
-/* جعل آخر واحدة (Contact Us) نفس ستايل البقية */
+
 .nav-contact-btn {
   border: none !important;
   padding: 0 !important;
   background: none !important;
 }
 
-/* التجاوب مع أحجام الشاشات المختلفة */
+
 @media (max-width: 1200px) {
   .nav-links {
-    gap: 20px; /* تقليل المسافة في الشاشات الأصغر قليلاً */
+    gap: 20px; 
   }
   .nav-links a, .nav-links button {
     font-size: 1.1rem;
