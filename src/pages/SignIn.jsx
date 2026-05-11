@@ -29,7 +29,7 @@ const SignIn = ({ setUser }) => {
   }
   return (
     <div className="signin-container">
-     
+      {/* COLUMN 1: VISUAL */}
       <div className="signin-visual-side">
         <div className="visual-content">
           <img
@@ -47,7 +47,7 @@ const SignIn = ({ setUser }) => {
         </div>
       </div>
 
-
+      {/* COLUMN 2: FORM */}
       <div className="signin-form-side">
         <div className="signin-card">
           <h2>Sign In</h2>
