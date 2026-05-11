@@ -174,6 +174,64 @@ html {
   cursor: pointer;
 }
 
+/* Layout Picker in Admin Bar */
+.layout-options {
+  display: flex;
+  gap: 10px;
+}
+
+.layout-options button {
+  padding: 5px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--brand-orange);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.layout-options .cancel-btn {
+  border-color: red;
+  color: red;
+}
+
+/* Grid Layout Styling */
+.grid-layout-container {
+  width: 100%;
+  padding: 50px 10%;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.grid-item {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.grid-item img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.add-sub-item {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  cursor: pointer;
+  color: #999;
+}
+
 /* --- Animations --- */
 @keyframes float {
   0%,
