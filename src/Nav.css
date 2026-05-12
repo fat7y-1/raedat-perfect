@@ -5,16 +5,16 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  /* درجة البنفسجي الداكنة جداً من خلفيات التصميم */
-  background: #1a0a3d;
+
+  background:#4d25a4;
   backdrop-filter: blur(15px);
-  /* تقليل الـ padding ليكون نفس حجم مربع الفوتر */
+
   padding: 20px 0;
-  /* خط برتقالي نحيف جداً لتمييز نهاية الناف بار */
+
   border-bottom: 2px solid rgba(255, 123, 0, 0.1);
   display: flex;
   align-items: center;
-  /* تقليل الارتفاع الكلي ليتناسب مع التصميم الجديد */
+
   min-height: 100px;
 }
 
@@ -28,9 +28,9 @@
   width: 100%;
 }
 
-/* تعديل حجم اللوجو ليتناسب مع المربع الأصغر */
+
 .logo-main {
-  height: 70px; /* تصغير اللوجو ليتماشى مع الارتفاع الجديد */
+  height: 70px;
   width: auto;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -44,13 +44,13 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 50px; /* تقليل المسافات قليلاً للتوازن */
+  gap: 50px;
 }
 
 .nav-links a {
   text-decoration: none !important;
   color: #ffffff;
-  /* الحفاظ على الخط الكبير الواضح */
+
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -59,14 +59,13 @@
 
 }
 
-/* التفاعل عند التأشير أو الضغط بالبرتقالي من الهوية */
 .nav-links a:hover,
 .nav-links a:active {
   color: #ff7b00 !important;
   text-decoration: none !important;
 }
 
-/* Contact Us مطابقة للبقية تماماً */
+
 .nav-links .nav-contact-btn {
   color: #ffffff !important;
   font-weight: 700;
@@ -78,7 +77,7 @@
   color: #ff7b00 !important;
 }
 
-/* تحسين التجاوب */
+
 @media (max-width: 1400px) {
   .nav-links a {
     font-size: 26px;
