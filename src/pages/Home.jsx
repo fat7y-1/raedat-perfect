@@ -1,14 +1,57 @@
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
+import { motion, AnimatePresence } from "framer-motion"
 import axios from "axios"
 import "/src/Home.css"
 
+// SMOOTH, ELEGANT ANIMATIONS (No more bouncy springs)
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
+}
+
+const itemReveal = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  },
+}
+
+const bentoContainer = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+}
+
+const bentoCardAnim = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+}
+
 const Home = ({ user }) => {
   const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
   const [sections, setSections] = useState([])
   const [loading, setLoading] = useState(true)
   const [showLayoutPicker, setShowLayoutPicker] = useState(false)
   const token = localStorage.getItem("token")
+
+  const [popup, setPopup] = useState({
+    isOpen: false,
+    type: "alert",
+    message: "",
+    onConfirm: null,
+  })
+  const isAr = i18n.language === "ar"
 
   useEffect(() => {
     const getHomeContent = async () => {
@@ -24,35 +67,82 @@ const Home = ({ user }) => {
     getHomeContent()
   }, [])
 
+  const closePopup = () => setPopup({ ...popup, isOpen: false })
+  const showAlert = (message) =>
+    setPopup({ isOpen: true, type: "alert", message, onConfirm: null })
+  const showConfirm = (message, onConfirmCallback) =>
+    setPopup({
+      isOpen: true,
+      type: "confirm",
+      message,
+      onConfirm: onConfirmCallback,
+    })
+
+  const moveSection = async (index, direction) => {
+    const newSections = [...sections]
+    let newIndex = index
+    if (direction === "up" && index > 0) {
+      newIndex = index - 1
+      ;[newSections[index - 1], newSections[index]] = [
+        newSections[index],
+        newSections[index - 1],
+      ]
+    } else if (direction === "down" && index < newSections.length - 1) {
+      newIndex = index + 1
+      ;[newSections[index + 1], newSections[index]] = [
+        newSections[index],
+        newSections[index + 1],
+      ]
+    } else return
+
+    setSections(newSections)
+    setTimeout(() => {
+      const element = document.getElementById(
+        `section-${newSections[newIndex]._id}`
+      )
+      if (element)
+        element.scrollIntoView({ behavior: "smooth", block: "center" })
+    }, 300)
+
+    try {
+      await axios.put(
+        "http://localhost:3000/content/reorder",
+        { orderedSections: newSections },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+    } catch (err) {
+      showAlert(isAr ? "فشل في حفظ الترتيب." : "Failed to save order.")
+    }
+  }
+
   const addNewSection = async (layoutType) => {
     try {
       const newBlock = {
         page: "home",
-        layoutType: layoutType,
-        header:
-          layoutType === "standard" ? "New Section Title" : "Our Features",
-        text:
-          layoutType === "standard"
-            ? "Edit this description to tell your story."
-            : "",
+        layoutType,
+        header: "New Section",
+        headerAr: "قسم جديد",
+        text: "Tell your story here.",
+        textAr: "أخبر قصتك هنا.",
         image:
           "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
         imageSize: "medium",
         imageStyle: "default-rect",
-        textColor: "#333333",
+        textColor: "#1D1D1F",
         fontFamily: "'Inter', sans-serif",
+        position: sections.length,
         items:
           layoutType !== "standard"
             ? [
                 {
-                  image: "https://placehold.co/400x300",
-                  title: "New Item",
-                  desc: "Item description",
+                  image: "https://placehold.co/800x600",
+                  title: "Premium Feature",
+                  desc: "Showcase your best tools here.",
                 },
                 {
-                  image: "https://placehold.co/400x300",
-                  title: "New Item",
-                  desc: "Item description",
+                  image: "https://placehold.co/800x600",
+                  title: "Dynamic Layout",
+                  desc: "Adapts perfectly to any screen.",
                 },
               ]
             : [],
@@ -62,255 +152,479 @@ const Home = ({ user }) => {
       })
       setSections((prev) => [...prev, res.data])
       setShowLayoutPicker(false)
+      setTimeout(
+        () =>
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+          }),
+        300
+      )
     } catch (error) {
-      console.error("Failed to add section", error)
+      console.error(error)
     }
   }
 
-  const deleteSection = async (id) => {
-    if (window.confirm("Are you sure?")) {
-      await axios.delete(`http://localhost:3000/content/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      setSections((prev) => prev.filter((s) => s._id !== id))
+  const deleteSection = (id) => {
+    showConfirm(isAr ? "حذف هذا القسم؟" : "Delete this section?", async () => {
+      try {
+        await axios.delete(`http://localhost:3000/content/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        setSections((prev) => prev.filter((s) => s._id !== id))
+      } catch (error) {
+        showAlert(isAr ? "فشل الحذف." : "Deletion failed.")
+      }
+      closePopup()
+    })
+  }
+
+  const addGridItem = async (sectionId) => {
+    const sectionIndex = sections.findIndex((s) => s._id === sectionId)
+    const updatedItems = [
+      ...(sections[sectionIndex].items || []),
+      {
+        image: "https://placehold.co/800x600",
+        title: "New Box",
+        desc: "Details here.",
+      },
+    ]
+    const updatedSections = [...sections]
+    updatedSections[sectionIndex] = {
+      ...sections[sectionIndex],
+      items: updatedItems,
+    }
+    setSections(updatedSections)
+    try {
+      await axios.put(
+        `http://localhost:3000/content/${sectionId}`,
+        { items: updatedItems },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+    } catch (error) {
+      showAlert(isAr ? "فشل." : "Failed.")
     }
   }
 
-  if (loading) return <div className="loading-screen">Loading...</div>
+  const removeGridItem = (sectionId, itemIndex) => {
+    showConfirm(isAr ? "حذف؟" : "Delete?", async () => {
+      const sectionIndex = sections.findIndex((s) => s._id === sectionId)
+      const updatedItems = sections[sectionIndex].items.filter(
+        (_, i) => i !== itemIndex
+      )
+      const updatedSections = [...sections]
+      updatedSections[sectionIndex] = {
+        ...sections[sectionIndex],
+        items: updatedItems,
+      }
+      setSections(updatedSections)
+      try {
+        await axios.put(
+          `http://localhost:3000/content/${sectionId}`,
+          { items: updatedItems },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+      } catch (error) {}
+      closePopup()
+    })
+  }
+
+  if (loading)
+    return (
+      <div className="loading-screen">
+        {isAr ? "جاري التحميل..." : "Loading..."}
+      </div>
+    )
 
   return (
-    <div className="home-full-wrapper">
+    <div className={`home-full-wrapper ${isAr ? "rtl-theme" : ""}`}>
+      <AnimatePresence>
+        {popup.isOpen && (
+          <motion.div
+            className="custom-popup-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="custom-popup-box premium-card"
+              initial={{ scale: 0.95, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.95, y: 20, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <h3>{isAr ? "تنبيه" : "Notice"}</h3>
+              <p>{popup.message}</p>
+              <div className="popup-actions">
+                {popup.type === "confirm" ? (
+                  <>
+                    <button
+                      className="popup-btn popup-cancel"
+                      onClick={closePopup}
+                    >
+                      {isAr ? "إلغاء" : "Cancel"}
+                    </button>
+                    <button
+                      className="popup-btn popup-confirm"
+                      onClick={popup.onConfirm}
+                    >
+                      {isAr ? "تأكيد" : "Confirm"}
+                    </button>
+                  </>
+                ) : (
+                  <button className="popup-btn popup-ok" onClick={closePopup}>
+                    {isAr ? "حسناً" : "OK"}
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {user?.admin && (
-        <div className="admin-add-bar">
+        <div className="admin-add-bar premium-card">
           <div className="admin-status">
-            <span className="dot"></span> ADMIN PANEL
+            <span className="dot"></span> {isAr ? "لوحة التحكم" : "ADMIN"}
           </div>
           {!showLayoutPicker ? (
             <button
-              className="add-btn"
+              className="btn-primary"
+              style={{ padding: "8px 16px", fontSize: "0.9rem" }}
               onClick={() => setShowLayoutPicker(true)}
             >
-              + Add Section
+              + {isAr ? "إضافة قسم" : "Add Section"}
             </button>
           ) : (
             <div className="layout-options">
-              <button onClick={() => addNewSection("standard")}>
+              <button
+                className="btn-outline"
+                onClick={() => addNewSection("standard")}
+              >
                 Standard
               </button>
-              <button onClick={() => addNewSection("grid-text")}>
-                Image+Text
-              </button>
-              <button onClick={() => addNewSection("grid-header")}>
-                Image+Header
+              <button
+                className="btn-outline"
+                onClick={() => addNewSection("grid-text")}
+              >
+                Bento Grid
               </button>
               <button
-                className="cancel-btn"
+                className="popup-cancel"
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: "50px",
+                  border: "none",
+                  cursor: "pointer",
+                }}
                 onClick={() => setShowLayoutPicker(false)}
               >
-                X
+                ✕
               </button>
             </div>
           )}
         </div>
       )}
 
-      {/* HERO SECTION */}
+      {/* CLEAN APPLE-STYLE HERO */}
       <section className="hero-section-custom">
-        <div className="content-side">
-          <h1 className="hero-main-text">
-            Unlock your potential <br /> with <span>ra'edat</span>
-          </h1>
-          <p className="description-p">
-            Empowering your journey through innovation and community support.
-          </p>
-          <button
-            className="primary-orange-btn"
-            onClick={() => navigate("/about")}
+        <div className="hero-content-wrapper">
+          <motion.div
+            className="content-side"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="show"
           >
-            Join ra'edat
-          </button>
-        </div>
-        <div className="right-wrapper">
-          <div className="visual-side">
-            <img
-              className="phone-mockup"
-              src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
-              alt="App"
-            />
-            <div className="download-wrapper">
-              <a
-                href="https://apps.apple.com/us/app/raedat/id6742032306"
-                target="_blank"
-                rel="noreferrer"
-                className="store-link"
+            <motion.h1 variants={itemReveal} className="heading-primary">
+              {isAr ? (
+                <>
+                  أطلقي العنان لإمكانياتك <br /> مع{" "}
+                  <span className="text-accent">رائدات</span>
+                </>
+              ) : (
+                <>
+                  Unlock your potential <br /> with{" "}
+                  <span className="text-accent">ra'edat</span>
+                </>
+              )}
+            </motion.h1>
+            <motion.p variants={itemReveal} className="description-p">
+              {isAr
+                ? "تمكين رحلتك من خلال الابتكار ودعم المجتمع وبناء مستقبل مشرق معاً."
+                : "Empowering your journey through seamless innovation, community support, and cutting-edge design."}
+            </motion.p>
+            <motion.div variants={itemReveal} className="hero-buttons">
+              <button
+                className="btn-primary"
+                onClick={() => navigate("/about")}
               >
-                <img
-                  className="logo-size-app"
-                  src="/src/assets/home/store.png"
-                  alt="App Store"
-                />
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=online.raedat.app"
-                target="_blank"
-                rel="noreferrer"
-                className="store-link"
+                {isAr ? "استكشفي المزيد" : "Discover More"}
+              </button>
+              <button
+                className="btn-outline"
+                style={{
+                  marginLeft: isAr ? "0" : "15px",
+                  marginRight: isAr ? "15px" : "0",
+                }}
+                onClick={() =>
+                  document
+                    .getElementById("first-section")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
               >
-                <img
-                  className="logo-size-app"
-                  src="/src/assets/home/google.png"
-                  alt="Google Play"
-                />
-              </a>
-            </div>
+                {isAr ? "تعرفي علينا" : "How it works"}
+              </button>
+            </motion.div>
+          </motion.div>
+
+          <div className="right-wrapper">
+            <motion.div
+              className="visual-side"
+              initial={{ opacity: 0, x: isAr ? -50 : 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <img
+                className="phone-mockup"
+                src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
+                alt="App"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* DYNAMIC SECTIONS */}
-      {sections.map((section, index) => (
-        <section
-          key={section._id}
-          className={`about-section-custom section-layout-${section.layoutType || "standard"}`}
-          style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f5f5f7" }}
-        >
-          {!section.layoutType || section.layoutType === "standard" ? (
-            /* STANDARD LAYOUT */
-            <div
-              className="standard-flex"
-              style={{ flexDirection: index % 2 !== 0 ? "row-reverse" : "row" }}
+      <div className="sections-container" id="first-section">
+        {sections.map((section, index) => {
+          const displayHeader = isAr
+            ? section.headerAr || section.header
+            : section.header
+          const displayText = isAr
+            ? section.textAr || section.text
+            : section.text
+          const displayBtnText = isAr
+            ? section.buttonTextAr || section.buttonText
+            : section.buttonText
+
+          return (
+            <motion.section
+              layout
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+              key={section._id}
+              id={`section-${section._id}`}
+              className={`about-section-custom section-bg-${index % 2 === 0 ? "white" : "gray"}`}
             >
-              <div className="about-text-content">
-                <h2
-                  className="section-title-alt"
-                  style={{
-                    color: section.textColor,
-                    fontFamily: section.fontFamily,
-                  }}
+              {user?.admin && (
+                <div
+                  className="reorder-controls premium-card"
+                  style={{ [isAr ? "left" : "right"]: "30px" }}
                 >
-                  {section.header}
-                </h2>
-                <p
-                  className="description-p"
-                  style={{
-                    color: section.textColor,
-                    fontFamily: section.fontFamily,
-                  }}
-                >
-                  {section.text}
-                </p>
-
-                {section.buttonText && (
-                  <div style={{ marginTop: "20px" }}>
-                    <button
-                      className="primary-orange-btn"
-                      onClick={() => navigate(section.buttonLink || "/")}
-                    >
-                      {section.buttonText}
-                    </button>
-                  </div>
-                )}
-
-                {user?.admin && (
-                  <AdminActions
-                    id={section._id}
-                    onDelete={deleteSection}
-                    navigate={navigate}
-                  />
-                )}
-              </div>
-              <div className="about-image-content">
-                <img
-                  src={section.image}
-                  className={`about-main-img ${section.imageStyle} size-${section.imageSize || "medium"}`}
-                  alt=""
-                />
-              </div>
-            </div>
-          ) : (
-            /* GRID LAYOUTS (Image+Text / Image+Header) */
-            <div className="grid-layout-container">
-              <h2
-                className="section-title-alt"
-                style={{
-                  textAlign: "center",
-                  marginBottom: "40px",
-                  color: section.textColor,
-                  fontFamily: section.fontFamily,
-                }}
-              >
-                {section.header}
-              </h2>
-              <div className="custom-grid">
-                {section.items?.map((item, i) => (
-                  <div key={i} className="grid-item">
-                    <img
-                      src={item.image}
-                      className={`${section.imageStyle} size-${section.imageSize || "medium"}`}
-                      onError={(e) => {
-                        e.target.src =
-                          "https://placehold.co/400x300?text=No+Image"
-                      }}
-                      alt=""
-                    />
-                    {section.layoutType === "grid-header" ? (
-                      <h3
-                        style={{
-                          color: section.textColor,
-                          fontFamily: section.fontFamily,
-                        }}
-                      >
-                        {item.title}
-                      </h3>
-                    ) : (
-                      <p
-                        style={{
-                          color: section.textColor,
-                          fontFamily: section.fontFamily,
-                        }}
-                      >
-                        {item.desc}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {section.buttonText && (
-                <div style={{ textAlign: "center", marginTop: "40px" }}>
                   <button
-                    className="primary-orange-btn"
-                    onClick={() => navigate(section.buttonLink || "/")}
+                    onClick={() => moveSection(index, "up")}
+                    disabled={index === 0}
+                    className="reorder-btn"
                   >
-                    {section.buttonText}
+                    ↑
+                  </button>
+                  <div className="reorder-divider"></div>
+                  <button
+                    onClick={() => moveSection(index, "down")}
+                    disabled={index === sections.length - 1}
+                    className="reorder-btn"
+                  >
+                    ↓
                   </button>
                 </div>
               )}
 
-              {user?.admin && (
-                <div className="center-actions">
-                  <AdminActions
-                    id={section._id}
-                    onDelete={deleteSection}
-                    navigate={navigate}
-                  />
+              {!section.layoutType || section.layoutType === "standard" ? (
+                <div
+                  className="standard-flex"
+                  style={{
+                    flexDirection: index % 2 !== 0 ? "row-reverse" : "row",
+                  }}
+                >
+                  <div className="about-text-content">
+                    <motion.h2
+                      variants={itemReveal}
+                      className="heading-secondary"
+                      style={{
+                        color: section.textColor,
+                        fontFamily: section.fontFamily,
+                      }}
+                    >
+                      {displayHeader}
+                    </motion.h2>
+                    <motion.p
+                      variants={itemReveal}
+                      className="description-p"
+                      style={{
+                        color: section.textColor,
+                        fontFamily: section.fontFamily,
+                      }}
+                    >
+                      {displayText}
+                    </motion.p>
+                    {displayBtnText && (
+                      <motion.div
+                        variants={itemReveal}
+                        style={{ marginTop: "40px" }}
+                      >
+                        <button
+                          className="btn-primary"
+                          onClick={() => navigate(section.buttonLink || "/")}
+                        >
+                          {displayBtnText}
+                        </button>
+                      </motion.div>
+                    )}
+                    {user?.admin && (
+                      <motion.div variants={itemReveal}>
+                        <AdminActions
+                          id={section._id}
+                          onDelete={() => deleteSection(section._id)}
+                          navigate={navigate}
+                          isAr={isAr}
+                        />
+                      </motion.div>
+                    )}
+                  </div>
+                  <motion.div
+                    variants={itemReveal}
+                    className="about-image-content"
+                  >
+                    <img
+                      src={section.image}
+                      className={`premium-img ${section.imageStyle} size-${section.imageSize || "medium"}`}
+                      alt=""
+                    />
+                  </motion.div>
+                </div>
+              ) : (
+                <div className="bento-container">
+                  <motion.div
+                    variants={itemReveal}
+                    className="bento-header-wrapper"
+                  >
+                    <h2
+                      className="heading-secondary text-center"
+                      style={{
+                        color: section.textColor,
+                        fontFamily: section.fontFamily,
+                      }}
+                    >
+                      {displayHeader}
+                    </h2>
+                  </motion.div>
+
+                  <motion.div className="bento-grid" variants={bentoContainer}>
+                    <AnimatePresence>
+                      {section.items?.map((item, i) => {
+                        const bentoPattern = [
+                          "bento-large",
+                          "bento-tall",
+                          "bento-square",
+                          "bento-wide",
+                          "bento-square",
+                          "bento-tall",
+                        ]
+                        const bentoClass = bentoPattern[i % bentoPattern.length]
+
+                        return (
+                          <motion.div
+                            layout
+                            variants={bentoCardAnim}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            key={i}
+                            className={`bento-card premium-card ${bentoClass}`}
+                          >
+                            {user?.admin && (
+                              <button
+                                className="mini-delete-btn"
+                                onClick={() => removeGridItem(section._id, i)}
+                              >
+                                ✕
+                              </button>
+                            )}
+                            <div className="bento-img-wrapper">
+                              <img
+                                src={item.image}
+                                className={section.imageStyle}
+                                alt=""
+                              />
+                            </div>
+                            <div className="bento-card-content">
+                              <h3 style={{ color: section.textColor }}>
+                                {item.title}
+                              </h3>
+                              <p>{item.desc}</p>
+                            </div>
+                          </motion.div>
+                        )
+                      })}
+                    </AnimatePresence>
+                    {user?.admin && (
+                      <motion.div
+                        layout
+                        variants={bentoCardAnim}
+                        className="bento-card add-new-bento bento-square"
+                        onClick={() => addGridItem(section._id)}
+                      >
+                        <div className="add-icon-circle">+</div>
+                        <h3 style={{ marginTop: "15px" }}>
+                          {isAr ? "إضافة" : "Add Box"}
+                        </h3>
+                      </motion.div>
+                    )}
+                  </motion.div>
+
+                  {displayBtnText && (
+                    <motion.div
+                      variants={itemReveal}
+                      style={{ textAlign: "center", marginTop: "60px" }}
+                    >
+                      <button
+                        className="btn-primary"
+                        onClick={() => navigate(section.buttonLink || "/")}
+                      >
+                        {displayBtnText}
+                      </button>
+                    </motion.div>
+                  )}
+                  {user?.admin && (
+                    <motion.div
+                      variants={itemReveal}
+                      className="center-actions"
+                    >
+                      <AdminActions
+                        id={section._id}
+                        onDelete={() => deleteSection(section._id)}
+                        navigate={navigate}
+                        isAr={isAr}
+                      />
+                    </motion.div>
+                  )}
                 </div>
               )}
-            </div>
-          )}
-        </section>
-      ))}
+            </motion.section>
+          )
+        })}
+      </div>
     </div>
   )
 }
 
-const AdminActions = ({ id, onDelete, navigate }) => (
+const AdminActions = ({ id, onDelete, navigate, isAr }) => (
   <div className="admin-actions">
-    <button className="edit-btn" onClick={() => navigate(`/edit/${id}`)}>
-      Edit
+    <button className="btn-outline" onClick={() => navigate(`/edit/${id}`)}>
+      {isAr ? "تعديل" : "Edit"}
     </button>
-    <button className="btn-delete" onClick={() => onDelete(id)}>
-      Delete
+    <button className="btn-danger" onClick={onDelete}>
+      {isAr ? "حذف" : "Delete"}
     </button>
   </div>
 )
