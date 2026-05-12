@@ -1,24 +1,26 @@
+import React from 'react';
 import { Link } from "react-router-dom";
+import "/src/Footer.css"
+
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-
-        <img src="/images/logo.png" alt="Ra'edat Logo" className="footer-logo" />
+    <footer className="main-footer">
+      <div className="footer-container">
 
 
-        <div className="social-media">
-          <Link to="https://www.instagram.com/raedat.bh/">
+
+        <div className="social-media-grid">
+          <Link to="https://www.instagram.com/raedat.bh/" target="_blank">
             <img src="/images/social_madia/instagram.png" alt="Instagram" />
           </Link>
-          <Link to="https://www.youtube.com/@raedat_bh">
+          <Link to="https://www.youtube.com/@raedat_bh" target="_blank">
             <img src="/images/social_madia/youtube.png" alt="YouTube" />
           </Link>
-          <Link to="https://www.tiktok.com/@raedat.bh">
+          <Link to="https://www.tiktok.com/@raedat.bh" target="_blank">
             <img src="/images/social_madia/tiktok.png" alt="TikTok" />
           </Link>
-          <Link to="https://twitter.com/raedatbh">
+          <Link to="https://twitter.com/raedatbh" target="_blank">
             <img src="/images/social_madia/twitter.png" alt="Twitter" />
           </Link>
           <Link to="mailto:support@raedat.online">
@@ -26,9 +28,16 @@ const Footer = () => {
           </Link>
         </div>
 
-        <p className="copyright">
-          © 2026 Raedat All Rights Reserved | Disclaimer | Powered by Atyaf eSolutions
-        </p>
+      
+        <div className="footer-bottom-info">
+          <p className="copyright-text">
+            © 2026 <strong>Raedat</strong> All Rights Reserved | Disclaimer
+          </p>
+          <p className="powered-by">
+            Powered by <span>Atyaf eSolutions</span>
+          </p>
+        </div>
+
       </div>
     </footer>
   );

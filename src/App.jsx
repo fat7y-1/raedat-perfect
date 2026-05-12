@@ -1,4 +1,9 @@
 import "./App.css"
+import { useState, useEffect } from "react"
+import { Route, Routes, useNavigate } from "react-router-dom"
+import axios from "axios"
+
+// Components
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Activities from "./pages/Activities"
@@ -7,41 +12,61 @@ import ContactUs from "./pages/ContactUs"
 import Newsletter from "./pages/Newsletter"
 import Partners from "./pages/Partners"
 import Nav from "./components/Nav"
+import SignIn from "./pages/SignIn"
 import Footer from "./components/Footer"
-import { useTranslation } from "react-i18next"
-import { Route, Routes } from "react-router"
-import i18next from "i18next"
-import { useEffect } from "react"
+import UpdatePassword from "./pages/UpdatePassword"
+
 const App = () => {
-  const { t, i18n } = useTranslation()
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+
+  const checkToken = async () => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      try {
+        const res = await axios.get("http://localhost:3000/auth/session", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        setUser(res.data)
+      } catch (error) {
+        console.error("Session expired or invalid token")
+        localStorage.clear()
+        setUser(null)
+      }
+    }
+  }
 
   useEffect(() => {
-    const dir = i18n.language === "ar" ? "rtl" : "ltr"
-    document.documentElement.dir = dir
-    document.documentElement.lang = i18n.language
-  }, [i18n.language])
+    checkToken()
+  }, [])
+
+  const handleLogOut = () => {
+    setUser(null)
+    localStorage.clear()
+    navigate("/")
+  }
 
   return (
-    <main>
-      <div>
-        <h1>{i18next.t("welcome")}</h1>
-        <button onClick={() => i18n.changeLanguage("ar")}>العربية</button>
-        <button onClick={() => i18n.changeLanguage("en")}>English</button>
-      </div>
+    <div className="App">
+      <Nav user={user} handleLogOut={handleLogOut} />
 
-      <Nav />
+      <main style={{ marginTop: "100px" }}>
+        <Routes>
+          <Route path="/" element={<Home user={user} />} />
+          <Route path="/about" element={<About user={user} />} />
+          <Route path="/activities" element={<Activities user={user} />} />
+          <Route path="/community" element={<Community user={user} />} />
+          <Route path="/contactUs" element={<ContactUs user={user} />} />
+          <Route path="/newsletter" element={<Newsletter user={user} />} />
+          <Route path="/partners" element={<Partners user={user} />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/activities" element={<Activities />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/newsletter" element={<Newsletter />} />
-        <Route path="/partners" element={<Partners />} />
-      </Routes>
+          <Route path="/admin" element={<SignIn setUser={setUser} />} />
+           <Route path="/update-password" element={<UpdatePassword user={user} />} />
+        </Routes>
+      </main>
+
       <Footer />
-    </main>
+    </div>
   )
 }
 
