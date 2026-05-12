@@ -28,6 +28,10 @@ const Nav = ({ user, handleLogOut }) => {
           <Link to="/newsletter">Newsletter</Link>
           <Link to="/partners">Partners</Link>
 
+          <Link to="/contactUs" className="nav-contact-btn">
+            Contact Us
+          </Link>
+
 
           {user && (
             <>
@@ -41,25 +45,14 @@ const Nav = ({ user, handleLogOut }) => {
               <button
                 onClick={handleLogOut}
                 className="logout-nav-btn"
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "white",
-                  cursor: "pointer",
-                  fontSize: "inherit",
-                  fontWeight: "700",
-                  padding: "0",
-                  marginLeft: "15px"
-                }}
+
               >
                 Logout
               </button>
             </>
           )}
 
-          <Link to="/contactUs" className="nav-contact-btn">
-            Contact Us
-          </Link>
+
         </div>
       </div>
     </nav>
