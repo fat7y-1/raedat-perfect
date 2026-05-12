@@ -1,181 +1,182 @@
-/* SignIn.css */
-
-.signin-container {
-  display: flex;
+.venice-signin-page {
+  background-color: #fdfaf9;
   min-height: 100vh;
-  width: 100%;
-  background: #1a0a3d;
-  background-image:
-    radial-gradient(at 0% 0%, rgba(83, 25, 251, 0.4) 0, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(255, 123, 0, 0.3) 0, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(83, 25, 251, 0.3) 0, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(255, 123, 0, 0.2) 0, transparent 50%);
-  overflow: hidden;
+  font-family: "Playfair Display", serif;
+  color: #4a4a4a;
+  overflow-x: hidden;
 }
 
-/* --- Left Side: Branding (Kept exactly as you liked) --- */
-.signin-visual-side {
-  flex: 1; /* Adjusted flex for better balance */
+.venice-signin-hero {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 8%;
-  z-index: 2;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px 10% 40px;
+  background-color: #ffffff;
 }
 
-.signin-logo-big {
-  width: 350px;
-  margin-bottom: 30px;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
-  animation: logoFloat 4s ease-in-out infinite;
+.signin-mini-logo {
+  width: 90px;
+  margin-bottom: 10px;
 }
 
-.visual-content h1 {
-  color: #ffffff;
-  font-size: 4rem;
-  font-weight: 900;
-  line-height: 1;
+.hero-main-title {
+  font-size: 2.2rem;
+  color: #2c2c2c;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.hero-tagline {
+  font-size: 0.9rem;
+  color: #8e7dbe;
+  letter-spacing: 1.5px;
+  margin-top: 5px;
+}
+
+.signin-hero-img {
+  width: 280px;
+  height: 350px;
+  object-fit: cover;
+  border: 1px solid #eee;
+  padding: 8px;
+  background: white;
+  box-shadow: 15px 15px 0px #dcd0e8;
+}
+
+.intro-accent-bar {
+  background-color: #dcd0e8;
+  color: #4b2c5e;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.venice-signin-main {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 40px;
+  padding: 50px 20px;
+  align-items: center;
+}
+
+.venice-heading {
+  font-size: 2.5rem;
+  color: #4b2c5e;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.venice-description {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #666;
   margin-bottom: 20px;
 }
 
-.visual-content h1 span {
-  color: #ff7b00;
-  text-shadow: 0 0 30px rgba(255, 123, 0, 0.4);
+.gold-accent-line {
+  width: 50px;
+  height: 2px;
+  background-color: #ff7b00;
 }
 
-.visual-content p {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.3rem;
-  max-width: 480px;
-  line-height: 1.6;
+.form-decorative-box {
+  background-color: #f6f1eb;
+  padding: 30px;
+  position: relative;
 }
 
-/* --- Right Side: FIXED POSITIONING --- */
-.signin-form-side {
-  flex: 1.2; /* Larger area for the big card */
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Centers the card perfectly on the right half */
-  padding: 40px;
-  z-index: 2;
+.venice-login-form {
+  background-color: #ffffff;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* --- The Big Professional Card --- */
-.signin-card {
-  width: 100%;
-  max-width: 520px; /* Big and modern */
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(35px);
-  -webkit-backdrop-filter: blur(35px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 70px 50px;
-
-  border-radius: 45px;
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
-  text-align: center; /* Centers the Sign In text */
-}
-
-.signin-card h2 {
-  color: #ffffff;
-  font-size: 3.2rem;
-  font-weight: 900;
-  margin-bottom: 10px;
-  letter-spacing: -1.5px;
-}
-
-.subtitle {
-  color: rgba(255, 255, 255, 0.7); /* Lightened for readability */
-  font-size: 1.1rem;
-  margin-bottom: 45px;
-  display: block;
-}
-
-/* --- Input Styling --- */
-.input-wrapper {
-  margin-bottom: 30px;
-  text-align: left; /* Labels stay left for pro look */
-}
-
-.input-wrapper label {
-  display: block;
-  color: #ff7b00;
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
-}
-
-.input-wrapper input {
-  width: 90%;
-  padding: 18px 22px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 18px;
-  color: #ffffff;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-}
-
-.input-wrapper input:focus {
-  outline: none;
-  border-color: #ff7b00;
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 15px rgba(255, 123, 0, 0.2);
-}
-
-/* --- Big Action Button --- */
-.signin-card button {
-  width: 100%;
-  padding: 20px;
-  background: linear-gradient(135deg, #ff7b00 0%, #ff9500 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 18px;
-  font-size: 1.2rem;
-  font-weight: 900;
-  text-transform: uppercase;
+.form-internal-title {
+  font-size: 1.5rem;
+  color: #4b2c5e;
+  margin-bottom: 20px;
+  text-align: center;
   letter-spacing: 1px;
+}
+
+.venice-input-group {
+  margin-bottom: 18px;
+}
+
+.venice-input-group label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+  color: #8e7dbe;
+  font-weight: bold;
+}
+
+.venice-input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+  font-family: inherit;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.venice-input-group input:focus {
+  border-color: #ff7b00;
+  background-color: #fff;
+}
+
+.venice-error-msg {
+  color: #d9534f;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.venice-access-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #8e7dbe;
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 15px 30px rgba(255, 123, 0, 0.3);
+  transition: 0.3s ease;
 }
 
-.signin-card button:hover:not(:disabled) {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(255, 123, 0, 0.5);
+.venice-access-btn:hover:not(:disabled) {
+  background-color: #4b2c5e;
 }
 
-.signin-card button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.venice-access-btn:disabled {
+  opacity: 0.5;
 }
 
-@keyframes logoFloat {
-  0%,
-  100% {
-    transform: translateY(0);
+@media (max-width: 900px) {
+  .venice-signin-main {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 30px 20px;
   }
-  50% {
-    transform: translateY(-15px);
+  .gold-accent-line {
+    margin: 0 auto;
   }
-}
-
-/* Mobile */
-@media (max-width: 1024px) {
-  .signin-container {
+  .venice-signin-hero {
     flex-direction: column;
-    padding: 40px 20px;
-    overflow-y: auto;
   }
-  .signin-visual-side {
-    display: none;
-  }
-  .signin-form-side {
-    width: 100%;
-    padding: 0;
-  }
-  .signin-card {
-    padding: 50px 30px;
+  .signin-hero-img {
+    width: 220px;
+    height: 280px;
+    margin-top: 20px;
   }
 }

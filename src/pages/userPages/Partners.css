@@ -1,95 +1,151 @@
-.partners-container {
+/* Partners.css */
+
+.venice-partners-page {
+  background-color: #fdfaf9;
   min-height: 100vh;
-  padding: 120px 8%;
-  background: linear-gradient(180deg, #120020, #22003f, #140028);
-  color: white;
-  position: relative;
-  overflow: hidden;
+  font-family: "Playfair Display", serif;
+  color: #4a4a4a;
 }
 
-.partners-container::before {
-  content: "";
-  position: absolute;
-  top: 100px;
-  right: -180px;
-  width: 500px;
-  height: 500px;
-  background: rgba(132, 0, 255, 0.25);
-  filter: blur(120px);
-  border-radius: 50%;
+/* Hero Section */
+.partners-hero {
+  background-color: #ffffff;
+  padding: 100px 20px 60px;
+  text-align: center;
 }
 
-.partners-container::after {
-  content: "";
-  position: absolute;
-  bottom: 50px;
-  left: -120px;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 107, 0, 0.18);
-  filter: blur(120px);
-  border-radius: 50%;
-}
-
-.partners-container * {
-  position: relative;
-  z-index: 1;
-}
-
-.partners-container h1 {
+.hero-title {
   font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 50px;
-  margin-top: 90px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: #2c2c2c;
+  margin: 0;
 }
 
-.partners-container h1:first-child {
-  margin-top: 0;
+.hero-subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: #8e7dbe;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: 15px;
 }
 
-.partners-container a {
-  display: inline-flex;
-  align-items: center;
+.gold-accent-line {
+  width: 60px;
+  height: 2px;
+  background-color: #ff7b00;
+  margin: 30px auto 0;
+}
+
+.partners-content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.venice-section {
+  padding: 80px 40px;
+}
+
+.venice-section.alt-bg {
+  background-color: #f6f1eb;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.pre-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #ff7b00;
+  font-weight: bold;
+}
+
+.section-heading {
+  font-size: 2.8rem;
+  color: #4b2c5e;
+  margin-top: 10px;
+}
+
+.luxury-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.centered-grid {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.logo-card {
+  width: 100%;
+  max-width: 240px;
+  height: 240px;
+  background: white;
+  border: 1px solid #eee;
+  padding: 40px;
+  display: flex;
   justify-content: center;
-  width: 260px;
-  height: 170px;
-  margin: 15px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
-  backdrop-filter: blur(10px);
-  transition: 0.3s ease;
-  overflow: hidden;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border-radius: 40px;
 }
 
-.partners-container a:hover {
-  transform: translateY(-8px) scale(1.03);
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 107, 0, 0.4);
-  box-shadow: 0 0 30px rgba(255, 107, 0, 0.15);
+.logo-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(142, 125, 190, 0.15);
+  border-color: #dcd0e8;
 }
 
-.partners-container img {
-  width: 75%;
-  height: auto;
+.logo-card img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  filter: grayscale(10%);
+  transition: 0.3s;
 }
 
-@media (max-width: 992px) {
-  .partners-container {
-    padding: 90px 6%;
-    text-align: center;
-  }
+.logo-card:hover img {
+  filter: grayscale(0%);
+}
 
-  .partners-container h1 {
-    font-size: 2.8rem;
-    margin-bottom: 35px;
-  }
+.partners-footer {
+  padding: 100px 20px;
+  text-align: center;
+}
 
-  .partners-container a {
-    width: 100%;
-    max-width: 320px;
-    height: 150px;
-    margin: 12px auto;
+.footer-statement {
+  font-size: 2.2rem;
+  color: #4b2c5e;
+  font-style: italic;
+}
+
+.minimal-line {
+  width: 100px;
+  height: 1px;
+  background-color: #dcd0e8;
+  margin: 30px auto;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .section-heading {
+    font-size: 2rem;
+  }
+  .logo-card {
+    height: 180px;
+    padding: 25px;
+  }
+  .footer-statement {
+    font-size: 1.4rem;
   }
 }

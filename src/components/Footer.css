@@ -1,26 +1,27 @@
-
 /* Footer.css */
 
 .main-footer {
-  /* البنفسجي الداكن العميق المستخرج من الهوية */
-  background-color: #1a0a3d;
-  padding: 40px 0 20px 0; /* تصغير الـ padding لجعل المربع أصغر */
+  background: #120020; /* نفس روح الناف البنفسجي الغامق */
+  padding: 40px 0 20px 0;
   color: #ffffff;
   position: relative;
   overflow: hidden;
-  /* الخط البرتقالي العلوي */
-  border-top: 5px solid #ff7b00;
+  border-top: 3px solid #3f255d; /* نفس لون الناف */
 }
 
-/* التوهج الجانبي بحجم أصغر ليناسب المربع الجديد */
+/* لمسة ضو بنفسجية ناعمة بدل البرتقالي القوي */
 .main-footer::after {
   content: "";
   position: absolute;
-  bottom: -50px;
-  right: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(255, 123, 0, 0.15) 0%, transparent 70%);
+  bottom: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    rgba(63, 37, 93, 0.25) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -32,53 +33,55 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px; /* تقليل المسافات بين العناصر لتصغير المربع */
+  gap: 22px;
 }
 
-/* أيقونات التواصل الاجتماعي بحجم متناسق */
+/* SOCIAL ICONS */
 .social-media-grid {
   display: flex;
-  gap: 25px;
+  gap: 22px;
   justify-content: center;
 }
 
 .social-media-grid a {
-  width: 70px; /* حجم متوسط للأيقونات لتقليل ارتفاع الفوتر */
-  height: 70px;
-  background: rgba(255, 255, 255, 0.05);
+  width: 65px;
+  height: 65px;
+  background: rgba(255, 255, 255, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
 }
 
 .social-media-grid img {
-  width: 35px;
-  height: 35px;
-  /* فلتر البرتقالي المعتمد #ff7b00 */
-  filter: invert(58%) sepia(88%) saturate(2850%) hue-rotate(1deg) brightness(102%) contrast(106%);
+  width: 32px;
+  height: 32px;
+
+  /* تحويل للأبيض/بنفسجي بدل برتقالي قوي */
+  filter: brightness(0) saturate(100%) invert(100%);
 }
 
 .social-media-grid a:hover {
-  background: #ff7b00;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(255, 123, 0, 0.3);
+  background: #3f255d; /* نفس لون الناف */
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(63, 37, 93, 0.35);
+  border-color: #3f255d;
 }
 
-/* نصوص المعلومات بحجم واضح ومساحة أقل */
+/* INFO SECTION */
 .footer-bottom-info {
   text-align: center;
-  border-top: 2px solid rgba(255, 255, 255, 0.08);
-  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
   width: 90%;
 }
 
 .copyright-text {
-  font-size: 20px; /* حجم خط كبير وواضح */
+  font-size: 18px;
   color: #b0a4cc;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .copyright-text strong {
@@ -87,27 +90,34 @@
 }
 
 .powered-by {
-  font-size: 18px;
+  font-size: 16px;
   color: #ffffff;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
+/* بدل البرتقالي نخليه Accent بنفسجي */
 .powered-by span {
-  color: #ff7b00; /* البرتقالي الخاص بالهوية */
+  color: #3f255d;
   font-weight: 800;
   text-transform: uppercase;
 }
 
-/* التجاوب للجوال */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .main-footer {
     padding: 30px 0 15px 0;
   }
+
   .social-media-grid a {
-    width: 55px;
-    height: 55px;
+    width: 52px;
+    height: 52px;
   }
+
   .copyright-text {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .powered-by {
+    font-size: 14px;
   }
 }
