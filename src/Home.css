@@ -17,8 +17,11 @@
   height: 100px;
 }
 
-.store-link {
-  height: 100px;
+div.download-wrapper a.store.store-link{
+display: flex;
+flex-direction: column;
+padding: 0;
+margin: 0;
 }
 body,
 html {
