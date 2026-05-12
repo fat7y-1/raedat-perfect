@@ -147,7 +147,7 @@ html {
 .visual-side {
   position: relative;
   margin-right: -10%;
-} /* Slight bleed, elegant */
+} /* Slight bleed for hero only, elegant */
 [dir="rtl"] .visual-side {
   margin-right: 0;
   margin-left: -10%;
@@ -181,9 +181,10 @@ html {
 .standard-flex {
   display: flex;
   align-items: center;
-  gap: 100px;
+  gap: 80px;
   width: 100%;
-  max-width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .about-text-content {
@@ -196,27 +197,7 @@ html {
   position: relative;
   z-index: 1;
   display: flex;
-}
-
-/* The Pro Edge-Bleed Trick */
-.standard-flex .about-image-content {
-  margin-right: -12%;
-  justify-content: flex-end;
-}
-.standard-flex[style*="row-reverse"] .about-image-content {
-  margin-left: -12%;
-  margin-right: 0;
-  justify-content: flex-start;
-}
-[dir="rtl"] .standard-flex .about-image-content {
-  margin-left: -12%;
-  margin-right: 0;
-  justify-content: flex-start;
-}
-[dir="rtl"] .standard-flex[style*="row-reverse"] .about-image-content {
-  margin-right: -12%;
-  margin-left: 0;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .heading-secondary {
@@ -231,14 +212,30 @@ html {
   text-align: center;
 }
 
+/* Perfectly Balanced Images */
 .premium-img {
   width: 100%;
-  max-width: 800px;
   border-radius: 24px;
   box-shadow: var(--shadow-md);
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    max-width 0.4s ease;
 }
+
+/* Dynamic Sizes that stay inside the container */
+.premium-img.size-small {
+  max-width: 400px;
+}
+.premium-img.size-medium {
+  max-width: 600px;
+}
+.premium-img.size-big {
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Hover Effect */
 .premium-img:hover {
   transform: scale(1.02) translateY(-5px);
   box-shadow: var(--shadow-hover);
@@ -313,7 +310,7 @@ html {
 
 .bento-card-content {
   padding: 30px;
-  background: white; /* Clean white block below image */
+  background: white;
   border-top: 1px solid var(--border-light);
   flex-shrink: 0;
 }
@@ -578,9 +575,6 @@ html {
     grid-column: span 3;
     grid-row: span 1;
   }
-  .standard-flex .about-image-content {
-    margin: 0 !important;
-  }
 }
 @media (max-width: 768px) {
   .hero-content-wrapper,
@@ -620,10 +614,6 @@ html {
     gap: 15px;
     border-radius: 24px;
     padding: 20px;
-  }
-  .standard-flex .about-image-content {
-    margin: 0 !important;
-    justify-content: center !important;
   }
 }
 
