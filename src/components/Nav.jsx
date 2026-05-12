@@ -29,7 +29,7 @@ const Nav = ({ user, handleLogOut }) => {
           <Link to="/partners">Partners</Link>
 
           <Link to="/contactUs" className="nav-contact-btn">
-            Contact Us
+            {t("nav.contact")}
           </Link>
 
 
