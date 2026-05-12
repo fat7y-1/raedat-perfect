@@ -1,11 +1,13 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import "/src/Community.css"
 
 const Community = () => {
   const { t } = useTranslation()
 
   return (
-    <div>
+    <div className="community-container">
+
       <h1>{t("community.title")}</h1>
       <p>{t("community.description")}</p>
 
@@ -55,6 +57,7 @@ const Community = () => {
         <li>{t("community.users.solopreneurs")}</li>
         <li>{t("community.users.nonprofits")}</li>
       </ul>
+
     </div>
   )
 }

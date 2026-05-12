@@ -37,11 +37,20 @@ const Home = ({ user }) => {
             : "",
         image:
           "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
+        imageSize: "medium",
+        imageStyle: "default-rect",
+        textColor: "#333333",
+        fontFamily: "'Inter', sans-serif",
         items:
           layoutType !== "standard"
             ? [
                 {
-                  image: "https://via.placeholder.com/800x600",
+                  image: "https://placehold.co/400x300",
+                  title: "New Item",
+                  desc: "Item description",
+                },
+                {
+                  image: "https://placehold.co/400x300",
                   title: "New Item",
                   desc: "Item description",
                 },
@@ -105,7 +114,7 @@ const Home = ({ user }) => {
         </div>
       )}
 
-      {/* HERO SECTION - FIXED LAYOUT */}
+      {/* HERO SECTION */}
       <section className="hero-section-custom">
         <div className="content-side">
           <h1 className="hero-main-text">
@@ -121,7 +130,6 @@ const Home = ({ user }) => {
             Join ra'edat
           </button>
         </div>
-
         <div className="right-wrapper">
           <div className="visual-side">
             <img
@@ -129,8 +137,6 @@ const Home = ({ user }) => {
               src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
               alt="App"
             />
-
-            {/* Buttons are now INSIDE the visual-side to stay attached to the phone */}
             <div className="download-wrapper">
               <a
                 href="https://apps.apple.com/us/app/raedat/id6742032306"
@@ -169,6 +175,7 @@ const Home = ({ user }) => {
           style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f5f5f7" }}
         >
           {!section.layoutType || section.layoutType === "standard" ? (
+            /* STANDARD LAYOUT */
             <div
               className="standard-flex"
               style={{ flexDirection: index % 2 !== 0 ? "row-reverse" : "row" }}
@@ -185,16 +192,16 @@ const Home = ({ user }) => {
                 </h2>
                 <p
                   className="description-p"
-                  style={{ color: section.textColor }}
+                  style={{
+                    color: section.textColor,
+                    fontFamily: section.fontFamily,
+                  }}
                 >
                   {section.text}
                 </p>
-                {/* RENDER BUTTON IF IT EXISTS */}
+
                 {section.buttonText && (
-                  <div
-                    className="section-button-wrapper"
-                    style={{ marginTop: "20px" }}
-                  >
+                  <div style={{ marginTop: "20px" }}>
                     <button
                       className="primary-orange-btn"
                       onClick={() => navigate(section.buttonLink || "/")}
@@ -203,6 +210,7 @@ const Home = ({ user }) => {
                     </button>
                   </div>
                 )}
+
                 {user?.admin && (
                   <AdminActions
                     id={section._id}
@@ -220,13 +228,14 @@ const Home = ({ user }) => {
               </div>
             </div>
           ) : (
+            /* GRID LAYOUTS (Image+Text / Image+Header) */
             <div className="grid-layout-container">
               <h2
                 className="section-title-alt"
                 style={{
                   textAlign: "center",
                   marginBottom: "40px",
-                  color: section.textColor, // Apply color here too!
+                  color: section.textColor,
                   fontFamily: section.fontFamily,
                 }}
               >
@@ -237,11 +246,10 @@ const Home = ({ user }) => {
                   <div key={i} className="grid-item">
                     <img
                       src={item.image}
-                      /* ADD THE CLASSES HERE TOO */
                       className={`${section.imageStyle} size-${section.imageSize || "medium"}`}
                       onError={(e) => {
                         e.target.src =
-                          "https://placehold.co/300x200?text=No+Image"
+                          "https://placehold.co/400x300?text=No+Image"
                       }}
                       alt=""
                     />
@@ -268,7 +276,6 @@ const Home = ({ user }) => {
                 ))}
               </div>
 
-              {/* ADD THE BUTTON HERE FOR GRID LAYOUTS TOO */}
               {section.buttonText && (
                 <div style={{ textAlign: "center", marginTop: "40px" }}>
                   <button
