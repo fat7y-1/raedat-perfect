@@ -27,11 +27,11 @@
   --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-[dir="rtl"] {
-  font-family: "Tajawal", sans-serif;
-}
-[dir="ltr"] {
-  font-family: "Inter", sans-serif;
+div.download-wrapper a.store.store-link{
+display: flex;
+flex-direction: column;
+padding: 0;
+margin: 0;
 }
 
 body,

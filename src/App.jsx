@@ -2,8 +2,8 @@ import "./App.css"
 import { useState, useEffect } from "react"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import axios from "axios"
+import { useTranslation } from "react-i18next"
 
-// Components
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Activities from "./pages/Activities"
@@ -14,11 +14,13 @@ import Partners from "./pages/Partners"
 import Nav from "./components/Nav"
 import SignIn from "./pages/SignIn"
 import Footer from "./components/Footer"
-import EditContent from "./pages/EditContent"
+import UpdatePassword from "./pages/UpdatePassword"
 
 const App = () => {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
+  const { i18n } = useTranslation()
+  const isArabic = i18n.language === "ar"
 
   const checkToken = async () => {
     const token = localStorage.getItem("token")
@@ -47,9 +49,13 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div
+      className={`App ${isArabic ? "lang-ar" : "lang-en"}`}
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      {" "}
+      {/* ← update this line */}
       <Nav user={user} handleLogOut={handleLogOut} />
-
       <main style={{ marginTop: "100px" }}>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
@@ -59,14 +65,13 @@ const App = () => {
           <Route path="/contactUs" element={<ContactUs user={user} />} />
           <Route path="/newsletter" element={<Newsletter user={user} />} />
           <Route path="/partners" element={<Partners user={user} />} />
-
           <Route path="/admin" element={<SignIn setUser={setUser} />} />
-          <Route path="/edit/:id" element={<EditContent />} />
-          <Route path="/activities" element={<Activities user={user} />} />
-          <Route path="/activities/:id" element={<Activities user={user} />} />
+          <Route
+            path="/update-password"
+            element={<UpdatePassword user={user} />}
+          />
         </Routes>
       </main>
-
       <Footer />
     </div>
   )

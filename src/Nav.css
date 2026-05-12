@@ -5,16 +5,12 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-
-  background: #4d25a4;
+  background:#3d1796;
   backdrop-filter: blur(15px);
-
   padding: 20px 0;
-
   border-bottom: 2px solid rgba(255, 123, 0, 0.1);
   display: flex;
   align-items: center;
-
   min-height: 100px;
 }
 
@@ -43,21 +39,33 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 25px;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-links .logout-nav-btn {
   text-decoration: none !important;
   color: #ffffff;
-  /* الحفاظ على الخط الكبير الواضح */
-  font-size: 26px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
+
+.nav-links .logout-nav-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+
 .nav-links a:hover,
-.nav-links a:active {
+.nav-links a:active,
+.nav-links .logout-nav-btn:hover {
   color: #ff7b00 !important;
   text-decoration: none !important;
 }
@@ -65,77 +73,18 @@
 .nav-links .nav-contact-btn {
   color: #ffffff !important;
   font-weight: 700;
-  padding: 0;
-}
-
-.nav-links .nav-contact-btn:hover,
-.nav-links .nav-contact-btn:active {
-  color: #ff7b00 !important;
-}
-
-/* Language Toggle Button */
-.lang-toggle-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border: 2px solid #ff7b00; /* Matching your orange theme */
-  padding: 5px 15px;
-  border-radius: 30px;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 10px;
-}
-
-.lang-toggle-btn:hover {
-  background: #ff7b00;
-  color: white;
-  transform: scale(1.05);
-}
-
-.logout-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  font-weight: 700;
-  transition: 0.3s;
-}
-
-.logout-btn:hover {
-  color: #ff4d4d; /* Reddish tint for logout */
-}
-
-/* RTL Support - Flipping the margins */
-[dir="rtl"] .nav-links {
-  flex-direction: row; /* Flexbox handles the order automatically */
-}
-
-[dir="rtl"] .lang-toggle-btn {
-  margin-left: 0;
-  margin-right: 10px;
-  font-family:
-    "Inter", sans-serif; /* Ensures the English text looks good in RTL */
-}
-
-/* Adjust font size for Arabic specifically if needed */
-[dir="rtl"] .nav-links a {
-  font-size: 24px;
 }
 
 @media (max-width: 1400px) {
-  .nav-links a {
-    font-size: 26px;
+  .nav-links a,
+  .nav-links .logout-nav-btn {
+    font-size: 17px;
   }
-  .logo-main {
-    height: 60px;
-  }
-  .navbar-transparent {
-    min-height: 80px;
-    padding: 15px 0;
+  .nav-links {
+    gap: 15px;
   }
 }
+
 
 @media (max-width: 992px) {
   .nav-links {

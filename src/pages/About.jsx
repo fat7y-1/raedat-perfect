@@ -11,7 +11,7 @@ const About = ({ user }) => {
 
   const token = localStorage.getItem("token")
 
-  // 1. READ - جلب البيانات
+  // 1. READ -
   useEffect(() => {
     const getData = async () => {
       try {
@@ -68,59 +68,7 @@ const About = ({ user }) => {
   }
 
   return (
-    <div className="about-container">
-      <h1>About Page</h1>
-      {user?.admin && (
-        <button onClick={handleAdd} className="add-btn">
-          + Add Section
-        </button>
-      )}
-
-      {content.map((item) => (
-        <div
-          key={item._id}
-          style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}
-        >
-          {editingId === item._id ? (
-            <div className="edit-form">
-              <input
-                value={editForm.header}
-                onChange={(e) =>
-                  setEditForm({ ...editForm, header: e.target.value })
-                }
-              />
-              <textarea
-                value={editForm.text}
-                onChange={(e) =>
-                  setEditForm({ ...editForm, text: e.target.value })
-                }
-              />
-              <button onClick={() => handleUpdate(item._id)}>Save</button>
-              <button onClick={() => setEditingId(null)}>Cancel</button>
-            </div>
-          ) : (
-            <div className="content-view">
-              <h2>{item.header}</h2>
-              <p>{item.text}</p>
-              {user?.admin && (
-                <>
-                  <button
-                    onClick={() => {
-                      setEditingId(item._id)
-                      setEditForm(item)
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(item._id)}>Delete</button>
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      ))}
-
-      <hr />
+    <div>
       {/* Dynamic Translations Part */}
       <h1>{t("about.title")}</h1>
       <p>{t("about.description")}</p>

@@ -38,20 +38,13 @@ const bentoCardAnim = {
 }
 
 const Home = ({ user }) => {
-  const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
-  const [sections, setSections] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [showLayoutPicker, setShowLayoutPicker] = useState(false)
-  const token = localStorage.getItem("token")
+  const navigate = useNavigate();
+  const [sections, setSections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showLayoutPicker, setShowLayoutPicker] = useState(false);
 
-  const [popup, setPopup] = useState({
-    isOpen: false,
-    type: "alert",
-    message: "",
-    onConfirm: null,
-  })
-  const isAr = i18n.language === "ar"
+  const token = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getHomeContent = async () => {
@@ -59,78 +52,28 @@ const Home = ({ user }) => {
         const res = await axios.get("http://localhost:3000/content/page/home")
         setSections(res.data)
       } catch (err) {
-        console.error("Error fetching content", err)
+        console.error("Error fetching content", err);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    getHomeContent()
-  }, [])
+    };
 
-  const closePopup = () => setPopup({ ...popup, isOpen: false })
-  const showAlert = (message) =>
-    setPopup({ isOpen: true, type: "alert", message, onConfirm: null })
-  const showConfirm = (message, onConfirmCallback) =>
-    setPopup({
-      isOpen: true,
-      type: "confirm",
-      message,
-      onConfirm: onConfirmCallback,
-    })
-
-  const moveSection = async (index, direction) => {
-    const newSections = [...sections]
-    let newIndex = index
-    if (direction === "up" && index > 0) {
-      newIndex = index - 1
-      ;[newSections[index - 1], newSections[index]] = [
-        newSections[index],
-        newSections[index - 1],
-      ]
-    } else if (direction === "down" && index < newSections.length - 1) {
-      newIndex = index + 1
-      ;[newSections[index + 1], newSections[index]] = [
-        newSections[index],
-        newSections[index + 1],
-      ]
-    } else return
-
-    setSections(newSections)
-    setTimeout(() => {
-      const element = document.getElementById(
-        `section-${newSections[newIndex]._id}`
-      )
-      if (element)
-        element.scrollIntoView({ behavior: "smooth", block: "center" })
-    }, 300)
-
-    try {
-      await axios.put(
-        "http://localhost:3000/content/reorder",
-        { orderedSections: newSections },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-    } catch (err) {
-      showAlert(isAr ? "فشل في حفظ الترتيب." : "Failed to save order.")
-    }
-  }
+    getHomeContent();
+  }, []);
 
   const addNewSection = async (layoutType) => {
     try {
       const newBlock = {
         page: "home",
-        layoutType,
-        header: "New Section",
-        headerAr: "قسم جديد",
-        text: "Tell your story here.",
-        textAr: "أخبر قصتك هنا.",
+        layoutType: layoutType,
+        header:
+          layoutType === "standard" ? "New ra'edat Section" : "",
+        text:
+          layoutType === "standard"
+            ? "Standard layout description."
+            : "",
         image:
           "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
-        imageSize: "medium",
-        imageStyle: "default-rect",
-        textColor: "#1D1D1F",
-        fontFamily: "'Inter', sans-serif",
-        position: sections.length,
         items:
           layoutType !== "standard"
             ? [
@@ -146,22 +89,22 @@ const Home = ({ user }) => {
                 },
               ]
             : [],
-      }
-      const res = await axios.post("http://localhost:3000/content", newBlock, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      setSections((prev) => [...prev, res.data])
-      setShowLayoutPicker(false)
-      setTimeout(
-        () =>
-          window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: "smooth",
-          }),
-        300
-      )
+      };
+
+      const res = await axios.post(
+        "http://localhost:3000/content",
+        newBlock,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSections((prev) => [...prev, res.data]);
+      setShowLayoutPicker(false);
     } catch (error) {
-      console.error(error)
+      console.error("Failed to add section", error);
     }
   }
 
@@ -169,11 +112,14 @@ const Home = ({ user }) => {
     showConfirm(isAr ? "حذف هذا القسم؟" : "Delete this section?", async () => {
       try {
         await axios.delete(`http://localhost:3000/content/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        setSections((prev) => prev.filter((s) => s._id !== id))
-      } catch (error) {
-        showAlert(isAr ? "فشل الحذف." : "Deletion failed.")
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setSections(sections.filter((s) => s._id !== id));
+      } catch (err) {
+        console.error("Delete failed", err);
       }
       closePopup()
     })
@@ -230,11 +176,7 @@ const Home = ({ user }) => {
   }
 
   if (loading)
-    return (
-      <div className="loading-screen">
-        {isAr ? "جاري التحميل..." : "Loading..."}
-      </div>
-    )
+    return <div className="loading-screen">Loading...</div>;
 
   return (
     <div className={`home-full-wrapper ${isAr ? "rtl-theme" : ""}`}>
@@ -287,28 +229,34 @@ const Home = ({ user }) => {
           <div className="admin-status">
             <span className="dot"></span> {isAr ? "لوحة التحكم" : "ADMIN"}
           </div>
+
           {!showLayoutPicker ? (
             <button
-              className="btn-primary"
-              style={{ padding: "8px 16px", fontSize: "0.9rem" }}
+              className="add-btn"
               onClick={() => setShowLayoutPicker(true)}
             >
-              + {isAr ? "إضافة قسم" : "Add Section"}
+              + Add Section
             </button>
           ) : (
             <div className="layout-options">
               <button
-                className="btn-outline"
                 onClick={() => addNewSection("standard")}
               >
                 Standard
               </button>
+
               <button
-                className="btn-outline"
                 onClick={() => addNewSection("grid-text")}
               >
-                Bento Grid
+                Image+Text
               </button>
+
+              <button
+                onClick={() => addNewSection("grid-header")}
+              >
+                Image+Header
+              </button>
+
               <button
                 className="popup-cancel"
                 style={{
@@ -326,51 +274,54 @@ const Home = ({ user }) => {
         </div>
       )}
 
-      {/* CLEAN APPLE-STYLE HERO */}
+      {/* HERO SECTION */}
       <section className="hero-section-custom">
-        <div className="hero-content-wrapper">
-          <motion.div
-            className="content-side"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="show"
+        <div className="content-side">
+          <h1 className="hero-main-text">
+            Unlock your potential <br />
+            with <span>ra'edat</span>
+          </h1>
+
+          <p className="description-p">
+            Empowering your journey through innovation and
+            community support.
+          </p>
+
+          <button
+            className="primary-orange-btn"
+            onClick={() => navigate("/about")}
           >
-            <motion.h1 variants={itemReveal} className="heading-primary">
-              {isAr ? (
-                <>
-                  أطلقي العنان لإمكانياتك <br /> مع{" "}
-                  <span className="text-accent">رائدات</span>
-                </>
-              ) : (
-                <>
-                  Unlock your potential <br /> with{" "}
-                  <span className="text-accent">ra'edat</span>
-                </>
-              )}
-            </motion.h1>
-            <motion.p variants={itemReveal} className="description-p">
-              {isAr
-                ? "تمكين رحلتك من خلال الابتكار ودعم المجتمع وبناء مستقبل مشرق معاً."
-                : "Empowering your journey through seamless innovation, community support, and cutting-edge design."}
-            </motion.p>
-            <motion.div variants={itemReveal} className="hero-buttons">
-              <button
-                className="btn-primary"
-                onClick={() => navigate("/about")}
+            Join ra'edat
+          </button>
+        </div>
+
+        <div className="right-wrapper">
+          <div className="visual-side">
+            <img
+              className="phone-mockup"
+              src="https://www.raedat.online/MediaManager/Media/home/homescreen_new%20screenshot.png"
+              alt="App"
+            />
+
+            <div className="download-wrapper">
+              <a
+                href="https://apps.apple.com/us/app/raedat/id6742032306"
+                target="_blank"
+                rel="noreferrer"
+                className="store-link"
               >
-                {isAr ? "استكشفي المزيد" : "Discover More"}
-              </button>
-              <button
-                className="btn-outline"
-                style={{
-                  marginLeft: isAr ? "0" : "15px",
-                  marginRight: isAr ? "15px" : "0",
-                }}
-                onClick={() =>
-                  document
-                    .getElementById("first-section")
-                    .scrollIntoView({ behavior: "smooth" })
-                }
+                <img
+                  className="logo-size-app"
+                  src="/src/assets/home/store.png"
+                  alt="App Store"
+                />
+              </a>
+
+              <a
+                href="https://play.google.com/store/apps/details?id=online.raedat.app"
+                target="_blank"
+                rel="noreferrer"
+                className="store-link"
               >
                 {isAr ? "تعرفي علينا" : "How it works"}
               </button>
@@ -395,219 +346,91 @@ const Home = ({ user }) => {
       </section>
 
       {/* DYNAMIC SECTIONS */}
-      <div className="sections-container" id="first-section">
-        {sections.map((section, index) => {
-          const displayHeader = isAr
-            ? section.headerAr || section.header
-            : section.header
-          const displayText = isAr
-            ? section.textAr || section.text
-            : section.text
-          const displayBtnText = isAr
-            ? section.buttonTextAr || section.buttonText
-            : section.buttonText
-
-          return (
-            <motion.section
-              layout
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              key={section._id}
-              id={`section-${section._id}`}
-              className={`about-section-custom section-bg-${index % 2 === 0 ? "white" : "gray"}`}
+      {sections.map((section, index) => (
+        <section
+          key={section._id}
+          className={`about-section-custom section-layout-${
+            section.layoutType || "standard"
+          }`}
+          style={{
+            backgroundColor:
+              index % 2 === 0 ? "#ffffff" : "#f5f5f7",
+          }}
+        >
+          {!section.layoutType ||
+          section.layoutType === "standard" ? (
+            <div
+              className="standard-flex"
+              style={{
+                flexDirection:
+                  index % 2 !== 0 ? "row-reverse" : "row",
+              }}
             >
-              {user?.admin && (
-                <div
-                  className="reorder-controls premium-card"
-                  style={{ [isAr ? "left" : "right"]: "30px" }}
-                >
-                  <button
-                    onClick={() => moveSection(index, "up")}
-                    disabled={index === 0}
-                    className="reorder-btn"
-                  >
-                    ↑
-                  </button>
-                  <div className="reorder-divider"></div>
-                  <button
-                    onClick={() => moveSection(index, "down")}
-                    disabled={index === sections.length - 1}
-                    className="reorder-btn"
-                  >
-                    ↓
-                  </button>
-                </div>
-              )}
+              <div className="about-text-content">
+                <h2 className="section-title-alt">
+                  {section.header}
+                </h2>
 
-              {!section.layoutType || section.layoutType === "standard" ? (
-                <div
-                  className="standard-flex"
-                  style={{
-                    flexDirection: index % 2 !== 0 ? "row-reverse" : "row",
-                  }}
-                >
-                  <div className="about-text-content">
-                    <motion.h2
-                      variants={itemReveal}
-                      className="heading-secondary"
-                      style={{
-                        color: section.textColor,
-                        fontFamily: section.fontFamily,
-                      }}
-                    >
-                      {displayHeader}
-                    </motion.h2>
-                    <motion.p
-                      variants={itemReveal}
-                      className="description-p"
-                      style={{
-                        color: section.textColor,
-                        fontFamily: section.fontFamily,
-                      }}
-                    >
-                      {displayText}
-                    </motion.p>
-                    {displayBtnText && (
-                      <motion.div
-                        variants={itemReveal}
-                        style={{ marginTop: "40px" }}
-                      >
-                        <button
-                          className="btn-primary"
-                          onClick={() => navigate(section.buttonLink || "/")}
-                        >
-                          {displayBtnText}
-                        </button>
-                      </motion.div>
-                    )}
-                    {user?.admin && (
-                      <motion.div variants={itemReveal}>
-                        <AdminActions
-                          id={section._id}
-                          onDelete={() => deleteSection(section._id)}
-                          navigate={navigate}
-                          isAr={isAr}
-                        />
-                      </motion.div>
+                <p className="description-p">
+                  {section.text}
+                </p>
+
+                {user?.admin && (
+                  <AdminActions
+                    id={section._id}
+                    onDelete={deleteSection}
+                    navigate={navigate}
+                  />
+                )}
+              </div>
+
+              <div className="about-image-content">
+                <img
+                  src={section.image}
+                  className="about-main-img"
+                  alt=""
+                  style={{ maxWidth: "100%" }}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="grid-layout-container">
+              <h2
+                className="section-title-alt"
+                style={{
+                  textAlign: "center",
+                  marginBottom: "40px",
+                }}
+              >
+                {section.header}
+              </h2>
+
+              <div className="custom-grid">
+                {section.items?.map((item, i) => (
+                  <div key={i} className="grid-item">
+                    <img
+                      src={item.image}
+                      alt=""
+                      style={{ width: "100%" }}
+                    />
+
+                    {section.layoutType ===
+                    "grid-header" ? (
+                      <h3>{item.title}</h3>
+                    ) : (
+                      <p>{item.desc}</p>
                     )}
                   </div>
-                  <motion.div
-                    variants={itemReveal}
-                    className="about-image-content"
-                  >
-                    <img
-                      src={section.image}
-                      className={`premium-img ${section.imageStyle} size-${section.imageSize || "medium"}`}
-                      alt=""
-                    />
-                  </motion.div>
-                </div>
-              ) : (
-                <div className="bento-container">
-                  <motion.div
-                    variants={itemReveal}
-                    className="bento-header-wrapper"
-                  >
-                    <h2
-                      className="heading-secondary text-center"
-                      style={{
-                        color: section.textColor,
-                        fontFamily: section.fontFamily,
-                      }}
-                    >
-                      {displayHeader}
-                    </h2>
-                  </motion.div>
+                ))}
+              </div>
 
-                  <motion.div className="bento-grid" variants={bentoContainer}>
-                    <AnimatePresence>
-                      {section.items?.map((item, i) => {
-                        const bentoPattern = [
-                          "bento-large",
-                          "bento-tall",
-                          "bento-square",
-                          "bento-wide",
-                          "bento-square",
-                          "bento-tall",
-                        ]
-                        const bentoClass = bentoPattern[i % bentoPattern.length]
-
-                        return (
-                          <motion.div
-                            layout
-                            variants={bentoCardAnim}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            key={i}
-                            className={`bento-card premium-card ${bentoClass}`}
-                          >
-                            {user?.admin && (
-                              <button
-                                className="mini-delete-btn"
-                                onClick={() => removeGridItem(section._id, i)}
-                              >
-                                ✕
-                              </button>
-                            )}
-                            <div className="bento-img-wrapper">
-                              <img
-                                src={item.image}
-                                className={section.imageStyle}
-                                alt=""
-                              />
-                            </div>
-                            <div className="bento-card-content">
-                              <h3 style={{ color: section.textColor }}>
-                                {item.title}
-                              </h3>
-                              <p>{item.desc}</p>
-                            </div>
-                          </motion.div>
-                        )
-                      })}
-                    </AnimatePresence>
-                    {user?.admin && (
-                      <motion.div
-                        layout
-                        variants={bentoCardAnim}
-                        className="bento-card add-new-bento bento-square"
-                        onClick={() => addGridItem(section._id)}
-                      >
-                        <div className="add-icon-circle">+</div>
-                        <h3 style={{ marginTop: "15px" }}>
-                          {isAr ? "إضافة" : "Add Box"}
-                        </h3>
-                      </motion.div>
-                    )}
-                  </motion.div>
-
-                  {displayBtnText && (
-                    <motion.div
-                      variants={itemReveal}
-                      style={{ textAlign: "center", marginTop: "60px" }}
-                    >
-                      <button
-                        className="btn-primary"
-                        onClick={() => navigate(section.buttonLink || "/")}
-                      >
-                        {displayBtnText}
-                      </button>
-                    </motion.div>
-                  )}
-                  {user?.admin && (
-                    <motion.div
-                      variants={itemReveal}
-                      className="center-actions"
-                    >
-                      <AdminActions
-                        id={section._id}
-                        onDelete={() => deleteSection(section._id)}
-                        navigate={navigate}
-                        isAr={isAr}
-                      />
-                    </motion.div>
-                  )}
+              {user?.admin && (
+                <div className="center-actions">
+                  <AdminActions
+                    id={section._id}
+                    onDelete={deleteSection}
+                    navigate={navigate}
+                  />
                 </div>
               )}
             </motion.section>
@@ -615,16 +438,32 @@ const Home = ({ user }) => {
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-const AdminActions = ({ id, onDelete, navigate, isAr }) => (
-  <div className="admin-actions">
-    <button className="btn-outline" onClick={() => navigate(`/edit/${id}`)}>
-      {isAr ? "تعديل" : "Edit"}
+const AdminActions = ({
+  id,
+  onDelete,
+  navigate,
+}) => (
+  <div
+    className="admin-actions"
+    style={{ marginTop: "15px" }}
+  >
+    <button
+      className="edit-btn"
+      onClick={() => navigate(`/edit/${id}`)}
+      style={{ marginRight: "10px" }}
+    >
+      Edit
     </button>
-    <button className="btn-danger" onClick={onDelete}>
-      {isAr ? "حذف" : "Delete"}
+
+    <button
+      className="btn-delete"
+      onClick={() => onDelete(id)}
+      style={{ color: "red" }}
+    >
+      Delete
     </button>
   </div>
 )
