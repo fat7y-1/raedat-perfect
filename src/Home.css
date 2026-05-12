@@ -147,6 +147,10 @@ html {
   transform: scale(1.05) translateX(10px);
 }
 
+a.store-link {
+  margin-bottom: 20px;
+}
+
 /* --- 3. COMMON DYNAMIC SECTION STYLES --- */
 .about-section-custom {
   display: flex;
@@ -197,40 +201,59 @@ html {
 }
 
 /* --- 5. LAYOUT 2 & 3: GRID SYSTEMS --- */
+/* --- PROFESSIONAL GRID LAYOUT --- */
 .grid-layout-container {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
 }
 
 .custom-grid {
   display: grid;
+  /* This creates 3 columns automatically, or 1 on mobile */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  margin-top: 20px;
+  justify-items: center;
 }
 
 .grid-item {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
   text-align: center;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 25px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .grid-item:hover {
   transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* THE FIX FOR BIG IMAGES */
 .grid-item img {
   width: 100%;
-  border-radius: 20px;
+  height: 600px; /* Fixed height for consistency */
+  object-fit: contain; /* Keeps the logo/image from stretching */
   margin-bottom: 20px;
+  border-radius: 12px;
 }
 
 .grid-item h3 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin-bottom: 10px;
-  color: var(--brand-dark-purple);
+}
+
+.grid-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
 }
 
 /* --- 6. BUTTONS --- */
@@ -330,6 +353,56 @@ html {
   padding: 8px 20px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+/* Image Layout Options */
+.image-rounded {
+  border-radius: 50px;
+}
+
+.image-circle {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.default-rect {
+  border-radius: 0px;
+}
+
+/* Edit Card Styling (for the Edit Page) */
+.edit-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--brand-orange);
+}
+
+/* Image Size Classes */
+.size-small {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
+.size-medium {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+}
+
+.size-big {
+  max-width: 800px; /* Or 100% depending on your layout */
+  width: 100%;
+  height: auto;
+}
+
+/* Ensure the image container centers the image if it's small */
+.about-image-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* --- 8. ANIMATIONS --- */

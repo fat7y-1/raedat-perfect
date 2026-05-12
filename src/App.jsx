@@ -14,6 +14,7 @@ import Partners from "./pages/Partners"
 import Nav from "./components/Nav"
 import SignIn from "./pages/SignIn"
 import Footer from "./components/Footer"
+import EditContent from "./pages/EditContent"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/partners" element={<Partners user={user} />} />
 
           <Route path="/admin" element={<SignIn setUser={setUser} />} />
+          <Route path="/edit/:id" element={<EditContent />} />
         </Routes>
       </main>
 

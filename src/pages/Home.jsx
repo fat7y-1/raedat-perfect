@@ -41,7 +41,7 @@ const Home = ({ user }) => {
           layoutType !== "standard"
             ? [
                 {
-                  image: "https://via.placeholder.com/300",
+                  image: "https://via.placeholder.com/800x600",
                   title: "New Item",
                   desc: "Item description",
                 },
@@ -174,8 +174,35 @@ const Home = ({ user }) => {
               style={{ flexDirection: index % 2 !== 0 ? "row-reverse" : "row" }}
             >
               <div className="about-text-content">
-                <h2 className="section-title-alt">{section.header}</h2>
-                <p className="description-p">{section.text}</p>
+                <h2
+                  className="section-title-alt"
+                  style={{
+                    color: section.textColor,
+                    fontFamily: section.fontFamily,
+                  }}
+                >
+                  {section.header}
+                </h2>
+                <p
+                  className="description-p"
+                  style={{ color: section.textColor }}
+                >
+                  {section.text}
+                </p>
+                {/* RENDER BUTTON IF IT EXISTS */}
+                {section.buttonText && (
+                  <div
+                    className="section-button-wrapper"
+                    style={{ marginTop: "20px" }}
+                  >
+                    <button
+                      className="primary-orange-btn"
+                      onClick={() => navigate(section.buttonLink || "/")}
+                    >
+                      {section.buttonText}
+                    </button>
+                  </div>
+                )}
                 {user?.admin && (
                   <AdminActions
                     id={section._id}
@@ -185,29 +212,74 @@ const Home = ({ user }) => {
                 )}
               </div>
               <div className="about-image-content">
-                <img src={section.image} className="about-main-img" alt="" />
+                <img
+                  src={section.image}
+                  className={`about-main-img ${section.imageStyle} size-${section.imageSize || "medium"}`}
+                  alt=""
+                />
               </div>
             </div>
           ) : (
             <div className="grid-layout-container">
               <h2
                 className="section-title-alt"
-                style={{ textAlign: "center", marginBottom: "40px" }}
+                style={{
+                  textAlign: "center",
+                  marginBottom: "40px",
+                  color: section.textColor, // Apply color here too!
+                  fontFamily: section.fontFamily,
+                }}
               >
                 {section.header}
               </h2>
               <div className="custom-grid">
                 {section.items?.map((item, i) => (
                   <div key={i} className="grid-item">
-                    <img src={item.image} alt="" />
+                    <img
+                      src={item.image}
+                      /* ADD THE CLASSES HERE TOO */
+                      className={`${section.imageStyle} size-${section.imageSize || "medium"}`}
+                      onError={(e) => {
+                        e.target.src =
+                          "https://placehold.co/300x200?text=No+Image"
+                      }}
+                      alt=""
+                    />
                     {section.layoutType === "grid-header" ? (
-                      <h3>{item.title}</h3>
+                      <h3
+                        style={{
+                          color: section.textColor,
+                          fontFamily: section.fontFamily,
+                        }}
+                      >
+                        {item.title}
+                      </h3>
                     ) : (
-                      <p>{item.desc}</p>
+                      <p
+                        style={{
+                          color: section.textColor,
+                          fontFamily: section.fontFamily,
+                        }}
+                      >
+                        {item.desc}
+                      </p>
                     )}
                   </div>
                 ))}
               </div>
+
+              {/* ADD THE BUTTON HERE FOR GRID LAYOUTS TOO */}
+              {section.buttonText && (
+                <div style={{ textAlign: "center", marginTop: "40px" }}>
+                  <button
+                    className="primary-orange-btn"
+                    onClick={() => navigate(section.buttonLink || "/")}
+                  >
+                    {section.buttonText}
+                  </button>
+                </div>
+              )}
+
               {user?.admin && (
                 <div className="center-actions">
                   <AdminActions
