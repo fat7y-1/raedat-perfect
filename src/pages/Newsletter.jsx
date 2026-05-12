@@ -385,9 +385,15 @@ const Newsletter = ({ user }) => {
                     {/* BUTTON LINK LOGIC */}
                     <button
                       className="read-more-btn"
-                      onClick={() =>
-                        item.buttonLink ? navigate(item.buttonLink) : null
-                      }
+                      onClick={() => {
+                        if (item.buttonLink) {
+                          // If admin linked it to /activities/:id, go there
+                          navigate(item.buttonLink)
+                        } else {
+                          // Fallback: If no link exists, stay on newsletter or show a popup
+                          console.log("No link attached to this news item.")
+                        }
+                      }}
                     >
                       {isAr ? "اقرأ المزيد" : "Read More"}
                     </button>

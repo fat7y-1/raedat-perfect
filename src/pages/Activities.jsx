@@ -26,6 +26,11 @@ const Activities = ({ user }) => {
     image: "",
   })
 
+  const resetForm = () => {
+    setFormData({ header: "", headerAr: "", text: "", textAr: "", image: "" })
+    setEditingId(null)
+  }
+
   const fetchActivities = async () => {
     try {
       const res = await axios.get(
@@ -35,7 +40,7 @@ const Activities = ({ user }) => {
         res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       )
     } catch (err) {
-      console.error(err)
+      console.error("Error:", err)
     } finally {
       setLoading(false)
     }
@@ -52,70 +57,112 @@ const Activities = ({ user }) => {
         await axios.put(
           `http://localhost:3000/content/${editingId}`,
           formData,
-          { headers: { Authorization: `Bearer ${token}` } }
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         )
       } else {
         await axios.post(
           "http://localhost:3000/content",
           { ...formData, page: "activities" },
-          { headers: { Authorization: `Bearer ${token}` } }
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         )
       }
-      fetchActivities()
+      await fetchActivities()
       setShowModal(false)
-      setEditingId(null)
-      setFormData({ header: "", headerAr: "", text: "", textAr: "", image: "" })
+      resetForm()
     } catch (err) {
       console.error(err)
     }
   }
 
   const handleDelete = async (actId) => {
-    if (!window.confirm(isAr ? "حذف؟" : "Delete?")) return
+    if (
+      !window.confirm(
+        isAr
+          ? "هل أنت متأكد من حذف هذا النشاط؟"
+          : "Are you sure you want to delete this activity?"
+      )
+    )
+      return
     try {
       await axios.delete(`http://localhost:3000/content/${actId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      fetchActivities()
+      await fetchActivities()
     } catch (err) {
       console.error(err)
     }
   }
 
-  if (loading) return <div className="loading-screen">...</div>
+  const currentActivity = activities.find((a) => a._id === id)
 
-  // --- DETAIL VIEW LOGIC ---
-  const singleActivity = activities.find((a) => a._id === id)
-  if (id && singleActivity) {
+  if (loading)
     return (
-      <div className={`activity-detail-page ${isAr ? "rtl-theme" : ""}`}>
+      <div className="loading-screen">
+        {isAr ? "جاري التحميل..." : "Loading..."}
+      </div>
+    )
+
+  // --- 🌟 DETAIL VIEW 🌟 ---
+  if (id && currentActivity) {
+    return (
+      <motion.div
+        className={`activity-detail-page ${isAr ? "rtl-theme" : ""}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         <div className="detail-hero">
-          <img src={singleActivity.image} alt="" className="detail-hero-img" />
+          <img
+            src={currentActivity.image || "https://placehold.co/1200x600"}
+            alt=""
+            className="detail-hero-img"
+          />
           <button
             className="back-nav-btn"
             onClick={() => navigate("/activities")}
           >
-            {isAr ? "← العودة" : "← Back"}
+            {isAr ? "← العودة للأنسطة" : "← Back to Activities"}
           </button>
         </div>
-        <div className="detail-content-container">
+
+        <div className="detail-content-container premium-card">
+          <span className="activity-badge">{isAr ? "نشاط" : "Activity"}</span>
           <h1 className="detail-main-title">
-            {isAr ? singleActivity.headerAr : singleActivity.header}
+            {isAr ? currentActivity.headerAr : currentActivity.header}
           </h1>
-          <p className="detail-full-text">
-            {isAr ? singleActivity.textAr : singleActivity.text}
+          <p className="detail-date">
+            {new Date(currentActivity.createdAt).toLocaleDateString(
+              isAr ? "ar-EG" : "en-US",
+              { year: "numeric", month: "long", day: "numeric" }
+            )}
           </p>
+          <div className="detail-body-text">
+            {isAr ? currentActivity.textAr : currentActivity.text}
+          </div>
         </div>
-      </div>
+      </motion.div>
     )
   }
 
+  // --- 🌟 LIST VIEW 🌟 ---
   return (
     <div className={`activities-hub ${isAr ? "rtl-theme" : ""}`}>
-      {/* Admin Panel */}
       {user?.admin && (
         <div className="admin-add-bar premium-card">
-          <button className="btn-primary" onClick={() => setShowModal(true)}>
+          <div className="admin-status">
+            <span className="dot"></span>{" "}
+            {isAr ? "إدارة الأنشطة" : "ACTIVITY ADMIN"}
+          </div>
+          <button
+            className="btn-primary"
+            onClick={() => {
+              resetForm()
+              setShowModal(true)
+            }}
+          >
             + {isAr ? "نشاط جديد" : "New Activity"}
           </button>
         </div>
@@ -124,29 +171,73 @@ const Activities = ({ user }) => {
       {/* Admin Modal */}
       <AnimatePresence>
         {showModal && (
-          <div className="custom-popup-overlay">
-            <div className="admin-modal-box premium-card">
-              {/* Use the same form logic as Newsletter, setting page to 'activities' */}
-              <form onSubmit={handleSave}>
+          <motion.div
+            className="custom-popup-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="admin-modal-box premium-card"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+            >
+              <div className="modal-header-flex">
+                <h3>
+                  {editingId
+                    ? isAr
+                      ? "تعديل النشاط"
+                      : "Edit Activity"
+                    : isAr
+                      ? "نشاط جديد"
+                      : "New Activity"}
+                </h3>
+                <div className="lang-switch">
+                  <button
+                    type="button"
+                    onClick={() => setEditLang("en")}
+                    className={editLang === "en" ? "active" : ""}
+                  >
+                    EN
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setEditLang("ar")}
+                    className={editLang === "ar" ? "active" : ""}
+                  >
+                    AR
+                  </button>
+                </div>
+              </div>
+              <form onSubmit={handleSave} className="admin-form">
                 <input
                   className="clean-input"
-                  placeholder="Title"
-                  value={isAr ? formData.headerAr : formData.header}
-                  onChange={(e) =>
-                    isAr
-                      ? setFormData({ ...formData, headerAr: e.target.value })
-                      : setFormData({ ...formData, header: e.target.value })
+                  placeholder={editLang === "en" ? "Title" : "العنوان"}
+                  value={
+                    editLang === "en" ? formData.header : formData.headerAr
                   }
+                  onChange={(e) =>
+                    setFormData(
+                      editLang === "en"
+                        ? { ...formData, header: e.target.value }
+                        : { ...formData, headerAr: e.target.value }
+                    )
+                  }
+                  required
                 />
                 <textarea
                   className="clean-input"
-                  placeholder="Text"
-                  value={isAr ? formData.textAr : formData.text}
+                  rows="5"
+                  placeholder={editLang === "en" ? "Description" : "الوصف"}
+                  value={editLang === "en" ? formData.text : formData.textAr}
                   onChange={(e) =>
-                    isAr
-                      ? setFormData({ ...formData, textAr: e.target.value })
-                      : setFormData({ ...formData, text: e.target.value })
+                    setFormData(
+                      editLang === "en"
+                        ? { ...formData, text: e.target.value }
+                        : { ...formData, textAr: e.target.value }
+                    )
                   }
+                  required
                 />
                 <input
                   className="clean-input"
@@ -156,34 +247,44 @@ const Activities = ({ user }) => {
                     setFormData({ ...formData, image: e.target.value })
                   }
                 />
-                <button type="submit" className="btn-primary">
-                  Save
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="btn-outline"
-                >
-                  Cancel
-                </button>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn-outline"
+                    onClick={() => setShowModal(false)}
+                  >
+                    {isAr ? "إلغاء" : "Cancel"}
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    {isAr ? "حفظ" : "Save"}
+                  </button>
+                </div>
               </form>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      <section className="activities-hero">
-        <h1 className="heading-primary">
-          {isAr ? "أنشطتنا" : "Our Activities"}
-        </h1>
+      <section className="news-header">
+        <div className="news-header-content">
+          <h1 className="heading-primary">
+            {isAr ? "أنشطتنا" : "Our Activities"}
+          </h1>
+          <p className="description-p">
+            {isAr
+              ? "تصفح آخر الفعاليات والمبادرات التي نقوم بها."
+              : "The latest events and initiatives shaping our community."}
+          </p>
+        </div>
       </section>
 
       <section className="activities-grid-section">
         <div className="activities-grid">
           {activities.map((item) => (
-            <div
+            <motion.div
               key={item._id}
               className="activity-card premium-card"
+              whileHover={{ y: -8 }}
               onClick={() => navigate(`/activities/${item._id}`)}
             >
               {user?.admin && (
@@ -213,12 +314,17 @@ const Activities = ({ user }) => {
                 <img src={item.image} alt="" />
               </div>
               <div className="activity-info">
-                <h3>{isAr ? item.headerAr : item.header}</h3>
-                <span className="activity-link">
-                  {isAr ? "التفاصيل" : "Details"} →
+                <h3 className="activity-title">
+                  {isAr ? item.headerAr : item.header}
+                </h3>
+                <p className="activity-preview">
+                  {isAr ? item.textAr : item.text}
+                </p>
+                <span className="activity-link-btn">
+                  {isAr ? "تفاصيل النشاط" : "View Activity"}
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

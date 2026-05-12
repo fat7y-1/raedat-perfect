@@ -62,6 +62,8 @@ const App = () => {
 
           <Route path="/admin" element={<SignIn setUser={setUser} />} />
           <Route path="/edit/:id" element={<EditContent />} />
+          <Route path="/activities" element={<Activities user={user} />} />
+          <Route path="/activities/:id" element={<Activities user={user} />} />
         </Routes>
       </main>
 
