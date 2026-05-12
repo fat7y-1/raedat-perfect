@@ -1,32 +1,53 @@
+import React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import "/src/Nav.css"
 
-const Nav = () => {
+const Nav = ({ user, handleLogOut }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
   return (
-    <div>
-      <nav className="navbar">
-        <div className="nav-links">
-          <img
-            className="logo-img"
-            src="src/assets/logo.png"
-            alt="logo img"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/")}
-          />
+    <nav className="navbar-transparent">
+      <div className="nav-container">
+        <img
+          className="logo-main"
+          src="src/assets/logo.png"
+          alt="raedat logo"
+          onClick={() => navigate("/")}
+        />
 
-          <Link to="/about">{t("nav.about")}</Link>
-          <Link to="/activities">{t("nav.activities")}</Link>
-          <Link to="/community">{t("nav.community")}</Link>
-          <Link to="/contactUs">{t("nav.contact")}</Link>
-          <Link to="/newsletter">{t("nav.newsletter")}</Link>
-          <Link to="/partners">{t("nav.partners")}</Link>
+        <div className="nav-links">
+          <Link to="/">{t("Home") || "Home"}</Link>
+          <Link to="/about">About</Link>
+          <Link to="/community">Community</Link>
+          <Link to="/activities">Activities</Link>
+          <Link to="/newsletter">Newsletter</Link>
+          <Link to="/partners">Partners</Link>
+
+          <Link to="/contactUs" className="nav-contact-btn">
+            Contact Us
+          </Link>
+
+          {user && (
+            <button
+              onClick={handleLogOut}
+              style={{
+                background: "none",
+                border: "none",
+                color: "white",
+                fontSize: "24px",
+                cursor: "pointer",
+                fontWeight: "700",
+              }}
+            >
+              Logout
+            </button>
+          )}
         </div>
-      </nav>
-    </div>
-  );
-};
+      </div>
+    </nav>
+  )
+}
 
 export default Nav
