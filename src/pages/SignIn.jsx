@@ -20,9 +20,9 @@ const SignIn = ({ setUser }) => {
         formValues
       )
 
-      // التعديل هنا: تخزين التوكن والمعرف و الـ Admin status
+
       localStorage.setItem("token", res.data.token)
-      localStorage.setItem("userID", res.data.user.id) // هذا السطر هو مفتاح الحل
+      localStorage.setItem("userID", res.data.user.id)
 
       setUser(res.data.user)
       navigate("/")
