@@ -5,16 +5,12 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-
-  background:#4d25a4;
+  background:#3d1796;
   backdrop-filter: blur(15px);
-
   padding: 20px 0;
-
   border-bottom: 2px solid rgba(255, 123, 0, 0.1);
   display: flex;
   align-items: center;
-
   min-height: 100px;
 }
 
@@ -27,7 +23,6 @@
   padding: 0 4%;
   width: 100%;
 }
-
 
 .logo-main {
   height: 70px;
@@ -44,50 +39,52 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 25px;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-links .logout-nav-btn {
   text-decoration: none !important;
   color: #ffffff;
-  /* الحفاظ على الخط الكبير الواضح */
-  font-size: 26px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
+
+.nav-links .logout-nav-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+
 .nav-links a:hover,
-.nav-links a:active {
+.nav-links a:active,
+.nav-links .logout-nav-btn:hover {
   color: #ff7b00 !important;
   text-decoration: none !important;
 }
-
 
 .nav-links .nav-contact-btn {
   color: #ffffff !important;
   font-weight: 700;
-  padding: 0;
 }
-
-.nav-links .nav-contact-btn:hover,
-.nav-links .nav-contact-btn:active {
-  color: #ff7b00 !important;
-}
-
 
 @media (max-width: 1400px) {
-  .nav-links a {
-    font-size: 26px;
+  .nav-links a,
+  .nav-links .logout-nav-btn {
+    font-size: 17px;
   }
-  .logo-main {
-    height: 60px;
-  }
-  .navbar-transparent {
-    min-height: 80px;
-    padding: 15px 0;
+  .nav-links {
+    gap: 15px;
   }
 }
+
 
 @media (max-width: 992px) {
   .nav-links {
