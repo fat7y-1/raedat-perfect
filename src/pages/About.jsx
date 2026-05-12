@@ -5,6 +5,71 @@ import axios from "axios"
 const About = ({ user }) => {
   const { t } = useTranslation()
 
+<<<<<<< HEAD
+=======
+  const [content, setContent] = useState([])
+  const [editingId, setEditingId] = useState(null)
+  const [editForm, setEditForm] = useState({ header: "", text: "", image: "" })
+
+  const token = localStorage.getItem("token")
+
+  // 1. READ -
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/content/page/about")
+        setContent(res.data)
+      } catch (err) {
+        console.error("Error fetching data", err)
+      }
+    }
+    getData()
+  }, [])
+
+  // 2. CREATE - إضافة قسم جديد
+  const handleAdd = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/content",
+        { page: "about", header: "New Header", text: "New text content" },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      setContent([...content, res.data])
+    } catch (err) {
+      console.error("Add failed", err)
+    }
+  }
+
+  // 3. UPDATE - تحديث البيانات
+  const handleUpdate = async (id) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/content/${id}`,
+        editForm,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      setContent(content.map((item) => (item._id === id ? res.data : item)))
+      setEditingId(null)
+    } catch (err) {
+      console.error("Update failed", err)
+    }
+  }
+
+  // 4. DELETE - حذف قسم
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this?")) {
+      try {
+        await axios.delete(`http://localhost:3000/content/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        setContent(content.filter((item) => item._id !== id))
+      } catch (err) {
+        console.error("Delete failed", err)
+      }
+    }
+  }
+
+>>>>>>> 4d5cb8d173ca698ee180ea5e543cf2701f7d2611
   return (
     <div>
       {/* Dynamic Translations Part */}

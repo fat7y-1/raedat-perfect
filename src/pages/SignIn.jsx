@@ -11,6 +11,7 @@ const SignIn = ({ setUser }) => {
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -18,7 +19,11 @@ const SignIn = ({ setUser }) => {
         "http://localhost:3000/auth/sign-in",
         formValues
       )
+
+
       localStorage.setItem("token", res.data.token)
+      localStorage.setItem("userID", res.data.user.id)
+
       setUser(res.data.user)
       navigate("/")
     } catch (error) {
@@ -27,9 +32,9 @@ const SignIn = ({ setUser }) => {
       )
     }
   }
+
   return (
     <div className="signin-container">
-      {/* COLUMN 1: VISUAL */}
       <div className="signin-visual-side">
         <div className="visual-content">
           <img
@@ -37,17 +42,11 @@ const SignIn = ({ setUser }) => {
             alt="Logo"
             className="signin-logo-big"
           />
-          <h1>
-            Elevating <br />
-            <span>Ra'edat</span> Admin
-          </h1>
-          <p>
-            The central hub for managing community, content, and activities.
-          </p>
+          <h1> Elevating <br /> <span>Ra'edat</span> Admin </h1>
+          <p> The central hub for managing community, content, and activities. </p>
         </div>
       </div>
 
-      {/* COLUMN 2: FORM */}
       <div className="signin-form-side">
         <div className="signin-card">
           <h2>Sign In</h2>
