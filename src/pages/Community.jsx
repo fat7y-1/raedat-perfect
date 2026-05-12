@@ -1,63 +1,121 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import "/src/Community.css"
+import "../Community.css"
 
 const Community = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="community-container">
+    <div className="community-page-wrapper">
+      <div className="video-hero">
+        <video autoPlay loop muted playsInline className="bg-video">
+          <source src="/videos/meeting_video.mp4" type="video/mp4" />
+        </video>
+        <div className="video-overlay-filter"></div>
+        <div className="hero-content">
+          <h1>{t("community.title")}</h1>
+          <p>{t("community.description")}</p>
+        </div>
+      </div>
 
-      <h1>{t("community.title")}</h1>
-      <p>{t("community.description")}</p>
+      <div className="community-inner-content">
+        <div className="color-strip"></div>
 
-      <h4>{t("community.pillars_title")}</h4>
+        {/* Pillars Section */}
+        <div className="section-badge">{t("community.pillars_title")}</div>
+        <h2 className="sec-title">
+          {t("community.individuals.pillars_heading_start")}{" "}
+          <span className="o">{t("community.individuals.pillars_heading_highlight")}</span>
+        </h2>
+        <p className="sec-sub">{t("community.individuals.pillars_sub")}</p>
 
-      <ul>
-        <li>{t("community.pillars.live_streaming")}</li>
-        <li>{t("community.pillars.events_management")}</li>
-        <li>{t("community.pillars.online_courses")}</li>
-        <li>{t("community.pillars.souq")}</li>
-        <li>{t("community.pillars.community_support")}</li>
-      </ul>
+        <div className="pillars-row">
+          <div className="pillar-pill">
+            <span className="gem">📽️</span>
+            {t("community.pillars.live_streaming")}
+          </div>
+          <div className="pillar-pill">
+            <span className="gem">📅</span>
+            {t("community.pillars.events_management")}
+          </div>
+          <div className="pillar-pill">
+            <span className="gem">🎓</span>
+            {t("community.pillars.online_courses")}
+          </div>
+          <div className="pillar-pill">
+            <span className="gem">🛍️</span>
+            {t("community.pillars.souq")}
+          </div>
+          <div className="pillar-pill">
+            <span className="gem">🫱🏻‍🫲🏻</span>
+            {t("community.pillars.community_support")}
+          </div>
+        </div>
 
-      <h1>{t("community.values_title")}</h1>
+        <hr className="section-divider" />
 
-      <h3>{t("community.individuals_title")}</h3>
+        {/* Values / Individuals Section */}
+        <div className="section-badge">{t("community.values_title")}</div>
+        <h2 className="sec-title">
+          {t("community.individuals.individuals_heading_start")}{" "}
+          <span className="p">
+            {t("community.individuals.individuals_heading_highlight")}
+          </span>
+        </h2>
+        <p className="sec-sub">{t("community.individuals.individuals_sub")}</p>
 
-      <h4>{t("community.individuals.personal_growth_title")}</h4>
-      <p>{t("community.individuals.personal_growth_text")}</p>
+        <div className="values-grid">
+          <div className="vcard lavender">
+            <div className="v-icon">🌱</div>
+            <h4>{t("community.individuals.personal_growth_title")}</h4>
+            <p>{t("community.individuals.personal_growth_text")}</p>
+          </div>
+          <div className="vcard soft">
+            <div className="v-icon">🤝</div>
+            <h4>{t("community.individuals.networking_title")}</h4>
+            <p>{t("community.individuals.networking_text")}</p>
+          </div>
+          <div className="vcard peach">
+            <div className="v-icon">🎨</div>
+            <h4>{t("community.individuals.creative_expression_title")}</h4>
+            <p>{t("community.individuals.creative_expression_text")}</p>
+          </div>
+        </div>
 
-      <h4>{t("community.individuals.networking_title")}</h4>
-      <p>{t("community.individuals.networking_text")}</p>
+        {/* Users Section */}
+        <div className="users-wrap">
+          <div className="section-badge">{t("community.users_title")}</div>
+          <h2 className="sec-title">
+            {t("community.individuals.users_heading_start")}{" "}
+            <span className="o">{t("community.individuals.users_heading_highlight")}</span>{" "}
+            {t("community.individuals.users_heading_end")}
+          </h2>
+          <p className="sec-sub">{t("community.individuals.users_sub")}</p>
 
-      <h4>{t("community.individuals.creative_expression_title")}</h4>
-      <p>{t("community.individuals.creative_expression_text")}</p>
-
-      <h3>{t("community.communities_title")}</h3>
-
-      <h4>{t("community.communities.empowerment_title")}</h4>
-      <p>{t("community.communities.empowerment_text")}</p>
-
-      <h4>{t("community.communities.heritage_title")}</h4>
-      <p>{t("community.communities.heritage_text")}</p>
-
-      <h4>{t("community.communities.growth_title")}</h4>
-      <p>{t("community.communities.growth_text")}</p>
-
-      <h1>{t("community.users_title")}</h1>
-
-      <ul>
-        <li>{t("community.users.businesses")}</li>
-        <li>{t("community.users.educators")}</li>
-        <li>{t("community.users.coaches")}</li>
-        <li>{t("community.users.creators")}</li>
-        <li>{t("community.users.startups")}</li>
-        <li>{t("community.users.entrepreneurs")}</li>
-        <li>{t("community.users.solopreneurs")}</li>
-        <li>{t("community.users.nonprofits")}</li>
-      </ul>
-
+          <div className="users-grid">
+            <div className="utag">
+              <span className="u-icon">🏪</span>
+              <span>{t("community.users.businesses")}</span>
+            </div>
+            <div className="utag">
+              <span className="u-icon">📖</span>
+              <span>{t("community.users.educators")}</span>
+            </div>
+            <div className="utag">
+              <span className="u-icon">🏆</span>
+              <span>{t("community.users.coaches")}</span>
+            </div>
+            <div className="utag">
+              <span className="u-icon">🎭</span>
+              <span>{t("community.users.creators")}</span>
+            </div>
+            <div className="utag">
+              <span className="u-icon">🚀</span>
+              <span>{t("community.users.startups")}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

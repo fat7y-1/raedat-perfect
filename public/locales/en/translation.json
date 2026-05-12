@@ -36,14 +36,14 @@
   "community": {
     "title": "A Creative Community",
     "description": "The platform will harness women's potential by integrating the orange economy into our pillars, with an approach to tailoring content and operations to empower Arab women while fostering economic growth.",
-
     "pillars_title": "Platform Pillars Include:",
     "pillars": {
       "live_streaming": "Live Streaming",
       "events_management": "Events Management",
       "online_courses": "Customisable Online Courses",
       "souq": "Souq ra'edat (promoting orange economy products)",
-      "community_support": "Building and nurturing community support"
+      "community_support": "Building and nurturing community support",
+
     },
 
     "values_title": "Our Values",
@@ -57,7 +57,19 @@
       "networking_text": "Connect with like-minded women and industry leaders to share experiences and collaborate on projects.",
 
       "creative_expression_title": "Creative Expression",
-      "creative_expression_text": "Engage in a community that celebrates and promotes unique talents through various initiatives, including the souq ra'edat marketplace."
+      "creative_expression_text": "Engage in a community that celebrates and promotes unique talents through various initiatives, including the souq ra'edat marketplace.",
+      "pillars_heading_start": "What We",
+      "pillars_heading_highlight": "Offer",
+      "pillars_sub": "Five pillars woven together to empower Arab women through creativity and the orange economy.",
+
+      "individuals_heading_start": "Built for Women",
+      "individuals_heading_highlight": "Who Lead",
+      "individuals_sub": "Everything here is designed with the ambitious, creative, unstoppable woman in mind.",
+
+      "users_heading_start": "A Home for",
+      "users_heading_highlight": "Every",
+      "users_heading_end": "Ambitious Woman",
+      "users_sub": "Whether you're building an empire or sharing wisdom — you belong here."
     },
 
     "communities_title": "For Communities:",

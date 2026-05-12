@@ -5,8 +5,6 @@ import axios from "axios"
 const About = ({ user }) => {
   const { t } = useTranslation()
 
-<<<<<<< HEAD
-=======
   const [content, setContent] = useState([])
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({ header: "", text: "", image: "" })
@@ -69,7 +67,6 @@ const About = ({ user }) => {
     }
   }
 
->>>>>>> 4d5cb8d173ca698ee180ea5e543cf2701f7d2611
   return (
     <div>
       {/* Dynamic Translations Part */}
