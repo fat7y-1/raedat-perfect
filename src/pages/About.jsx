@@ -11,7 +11,7 @@ const About = ({ user }) => {
 
   const token = localStorage.getItem("token")
 
-  // 1. READ - جلب البيانات
+  // 1. READ -
   useEffect(() => {
     const getData = async () => {
       try {
