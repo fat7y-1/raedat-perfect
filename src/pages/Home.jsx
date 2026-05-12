@@ -5,18 +5,13 @@ import { useTranslation } from "react-i18next";
 import "/src/Home.css";
 
 const Home = ({ user }) => {
-  const navigate = useNavigate()
-  const [sections, setSections] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [showLayoutPicker, setShowLayoutPicker] = useState(false)
-  const token = localStorage.getItem("token")
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [sections, setSections] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showLayoutPicker, setShowLayoutPicker] = useState(false);
 
-
   const token = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getHomeContent = async () => {
@@ -25,8 +20,11 @@ const Home = ({ user }) => {
         setSections(res.data);
       } catch (err) {
         console.error("Error fetching content", err);
+      } finally {
+        setLoading(false);
       }
     };
+
     getHomeContent();
   }, []);
 
@@ -34,11 +32,17 @@ const Home = ({ user }) => {
     try {
       const newBlock = {
         page: "home",
-        layoutType: layoutType, // 'standard', 'grid-text', or 'grid-header'
-        header: layoutType === "standard" ? "New ra'edat Section" : "",
-        text: layoutType === "standard" ? "Standard layout description." : "",
-        image: "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
-        items: layoutType !== "standard"
+        layoutType: layoutType,
+        header:
+          layoutType === "standard" ? "New ra'edat Section" : "",
+        text:
+          layoutType === "standard"
+            ? "Standard layout description."
+            : "",
+        image:
+          "https://www.raedat.online/MediaManager/Media/home/Home-sayHello.jpg",
+        items:
+          layoutType !== "standard"
             ? [
                 {
                   image: "https://via.placeholder.com/300",
@@ -48,13 +52,21 @@ const Home = ({ user }) => {
               ]
             : [],
       };
-      const res = await axios.post("http://localhost:3000/content", newBlock, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      setSections((prev) => [...prev, res.data])
-      setShowLayoutPicker(false)
+
+      const res = await axios.post(
+        "http://localhost:3000/content",
+        newBlock,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSections((prev) => [...prev, res.data]);
+      setShowLayoutPicker(false);
     } catch (error) {
-      console.error("Failed to add section", error)
+      console.error("Failed to add section", error);
     }
   };
 
@@ -62,8 +74,11 @@ const Home = ({ user }) => {
     if (window.confirm("Are you sure you want to delete this?")) {
       try {
         await axios.delete(`http://localhost:3000/content/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
+
         setSections(sections.filter((s) => s._id !== id));
       } catch (err) {
         console.error("Delete failed", err);
@@ -71,7 +86,8 @@ const Home = ({ user }) => {
     }
   };
 
-  if (loading) return <div className="loading-screen">Loading...</div>
+  if (loading)
+    return <div className="loading-screen">Loading...</div>;
 
   return (
     <div className="home-full-wrapper">
@@ -80,21 +96,34 @@ const Home = ({ user }) => {
           <div className="admin-status">
             <span className="dot"></span> ADMIN PANEL
           </div>
+
           {!showLayoutPicker ? (
-            <button className="add-btn" onClick={() => setShowLayoutPicker(true)}>
+            <button
+              className="add-btn"
+              onClick={() => setShowLayoutPicker(true)}
+            >
               + Add Section
             </button>
           ) : (
             <div className="layout-options">
-              <button onClick={() => addNewSection("standard")}>
+              <button
+                onClick={() => addNewSection("standard")}
+              >
                 Standard
               </button>
-              <button onClick={() => addNewSection("grid-text")}>
+
+              <button
+                onClick={() => addNewSection("grid-text")}
+              >
                 Image+Text
               </button>
-              <button onClick={() => addNewSection("grid-header")}>
+
+              <button
+                onClick={() => addNewSection("grid-header")}
+              >
                 Image+Header
               </button>
+
               <button
                 className="cancel-btn"
                 onClick={() => setShowLayoutPicker(false)}
@@ -106,15 +135,19 @@ const Home = ({ user }) => {
         </div>
       )}
 
-      {/* HERO SECTION - FIXED LAYOUT */}
+      {/* HERO SECTION */}
       <section className="hero-section-custom">
         <div className="content-side">
           <h1 className="hero-main-text">
-            Unlock your potential <br /> with <span>ra'edat</span>
+            Unlock your potential <br />
+            with <span>ra'edat</span>
           </h1>
+
           <p className="description-p">
-            Empowering your journey through innovation and community support.
+            Empowering your journey through innovation and
+            community support.
           </p>
+
           <button
             className="primary-orange-btn"
             onClick={() => navigate("/about")}
@@ -131,7 +164,6 @@ const Home = ({ user }) => {
               alt="App"
             />
 
-            {/* Buttons are now INSIDE the visual-side to stay attached to the phone */}
             <div className="download-wrapper">
               <a
                 href="https://apps.apple.com/us/app/raedat/id6742032306"
@@ -145,6 +177,7 @@ const Home = ({ user }) => {
                   alt="App Store"
                 />
               </a>
+
               <a
                 href="https://play.google.com/store/apps/details?id=online.raedat.app"
                 target="_blank"
@@ -166,38 +199,73 @@ const Home = ({ user }) => {
       {sections.map((section, index) => (
         <section
           key={section._id}
-          className={`about-section-custom section-layout-${section.layoutType || "standard"}`}
-          style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f5f5f7" }}
+          className={`about-section-custom section-layout-${
+            section.layoutType || "standard"
+          }`}
+          style={{
+            backgroundColor:
+              index % 2 === 0 ? "#ffffff" : "#f5f5f7",
+          }}
         >
-          {!section.layoutType || section.layoutType === "standard" ? (
+          {!section.layoutType ||
+          section.layoutType === "standard" ? (
             <div
               className="standard-flex"
-              style={{ flexDirection: index % 2 !== 0 ? "row-reverse" : "row" }}
+              style={{
+                flexDirection:
+                  index % 2 !== 0 ? "row-reverse" : "row",
+              }}
             >
               <div className="about-text-content">
-                <h2 className="section-title-alt">{section.header}</h2>
-                <p className="description-p">{section.text}</p>
+                <h2 className="section-title-alt">
+                  {section.header}
+                </h2>
+
+                <p className="description-p">
+                  {section.text}
+                </p>
+
                 {user?.admin && (
-                  <AdminActions id={section._id} onDelete={deleteSection} navigate={navigate} />
+                  <AdminActions
+                    id={section._id}
+                    onDelete={deleteSection}
+                    navigate={navigate}
+                  />
                 )}
               </div>
+
               <div className="about-image-content">
-                <img src={section.image} className="about-main-img" alt="" style={{ maxWidth: "100%" }} />
+                <img
+                  src={section.image}
+                  className="about-main-img"
+                  alt=""
+                  style={{ maxWidth: "100%" }}
+                />
               </div>
             </div>
           ) : (
             <div className="grid-layout-container">
               <h2
                 className="section-title-alt"
-                style={{ textAlign: "center", marginBottom: "40px" }}
+                style={{
+                  textAlign: "center",
+                  marginBottom: "40px",
+                }}
               >
                 {section.header}
               </h2>
+
               <div className="custom-grid">
                 {section.items?.map((item, i) => (
                   <div key={i} className="grid-item">
-                    <img src={item.image} alt="" style={{ width: "100%" }} />
-                    {section.layoutType === "grid-header" ? (
+                    <img
+                      src={item.image}
+                      alt=""
+                      style={{ width: "100%" }}
+                    />
+
+                    {section.layoutType ===
+                    "grid-header" ? (
                       <h3>{item.title}</h3>
                     ) : (
                       <p>{item.desc}</p>
@@ -205,6 +273,7 @@ const Home = ({ user }) => {
                   </div>
                 ))}
               </div>
+
               {user?.admin && (
                 <div className="center-actions">
                   <AdminActions
@@ -222,13 +291,28 @@ const Home = ({ user }) => {
   );
 };
 
-
-const AdminActions = ({ id, onDelete, navigate }) => (
-  <div className="admin-actions" style={{ marginTop: "15px" }}>
-    <button className="edit-btn" onClick={() => navigate(`/edit/${id}`)} style={{ marginRight: "10px" }}>
+const AdminActions = ({
+  id,
+  onDelete,
+  navigate,
+}) => (
+  <div
+    className="admin-actions"
+    style={{ marginTop: "15px" }}
+  >
+    <button
+      className="edit-btn"
+      onClick={() => navigate(`/edit/${id}`)}
+      style={{ marginRight: "10px" }}
+    >
       Edit
     </button>
-    <button className="btn-delete" onClick={() => onDelete(id)} style={{ color: "red" }}>
+
+    <button
+      className="btn-delete"
+      onClick={() => onDelete(id)}
+      style={{ color: "red" }}
+    >
       Delete
     </button>
   </div>
