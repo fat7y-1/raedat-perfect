@@ -1,0 +1,96 @@
+/* Community.css */
+
+.community-container {
+  background: linear-gradient(
+  135deg,
+  #4d25a4,
+  #6b3fd1,
+  #936aec,
+  #bfa8ff
+);
+  min-height: 100vh;
+  padding: 70px 90px;
+  font-family: Arial, sans-serif;
+}
+
+
+.community-container h1,
+.community-container h3,
+.community-container h4 {
+  color: #da6a01;
+  font-weight: bold;
+}
+
+
+.community-container h1 {
+  font-size: 4rem;
+  margin-bottom: 25px;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.community-container h3 {
+  font-size: 2.8rem;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+
+.community-container h4 {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+
+.community-container p {
+  font-size: 1.8rem;
+  line-height: 2.1;
+  color: white;
+  margin-bottom: 30px;
+  font-weight: 500;
+  max-width: 1000px;
+}
+
+
+.community-container ul {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding-left: 35px;
+}
+
+.community-container li {
+  font-size: 1.8rem;
+  margin-bottom: 18px;
+  color: white;
+  font-weight: 600;
+}
+
+.community-container li::marker {
+  color: #ff8c00;
+  font-size: 1.4rem;
+}
+
+
+@media (max-width: 768px) {
+  .community-container {
+    padding: 40px 25px;
+  }
+
+  .community-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .community-container h3 {
+    font-size: 2rem;
+  }
+
+  .community-container h4 {
+    font-size: 1.5rem;
+  }
+
+  .community-container p,
+  .community-container li {
+    font-size: 1.5rem;
+  }
+}
