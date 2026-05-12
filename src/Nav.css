@@ -50,13 +50,16 @@
 .nav-links a {
   text-decoration: none !important;
   color: #ffffff;
+<<<<<<< HEAD
 
   font-size: 32px;
+=======
+  /* الحفاظ على الخط الكبير الواضح */
+  font-size: 26px;
+>>>>>>> 2a3c5aa9cbf3878592c3541a27637303f9a95689
   font-weight: 700;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
-
-
 }
 
 .nav-links a:hover,
